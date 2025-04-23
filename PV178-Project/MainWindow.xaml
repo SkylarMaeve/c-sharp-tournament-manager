@@ -7,6 +7,15 @@
         mc:Ignorable="d"
         Title="Tournament Manager" Height="450" Width="800"
         Background="White">
+    <Window.Resources>
+        <DataTemplate x:Key="Page1Template">
+            <TextBlock Text="Welcome to Page 1!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        </DataTemplate>
+        <DataTemplate x:Key="Page2Template">
+            <TextBlock Text="Welcome to Page 2!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
+        
     </Grid>
 </Window>
