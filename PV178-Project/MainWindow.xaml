@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="Tournament Manager" MinHeight="600" MinWidth="800">
     <Grid>
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
             <ColumnDefinition Width="*" />
@@ -22,43 +21,65 @@
                     <ColumnDefinition Width="50" />
                 </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Column="0" Background="Aquamarine" Height="50" Width="150">
-                    <ComboBoxItem Background="Aquamarine" Content="Tournament" FontWeight="Bold" />
-                    <ComboBoxItem Background="Aquamarine" Content="Tournament" FontWeight="Bold" />
-                </ComboBox>
-                <Button Grid.Column="1" Style="{StaticResource ButtonBox}"
+                <ComboBox Grid.Column="0" x:Name="ComboBox" DisplayMemberPath="TournamentName" FontWeight="Bold"
+                          Background="Gray" Height="40" Width="140" VerticalContentAlignment="Center" SelectedIndex="0"
+                          SelectionChanged="LoadTournament"/>
+                <Button Grid.Column="1"
+                        Height="40"
+                        Width="40"
                         Foreground="DarkGreen"
-                        Background="ForestGreen"
-                        Content="➕"
-                        Click="NavigateToSettings" />
+                        Background="Green"
+                        FontSize="16"
+                        Click="AddTOurnament">
+                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xF8AA;" />
+                </Button>
             </Grid>
 
             <!-- Navigation -->
-            <Button Content="Tournament settings" Click="NavigateToSettings" Style="{StaticResource SideBarButton}" />
-            <Button Content="GamePlan" Click="NavigateToGamePlan" Style="{StaticResource SideBarButton}" />
-            <Button Content="Ranking" Click="NavigateToRanking" Style="{StaticResource SideBarButton}" />
-            <Button Content="Teams" Click="NavigateToTeams" Style="{StaticResource SideBarButton}" />
-            <Button Content="Players" Click="NavigateToPlayers" Style="{StaticResource SideBarButton}" />
+            <Button Content="Tournament settings" Click="NavigateToSettings" Background="Transparent"
+                    Foreground="White" FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
+            <Button Content="GamePlan" Click="NavigateToGamePlan" Background="Transparent" Foreground="White"
+                    FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
+            <Button Content="Ranking" Click="NavigateToRanking" Background="Transparent" Foreground="White"
+                    FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
+            <Button Content="Teams" Click="NavigateToTeams" Background="Transparent" Foreground="White"
+                    FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
+            <Button Content="Players" Click="NavigateToPlayers" Background="Transparent" Foreground="White"
+                    FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
 
             <!-- Bottom Import/Export/Delete -->
-            <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,120,0,0">
+            <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,250,0,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="60" />
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0"
-                        Content="⬆️"
+                        HorizontalAlignment="Center"
                         Foreground="DarkGreen"
-                        Background="ForestGreen"
-                        Style="{StaticResource ButtonBox}" 
-                        />
-                <Button Grid.Column="1" Content="⬇️" Style="{StaticResource ButtonBox}" />
-                <Button Grid.Column="2" 
-                        Content="❌"
+                        Background="Green"
+                        Height="40"
+                        Width="40"
+                        FontSize="16">
+                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE898;" />
+                </Button>
+                <Button Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        Height="40"
+                        Width="40"
+                        Foreground="DimGray"
+                        Background="Gray"
+                        FontSize="16">
+                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE896;" />
+                </Button>
+                <Button Grid.Column="2"
+                        HorizontalAlignment="Center"
                         Foreground="DarkRed"
                         Background="Red"
-                        Style="{StaticResource ButtonBox}" />
+                        Height="40"
+                        Width="40">
+                    <TextBlock FontSize="16" FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE74D;" />
+                </Button>
 
             </Grid>
         </StackPanel>
