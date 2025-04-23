@@ -67,6 +67,7 @@ public partial class MainWindow : Window
     private void LoadTournament(object sender, RoutedEventArgs e)
     {
         if (ComboBox.SelectedIndex != 0) MainFrame.Navigate(new TournamentSettingsPage());
+        if (ComboBox.SelectedIndex == 0) MainFrame.Navigate(new WelcomePage());
     }
     private void AddTOurnament(object sender, RoutedEventArgs e)
     {
