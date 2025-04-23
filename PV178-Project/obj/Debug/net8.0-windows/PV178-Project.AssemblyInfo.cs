@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PV178-Project")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b131f9d7d1c8cd00f1d69897479af815c72ed9f0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48ae52ad01f5195a27024a133940a283c2505a3f")]
 [assembly: System.Reflection.AssemblyProductAttribute("PV178-Project")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PV178-Project")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

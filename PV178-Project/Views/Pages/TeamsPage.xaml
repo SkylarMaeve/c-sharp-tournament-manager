@@ -5,9 +5,36 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PV178_Project.Views"
       mc:Ignorable="d"
-      Title="TeamsPage" Height="450" Width="800">
+      Title="TeamsPage">
     <Grid>
-        <TextBlock Text="Teams Page"/>
+        <Grid VerticalAlignment="Top" Margin="50,50,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="600"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Teams" FontSize="28" Height="50"  FontWeight="Bold" Foreground="White" TextAlignment="Left"
+                       />
 
+            <Button Grid.Column="1" Style="{StaticResource ButtonBox}"
+                    Width="100"
+                    Foreground="DarkGreen"
+                    Background="ForestGreen"
+                    Content="Add ➕"/>
+        </Grid>
+        <DataGrid x:Name="Data" 
+                  AutoGenerateColumns="False" 
+                  Margin="50,100,0,0" 
+                  HorizontalAlignment="Left"
+                  MaxHeight="600"
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding TeamName}" Width="200"/>
+                <DataGridTextColumn Header="Abbreviation" Binding="{Binding Abbreviation}" Width="200"/>
+                <DataGridTextColumn Header="Group" Binding="{Binding DateOfBirth}" Width="150"/>
+                <DataGridTextColumn Header="Placement" Binding="{Binding DateOfBirth}" Width="150"/>
+                <DataGridTextColumn Header="Players" Binding="{Binding DateOfBirth}" Width="150"/>
+            </DataGrid.Columns>
+            
+        </DataGrid>
     </Grid>
 </Page>
