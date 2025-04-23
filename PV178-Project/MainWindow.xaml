@@ -5,17 +5,64 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PV178_Project"
         mc:Ignorable="d"
-        Title="Tournament Manager" Height="450" Width="800"
-        Background="White">
-    <Window.Resources>
-        <DataTemplate x:Key="Page1Template">
-            <TextBlock Text="Welcome to Page 1!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
-        </DataTemplate>
-        <DataTemplate x:Key="Page2Template">
-            <TextBlock Text="Welcome to Page 2!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
-        </DataTemplate>
-    </Window.Resources>
+        Title="Tournament Manager" Height="600" Width="800">
     <Grid>
-        
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+
+        <StackPanel Grid.Column="0" Background="#1d232a" x:Name="Sidebar">
+            <!-- Tournament Selector -->
+            <Grid Margin="25">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+
+                <ComboBox Grid.Column="0" Background="Aquamarine" Height="50" Width="150">
+                    <ComboBoxItem Background="Aquamarine" Content="Tournament" FontWeight="Bold" />
+                    <ComboBoxItem Background="Aquamarine" Content="Tournament" FontWeight="Bold" />
+                </ComboBox>
+                <Button Grid.Column="1" Style="{StaticResource ButtonBox}"
+                        Foreground="DarkGreen"
+                        Background="ForestGreen"
+                        Content="➕"
+                        Click="NavigateToSettings" />
+            </Grid>
+
+            <!-- Navigation -->
+            <Button Content="Settings" Click="NavigateToSettings" Style="{StaticResource SideBarButton}" />
+            <Button Content="GamePlan" Click="NavigateToGamePlan" Style="{StaticResource SideBarButton}" />
+            <Button Content="Ranking" Click="NavigateToRanking" Style="{StaticResource SideBarButton}" />
+            <Button Content="Teams" Click="NavigateToTeams" Style="{StaticResource SideBarButton}" />
+            <Button Content="Players" Click="NavigateToPlayers" Style="{StaticResource SideBarButton}" />
+
+            <!-- Bottom Import/Export/Delete -->
+            <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,120,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Content="⬆️"
+                        Foreground="DarkGreen"
+                        Background="ForestGreen"
+                        Style="{StaticResource ButtonBox}" 
+                        />
+                <Button Grid.Column="1" Content="⬇️" Style="{StaticResource ButtonBox}" />
+                <Button Grid.Column="2" 
+                        Content="❌"
+                        Foreground="DarkRed"
+                        Background="Red"
+                        Style="{StaticResource ButtonBox}" />
+
+            </Grid>
+        </StackPanel>
+        <!-- Main Frame -->
+        <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden" Background="#3a4859" />
     </Grid>
 </Window>
