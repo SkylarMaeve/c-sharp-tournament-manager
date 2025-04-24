@@ -1,28 +1,15 @@
 using System.Windows.Controls;
 using PV178_Project.Models;
+using PV178_Project.Services;
+using PV178_Project.ViewModels;
 
 namespace PV178_Project.Views;
 
 public partial class PlayersPage : Page
 {
-    public PlayersPage()
+    public PlayersPage(DataProvider dataProvider, Tournament tournament)
     {
         InitializeComponent();
-        //TODO actual data
-        
-        var data = new List<Player>
-        {
-            new Player("John Meyer", null, null, new DateTime(2002, 12, 1)),
-            new Player("John Meyer", null, null, new DateTime(2002, 12, 1)),
-            new Player("John Meyer", null, null, new DateTime(2002, 12, 1)),
-            new Player("John Meyer", null, null, new DateTime(2002, 12, 1)),
-            new Player("John Meyer", null, null, new DateTime(2002, 12, 1)),
-            
-        };
-
-        // Bind data to DataGrid
-        Data.ItemsSource = data;
+        DataContext = new PlayersPageViewModel(dataProvider, tournament);
     }
-    
-   
 }

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PV178_Project"
+        xmlns:viewModels= "clr-namespace:PV178_Project.ViewModels"
         mc:Ignorable="d"
         Title="Tournament Manager" MinHeight="600" MinWidth="800">
     <Grid>
@@ -23,28 +24,28 @@
 
                 <ComboBox Grid.Column="0" x:Name="ComboBox" DisplayMemberPath="TournamentName" FontWeight="Bold"
                           Background="Gray" Height="40" Width="140" VerticalContentAlignment="Center" SelectedIndex="0"
-                          SelectionChanged="LoadTournament" />
+                          ItemsSource="{Binding Tournaments}" SelectedItem="{Binding SelectedTournament}"/>
                 <Button Grid.Column="1"
                         Height="40"
                         Width="40"
                         Foreground="DarkGreen"
                         Background="Green"
                         FontSize="16"
-                        Click="AddTOurnament">
+                        Command="{Binding AddTournamentCommand}">
                     <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xF8AA;" />
                 </Button>
             </Grid>
 
             <!-- Navigation -->
-            <Button Content="Tournament settings" Click="NavigateToSettings" Background="Transparent"
+            <Button Content="Tournament settings" Command="{Binding NavigateToSettingsCommand}" Background="Transparent"
                     Foreground="White" FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
-            <Button Content="GamePlan" Click="NavigateToGamePlan" Background="Transparent" Foreground="White"
+            <Button Content="GamePlan" Command="{Binding NavigateToGamePlanCommand}" Background="Transparent" Foreground="White"
                     FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
-            <Button Content="Ranking" Click="NavigateToRanking" Background="Transparent" Foreground="White"
+            <Button Content="Ranking" Command="{Binding NavigateToRankingCommand}" Background="Transparent" Foreground="White"
                     FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
-            <Button Content="Teams" Click="NavigateToTeams" Background="Transparent" Foreground="White"
+            <Button Content="Teams" Command="{Binding NavigateToTeamsCommand}" Background="Transparent" Foreground="White"
                     FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
-            <Button Content="Players" Click="NavigateToPlayers" Background="Transparent" Foreground="White"
+            <Button Content="Players" Command="{Binding NavigateToPlayersCommand}" Background="Transparent" Foreground="White"
                     FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
 
             <!-- Bottom Import/Export/Delete -->
