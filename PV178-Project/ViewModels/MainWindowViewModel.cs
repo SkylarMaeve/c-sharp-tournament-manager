@@ -33,61 +33,60 @@ namespace PV178_Project.ViewModels
             {
                 _selectedTournament = value;
                 OnPropertyChanged(nameof(SelectedTournament));
-                LoadTournament();
+                LoadTournamentCommand.Execute(null);
             }
         }
+        
+        public string DefaultTournament { get; set; }
 
-        public CustomCommand NavigateToSettingsCommand { get; }
-        public CustomCommand NavigateToRankingCommand { get; }
-        public CustomCommand NavigateToGamePlanCommand { get; }
-        public CustomCommand NavigateToTeamsCommand { get; }
-        public CustomCommand NavigateToPlayersCommand { get; }
-        public CustomCommand LoadTournamentCommand { get; }
-        public CustomCommand AddTournamentCommand { get; }
+        public RelayCommand NavigateToSettingsCommand { get; }
+        public RelayCommand NavigateToRankingCommand { get; }
+        public RelayCommand NavigateToGamePlanCommand { get; }
+        public RelayCommand NavigateToTeamsCommand { get; }
+        public RelayCommand NavigateToPlayersCommand { get; }
+        public RelayCommand LoadTournamentCommand { get; }
+        public RelayCommand AddTournamentCommand { get; }
 
         public MainViewModel(Frame mainFrame)
         {
             _mainFrame = mainFrame;
             _dataProvider = new DataProvider();
+            DefaultTournament = "TTT";
             Console.WriteLine(_dataProvider.Players);
             // Initialize commands
-            NavigateToSettingsCommand = new CustomCommand(NavigateToSettings);
-            NavigateToRankingCommand = new CustomCommand(NavigateToRanking);
-            NavigateToGamePlanCommand = new CustomCommand(NavigateToGamePlan);
-            NavigateToTeamsCommand = new CustomCommand(NavigateToTeams);
-            NavigateToPlayersCommand = new CustomCommand(NavigateToPlayers);
-            LoadTournamentCommand = new CustomCommand(LoadTournament);
-            AddTournamentCommand = new CustomCommand(AddTournament);
-
+            NavigateToSettingsCommand = new RelayCommand(NavigateToSettings, CanAccesData);
+            NavigateToRankingCommand = new RelayCommand(NavigateToRanking,CanAccesData);
+            NavigateToGamePlanCommand = new RelayCommand(NavigateToGamePlan,CanAccesData);
+            NavigateToTeamsCommand = new RelayCommand(NavigateToTeams,CanAccesData);
+            NavigateToPlayersCommand = new RelayCommand(NavigateToPlayers,CanAccesData);
+            LoadTournamentCommand = new RelayCommand(LoadTournament,CanAccesData);
+            AddTournamentCommand = new RelayCommand(AddTournament, Anything);
             // Populate tournaments
-            Tournaments = new List<Tournament>
-            {
-                new Tournament(0L, "Select", TournamentFormat.GroupsAndPlayOff, 2, 1, 0, DateTime.Now, DateTime.Now, new Sport("vole", 56)),
-                new Tournament(1L, "FImon", TournamentFormat.GroupsAndPlayOff, 2, 1, 0, DateTime.Now, DateTime.Now, new Sport("vole", 56)),
-                new Tournament(2L, "Poker", TournamentFormat.GroupsAndPlayOff, 2, 1, 0, DateTime.Now, DateTime.Now, new Sport("vole", 56)),
-                new Tournament(3L, "Kys", TournamentFormat.GroupsAndPlayOff, 2, 1, 0, DateTime.Now, DateTime.Now, new Sport("vole", 56)),
-                new Tournament(4L, "Vole", TournamentFormat.GroupsAndPlayOff, 2, 1, 0, DateTime.Now, DateTime.Now, new Sport("vole", 56)),
-            };
-
-            SelectedTournament = Tournaments[0]; // Default selection
-            LoadTournament();
+            Tournaments = _dataProvider.Tournaments;
+            AddTournamentCommand.Execute(null);
+            
         }
 
-        private void NavigateToSettings() => _mainFrame.Navigate(new TournamentSettingsPage(_dataProvider, SelectedTournament));
-        private void NavigateToRanking() => _mainFrame.Navigate(new RankingPage(_dataProvider, SelectedTournament));
-        private void NavigateToGamePlan() => _mainFrame.Navigate(new GamePlanPage(_dataProvider, SelectedTournament));
-        private void NavigateToTeams() => _mainFrame.Navigate(new TeamsPage(_dataProvider, SelectedTournament));
-        private void NavigateToPlayers() => _mainFrame.Navigate(new PlayersPage(_dataProvider, SelectedTournament));
+        private void NavigateToSettings(object? obj) => _mainFrame.Navigate(new TournamentSettingsPage(_dataProvider, SelectedTournament));
+        private void NavigateToRanking(object? obj) => _mainFrame.Navigate(new RankingPage(_dataProvider, SelectedTournament));
+        private void NavigateToGamePlan(object? obj) => _mainFrame.Navigate(new GamePlanPage(_dataProvider, SelectedTournament));
+        private void NavigateToTeams(object? obj) => _mainFrame.Navigate(new TeamsPage(_dataProvider, SelectedTournament));
+        private void NavigateToPlayers(object? obj) => _mainFrame.Navigate(new PlayersPage(_dataProvider, SelectedTournament));
         
-        private void LoadTournament()
+        private void LoadTournament(object? obj)
         {
-            if (SelectedTournament.getId() != 0) _mainFrame.Navigate(new TournamentSettingsPage(_dataProvider, SelectedTournament));
+            if (SelectedTournament != null) _mainFrame.Navigate(new TournamentSettingsPage(_dataProvider, SelectedTournament));
             else _mainFrame.Navigate(new WelcomePage());
         }
         
-        private void AddTournament()
+        private void AddTournament(object? obj)
         {
-            if (SelectedTournament.getId() != 0) _mainFrame.Navigate(new TournamentSettingsPage(_dataProvider, SelectedTournament));
+            if (SelectedTournament != null)
+                if (SelectedTournament != null) _mainFrame.Navigate(new TournamentSettingsPage(_dataProvider, SelectedTournament));
         }
+        
+        
+        private bool CanAccesData(object? obj) => SelectedTournament != Tournaments[0]; 
+        private bool Anything(object? obj) => true;
     }
 }

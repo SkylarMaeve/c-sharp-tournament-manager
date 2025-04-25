@@ -5,32 +5,40 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
       Title="TeamsPage">
-    <Grid>
-        <Grid VerticalAlignment="Top" Margin="50,50,0,0">
+    <Grid Margin="50,50,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="600" />
-                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="730" />
+                <ColumnDefinition Width="70" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Teams" FontSize="28" Height="50" FontWeight="Bold" Foreground="White" TextAlignment="Left" />
-
-            <Button Grid.Column="1" Style="{StaticResource ButtonBox}"
-                    Width="100"
-                    Foreground="DarkGreen"
-                    Background="ForestGreen"
-                    Content="Add ➕" />
+            <TextBlock Text="Teams" FontSize="28" Height="40" FontWeight="Bold" Foreground="White"
+                       TextAlignment="Left" />
+            <Button x:Name="AddTeamButton" Grid.Column="1" Height="40" Width="70" Foreground="White"
+                    FontWeight="SemiBold" FontSize="16"
+                    Background="Green" HorizontalAlignment="Left">
+                Add
+            </Button>
         </Grid>
-        <DataGrid x:Name="Data"
-                  AutoGenerateColumns="False"
-                  Margin="50,100,0,0"
-                  HorizontalAlignment="Left"
-                  MaxHeight="600"
-                  ItemsSource="{Binding Teams}">
+        <DataGrid
+            Grid.Row="1"
+            x:Name="Data"
+            ItemsSource="{Binding Teams}"
+            Style="{StaticResource DataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding TeamName}" Width="200" />
-                <DataGridTextColumn Header="Abbreviation" Binding="{Binding Abbreviation}" Width="200" />
-                <DataGridTextColumn Header="Group" Binding="{Binding DateOfBirth}" Width="150" />
-                <DataGridTextColumn Header="Placement" Binding="{Binding DateOfBirth}" Width="150" />
-                <DataGridTextColumn Header="Players" Binding="{Binding DateOfBirth}" Width="150" />
+                <DataGridTextColumn Header="Placement" Binding="{Binding Placement}" Width="100" />
+                <DataGridTextColumn Header="Team name" Binding="{Binding TeamName}" Width="200" />
+                <DataGridTextColumn Header="Sport" Binding="{Binding Sport}" Width="100" />
+                <DataGridTextColumn Header="Group" Binding="{Binding GroupName}" Width="50" />
+                <DataGridTextColumn Header="W" Binding="{Binding Wins}" Width="50" />
+                <DataGridTextColumn Header="D" Binding="{Binding Draws}" Width="50" />
+                <DataGridTextColumn Header="L" Binding="{Binding Losses}" Width="50" />
+                <DataGridTextColumn Header="Points" Binding="{Binding Points}" Width="50" />
+                <DataGridTextColumn Header="Players" Binding="{Binding Players}" Width="150" />
+
             </DataGrid.Columns>
 
         </DataGrid>

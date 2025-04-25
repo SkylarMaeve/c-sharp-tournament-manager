@@ -4,9 +4,33 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      Title="RankingPage" Height="450" Width="800">
-    <Grid>
-        <TextBlock Text="Ranking Page" />
+      Title="RankingPage">
+    <Grid Margin="50,50,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Teams Ranking" FontSize="28" Height="40" FontWeight="Bold" Foreground="White"
+                   TextAlignment="Left" />
 
+        <DataGrid
+            Grid.Row="1"
+            x:Name="Data"
+            ItemsSource="{Binding Teams}"
+            Style="{StaticResource DataGridStyle}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Placement" Binding="{Binding Placement}" Width="100" />
+                <DataGridTextColumn Header="Team name" Binding="{Binding TeamName}" Width="200" />
+                <DataGridTextColumn Header="Sport" Binding="{Binding Sport}" Width="100" />
+                <DataGridTextColumn Header="Group" Binding="{Binding GroupName}" Width="50" />
+                <DataGridTextColumn Header="W" Binding="{Binding Wins}" Width="50" />
+                <DataGridTextColumn Header="D" Binding="{Binding Draws}" Width="50" />
+                <DataGridTextColumn Header="L" Binding="{Binding Losses}" Width="50" />
+                <DataGridTextColumn Header="Points" Binding="{Binding Points}" Width="50" />
+                <DataGridTextColumn Header="Players" Binding="{Binding Players}" Width="150" />
+
+            </DataGrid.Columns>
+
+        </DataGrid>
     </Grid>
 </Page>

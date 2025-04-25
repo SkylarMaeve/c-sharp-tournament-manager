@@ -15,6 +15,8 @@ public class RankingPageViewModel : BaseViewModel
         _selectedTournament = selectedTournament;
         _dataProvider = dataProvider;
         //Filter by Teams in Tournament
-        Teams = _dataProvider.Teams;
+        
+        Teams = _dataProvider.Teams.OrderBy(team => team.Points).ToList();
+        
     }
 }

@@ -2,14 +2,28 @@ namespace PV178_Project.Models;
 
 public class Team
 {
-    public Team(string teamName, Sport sport)
+    public Team(string teamName, Sport sport, Tournament tournament, string groupName)
     {
         TeamName = teamName;
         Tournaments = new List<Tournament>();
         Players = new List<Player>();
         Sport = sport;
+        Points = 0;
+        Tournament = tournament;
+        GroupName = groupName;
+        Wins = 0;
+        Losses = 0;
+        Draws = 0;
+        Placement = null;
     }
-
+    public Tournament Tournament{ get; set; }
+    
+    public int Wins { get; set; }
+    public int Losses { get; set; }
+    public int Draws { get; set; }
+    public string GroupName { get; set; }
+    public int Points { get; set; }
+    public int? Placement { get; set; }
     public string TeamName { get; private set; }
     public List<Tournament> Tournaments { get; }
     public List<Player> Players { get; }
