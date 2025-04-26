@@ -23,4 +23,9 @@ public class Sport
         MatchLength = newMatchLength;
         return true;
     }
+
+    public override string ToString()
+    {
+        return SportName;
+    }
 }

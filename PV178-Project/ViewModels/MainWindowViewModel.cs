@@ -39,13 +39,13 @@ namespace PV178_Project.ViewModels
         
         public string DefaultTournament { get; set; }
 
-        public RelayCommand NavigateToSettingsCommand { get; }
-        public RelayCommand NavigateToRankingCommand { get; }
-        public RelayCommand NavigateToGamePlanCommand { get; }
-        public RelayCommand NavigateToTeamsCommand { get; }
-        public RelayCommand NavigateToPlayersCommand { get; }
-        public RelayCommand LoadTournamentCommand { get; }
-        public RelayCommand AddTournamentCommand { get; }
+        public ICommand NavigateToSettingsCommand { get; }
+        public ICommand NavigateToRankingCommand { get; }
+        public ICommand NavigateToGamePlanCommand { get; }
+        public ICommand NavigateToTeamsCommand { get; }
+        public ICommand NavigateToPlayersCommand { get; }
+        public ICommand LoadTournamentCommand { get; }
+        public ICommand AddTournamentCommand { get; }
 
         public MainViewModel(Frame mainFrame)
         {
@@ -54,16 +54,18 @@ namespace PV178_Project.ViewModels
             DefaultTournament = "TTT";
             Console.WriteLine(_dataProvider.Players);
             // Initialize commands
-            NavigateToSettingsCommand = new RelayCommand(NavigateToSettings, CanAccesData);
-            NavigateToRankingCommand = new RelayCommand(NavigateToRanking,CanAccesData);
-            NavigateToGamePlanCommand = new RelayCommand(NavigateToGamePlan,CanAccesData);
-            NavigateToTeamsCommand = new RelayCommand(NavigateToTeams,CanAccesData);
-            NavigateToPlayersCommand = new RelayCommand(NavigateToPlayers,CanAccesData);
-            LoadTournamentCommand = new RelayCommand(LoadTournament,CanAccesData);
+            NavigateToSettingsCommand = new RelayCommand(NavigateToSettings, Anything);
+            NavigateToRankingCommand = new RelayCommand(NavigateToRanking,Anything);
+            NavigateToGamePlanCommand = new RelayCommand(NavigateToGamePlan,Anything);
+            NavigateToTeamsCommand = new RelayCommand(NavigateToTeams,Anything);
+            NavigateToPlayersCommand = new RelayCommand(NavigateToPlayers,Anything);
+            LoadTournamentCommand = new RelayCommand(LoadTournament,Anything);
             AddTournamentCommand = new RelayCommand(AddTournament, Anything);
             // Populate tournaments
             Tournaments = _dataProvider.Tournaments;
             AddTournamentCommand.Execute(null);
+            _mainFrame.Navigate(new WelcomePage());
+
             
         }
 
