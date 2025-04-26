@@ -7,12 +7,8 @@ namespace PV178_Project.ViewModels;
 
 public class TeamsPageViewModel : BaseViewModel
 {
-    private Tournament _selectedTournament;
     private readonly DataProvider _dataProvider;
-    
-    public ICommand AddTeamWindowCommand { get; }
-    
-    public List<Team> Teams { get; private set; }
+    private Tournament _selectedTournament;
 
     public TeamsPageViewModel(DataProvider dataProvider, Tournament selectedTournament)
     {
@@ -22,9 +18,18 @@ public class TeamsPageViewModel : BaseViewModel
         Teams = _dataProvider.Teams;
         AddTeamWindowCommand = new RelayCommand(AddTeam, Anything);
     }
-    
-    private void AddTeam(object? obj) => (new AddTeamWindow()).ShowDialog();
-    
-    private bool Anything(object? obj) => true;
 
+    public ICommand AddTeamWindowCommand { get; }
+
+    public List<Team> Teams { get; private set; }
+
+    private void AddTeam(object? obj)
+    {
+        new AddTeamWindow().ShowDialog();
+    }
+
+    private bool Anything(object? obj)
+    {
+        return true;
+    }
 }

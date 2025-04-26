@@ -7,8 +7,8 @@
       Title="RankingPage">
     <Grid Margin="50,50,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock Text="Teams Ranking" FontSize="28" Height="40" FontWeight="Bold" Foreground="White"
                    TextAlignment="Left" />

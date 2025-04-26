@@ -7,20 +7,20 @@
       Title="TournamentSettingsPage">
     <Grid Margin="50,50,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock Text="Tournament Settings" FontSize="28" Height="40" FontWeight="Bold" Foreground="White"
                    TextAlignment="Left" />
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" />
@@ -52,40 +52,51 @@
                 Scoring
             </TextBlock>
             <!-- Input -->
-            <TextBox x:Name="TournamentName" Background="White" Grid.Column="1" Grid.Row="0" Height="40" Width="460" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="TournamentName" Background="White" Grid.Column="1" Grid.Row="0" Height="40" Width="460"
+                     VerticalContentAlignment="Center" />
             <!-- Sport selection -->
             <Grid Grid.Column="1" Grid.Row="1" Width="480" Height="40">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="400"/>
-                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="80" />
                 </Grid.ColumnDefinitions>
-                <ComboBox x:Name="SportCombobox" Background="White" Grid.Column="0" Height="40" Width="380" VerticalContentAlignment="Center"/>
-                <Button x:Name="AddSportButton" Grid.Column="1" Height="40" Width="70" Foreground="White" FontWeight="SemiBold" FontSize="16"
-                        Background="Green">Add</Button>
+                <ComboBox x:Name="SportCombobox" Background="White" Grid.Column="0" Height="40" Width="380"
+                          VerticalContentAlignment="Center" />
+                <Button x:Name="AddSportButton" Grid.Column="1" Height="40" Width="70" Foreground="White"
+                        FontWeight="SemiBold" FontSize="16"
+                        Background="Green">
+                    Add
+                </Button>
             </Grid>
             <!-- Format selection -->
-            <ComboBox x:Name="FormatCombobox" Background="White" Grid.Column="1" Grid.Row="2" Height="40" Width="460" VerticalContentAlignment="Center"/>
+            <ComboBox x:Name="FormatCombobox" Background="White" Grid.Column="1" Grid.Row="2" Height="40" Width="460"
+                      VerticalContentAlignment="Center" />
             <!-- Dates -->
             <Grid Grid.Column="1" Grid.Row="3" Height="40">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="240" />
                     <ColumnDefinition Width="240" />
                 </Grid.ColumnDefinitions>
-                <DatePicker x:Name="DateFrom" Background="White" Grid.Column="0" Width="220" Height="40" VerticalContentAlignment="Center"></DatePicker>
-                <DatePicker x:Name="DateTo" Background="White" Grid.Column="1" Width="220" Height="40" VerticalContentAlignment="Center"></DatePicker>
+                <DatePicker x:Name="DateFrom" Background="White" Grid.Column="0" Width="220" Height="40"
+                            VerticalContentAlignment="Center" />
+                <DatePicker x:Name="DateTo" Background="White" Grid.Column="1" Width="220" Height="40"
+                            VerticalContentAlignment="Center" />
             </Grid>
             <!-- Teams Slider and TextBlock-->
             <Grid Grid.Column="1" Grid.Row="4" Width="480" Height="40">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="400"/>
-                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="80" />
                 </Grid.ColumnDefinitions>
-                <Slider VerticalAlignment="Center" x:Name="TeamSlider" Foreground="Aqua"  Grid.Column="0" Width="380" Minimum="4" Maximum="32" TickPlacement="BottomRight"
+                <Slider VerticalAlignment="Center" x:Name="TeamSlider" Foreground="Aqua" Grid.Column="0" Width="380"
+                        Minimum="4" Maximum="32" TickPlacement="BottomRight"
                         IsSnapToTickEnabled="True" AutoToolTipPlacement="BottomRight"
                         Ticks="4, 8, 16, 32" />
-                <TextBlock Grid.Column="1" Width="60" Text="{Binding ElementName=TeamSlider, Path=Value}" TextAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="SemiBold" Foreground="White"/>
+                <TextBlock Grid.Column="1" Width="60" Text="{Binding ElementName=TeamSlider, Path=Value}"
+                           TextAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="SemiBold"
+                           Foreground="White" />
             </Grid>
-            
+
             <!-- Scoring settings-->
             <Grid Grid.Column="1" Grid.Row="5">
                 <Grid.ColumnDefinitions>
@@ -100,20 +111,26 @@
                            FontSize="20" Foreground="White">
                     Win
                 </TextBlock>
-                <TextBox x:Name="WinPoints" Grid.Column="1" Background="White" Height="40" Width="60" VerticalContentAlignment="Center"> </TextBox>
+                <TextBox x:Name="WinPoints" Grid.Column="1" Background="White" Height="40" Width="60"
+                         VerticalContentAlignment="Center" />
                 <TextBlock Grid.Column="2" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center"
                            FontSize="20" Foreground="White">
                     Draw
                 </TextBlock>
-                <TextBox x:Name="DrawPoints" Grid.Column="3" Background="White" Height="40" Width="60" VerticalContentAlignment="Center"> </TextBox>
+                <TextBox x:Name="DrawPoints" Grid.Column="3" Background="White" Height="40" Width="60"
+                         VerticalContentAlignment="Center" />
                 <TextBlock Grid.Column="4" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center"
                            FontSize="20" Foreground="White">
                     Loss
                 </TextBlock>
-                <TextBox x:Name="LossPoints" Grid.Column="5" Background="White" Height="40" Width="60" VerticalContentAlignment="Center"> </TextBox>
+                <TextBox x:Name="LossPoints" Grid.Column="5" Background="White" Height="40" Width="60"
+                         VerticalContentAlignment="Center" />
             </Grid>
-            <Button Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" Height="40" Width="460" Foreground="White" FontWeight="SemiBold" FontSize="16"
-                    Background="Green">Confirm Tournament Settings</Button>
+            <Button Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" Height="40" Width="460"
+                    Foreground="White" FontWeight="SemiBold" FontSize="16"
+                    Background="Green">
+                Confirm Tournament Settings
+            </Button>
 
         </Grid>
     </Grid>

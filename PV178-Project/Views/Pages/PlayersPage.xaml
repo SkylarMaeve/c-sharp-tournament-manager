@@ -7,8 +7,8 @@
       Title="PlayersPage">
     <Grid Margin="50,50,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -19,7 +19,8 @@
                        TextAlignment="Left" />
             <Button x:Name="AddTeamButton" Grid.Column="1" Height="40" Width="70" Foreground="White"
                     FontWeight="SemiBold" FontSize="16"
-                    Background="Green" HorizontalAlignment="Left">
+                    Background="Green" HorizontalAlignment="Left"
+                    Command="{Binding AddPlayerCommand}">
                 Add
             </Button>
         </Grid>

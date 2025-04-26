@@ -5,18 +5,17 @@ namespace PV178_Project.ViewModels;
 
 public class RankingPageViewModel : BaseViewModel
 {
-    private Tournament _selectedTournament;
     private readonly DataProvider _dataProvider;
-    
-    public List<Team> Teams { get; private set; }
+    private Tournament _selectedTournament;
 
     public RankingPageViewModel(DataProvider dataProvider, Tournament selectedTournament)
     {
         _selectedTournament = selectedTournament;
         _dataProvider = dataProvider;
         //Filter by Teams in Tournament
-        
+
         Teams = _dataProvider.Teams.OrderBy(team => team.Points).ToList();
-        
     }
+
+    public List<Team> Teams { get; private set; }
 }
