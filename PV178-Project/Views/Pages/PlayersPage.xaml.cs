@@ -7,9 +7,9 @@ namespace PV178_Project.Views;
 
 public partial class PlayersPage : Page
 {
-    public PlayersPage(DataProvider dataProvider, Tournament tournament)
+    public PlayersPage(DataProvider dataProvider, Tournament tournament, Team? team)
     {
         InitializeComponent();
-        DataContext = new PlayersPageViewModel(dataProvider, tournament);
+        DataContext = new PlayersPageViewModel(dataProvider, tournament, team);
     }
 }

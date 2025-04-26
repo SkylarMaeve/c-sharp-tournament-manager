@@ -27,9 +27,8 @@
         </Grid>
         <Grid Grid.Row="1" HorizontalAlignment="Left">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="300" />
                 <ColumnDefinition Width="50" />
                 <ColumnDefinition Width="50" />
                 <ColumnDefinition Width="50" />
@@ -41,22 +40,20 @@
                 <RowDefinition Height="40" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Column="0" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
-                       TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="100" Text="Players" />
+                       TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="150" Text="Players" />
             <TextBlock Grid.Column="1" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
-                       TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="200" Text="TeamName" />
+                       TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="300" Text="TeamName" />
             <TextBlock Grid.Column="2" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
-                       TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="150" Text="Sport" />
-            <TextBlock Grid.Column="3" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
                        TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="50" Text="G" />
-            <TextBlock Grid.Column="4" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
+            <TextBlock Grid.Column="3" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
                        TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="50" Text="W" />
-            <TextBlock Grid.Column="5" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
+            <TextBlock Grid.Column="4" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
                        TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="50" Text="D" />
-            <TextBlock Grid.Column="6" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
+            <TextBlock Grid.Column="5" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
                        TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="50" Text="L" />
-            <TextBlock Grid.Column="7" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
+            <TextBlock Grid.Column="6" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
                        TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="50" Text="P" />
-            <TextBlock Grid.Column="8" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
+            <TextBlock Grid.Column="7" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
                        TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="100" Text="Place" />
         </Grid>
         <ItemsControl Grid.Row="2" ItemsSource="{Binding Teams}">
@@ -64,9 +61,8 @@
                 <DataTemplate>
                     <Grid HorizontalAlignment="Left">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="300" />
                             <ColumnDefinition Width="50" />
                             <ColumnDefinition Width="50" />
                             <ColumnDefinition Width="50" />
@@ -77,24 +73,25 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40" />
                         </Grid.RowDefinitions>
-                        <Button Grid.Column="0" Width="80" Height="30" Background="Green" Foreground="White">Players</Button>
+                        <Button Grid.Column="0" Width="130" Height="30" Background="Green" Foreground="White" 
+                                Command="{Binding DataContext.ShowTeamPlayersCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}"
+                                >Players</Button>
                         <TextBlock Grid.Column="1" FontWeight="SemiBold" FontSize="16" Foreground="White"
-                                   TextAlignment="Center" VerticalAlignment="Center" Width="200"
+                                   TextAlignment="Center" VerticalAlignment="Center" Width="300"
                                    Text="{Binding TeamName}" />
                         <TextBlock Grid.Column="2" FontWeight="SemiBold" FontSize="16" Foreground="White"
-                                   TextAlignment="Center" VerticalAlignment="Center" Width="150" Text="{Binding Sport}" />
-                        <TextBlock Grid.Column="3" FontWeight="SemiBold" FontSize="16" Foreground="White"
                                    TextAlignment="Center" VerticalAlignment="Center" Width="50"
                                    Text="{Binding GroupName}" />
-                        <TextBlock Grid.Column="4" FontWeight="SemiBold" FontSize="16" Foreground="White"
+                        <TextBlock Grid.Column="3" FontWeight="SemiBold" FontSize="16" Foreground="White"
                                    TextAlignment="Center" VerticalAlignment="Center" Width="50" Text="{Binding Wins}" />
-                        <TextBlock Grid.Column="5" FontWeight="SemiBold" FontSize="16" Foreground="White"
+                        <TextBlock Grid.Column="4" FontWeight="SemiBold" FontSize="16" Foreground="White"
                                    TextAlignment="Center" VerticalAlignment="Center" Width="50" Text="{Binding Draws}" />
-                        <TextBlock Grid.Column="6" FontWeight="SemiBold" FontSize="16" Foreground="White"
+                        <TextBlock Grid.Column="5" FontWeight="SemiBold" FontSize="16" Foreground="White"
                                    TextAlignment="Center" VerticalAlignment="Center" Width="50" Text="{Binding Losses}" />
-                        <TextBlock Grid.Column="7" FontWeight="SemiBold" FontSize="16" Foreground="White"
+                        <TextBlock Grid.Column="6" FontWeight="SemiBold" FontSize="16" Foreground="White"
                                    TextAlignment="Center" VerticalAlignment="Center" Width="50" Text="{Binding Points}" />
-                        <TextBlock Grid.Column="8" FontWeight="SemiBold" FontSize="16" Foreground="White"
+                        <TextBlock Grid.Column="7" FontWeight="SemiBold" FontSize="16" Foreground="White"
                                    TextAlignment="Right" VerticalAlignment="Center" Width="100"
                                    Text="{Binding Placement}" />
                     </Grid>

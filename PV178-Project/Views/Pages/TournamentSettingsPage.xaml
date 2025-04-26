@@ -53,7 +53,7 @@
             </TextBlock>
             <!-- Input -->
             <TextBox x:Name="TournamentName" Background="White" Grid.Column="1" Grid.Row="0" Height="40" Width="460"
-                     VerticalContentAlignment="Center" />
+                     VerticalContentAlignment="Center" Text="{Binding TournamentName, Mode=TwoWay}"/>
             <!-- Sport selection -->
             <Grid Grid.Column="1" Grid.Row="1" Width="480" Height="40">
                 <Grid.ColumnDefinitions>
@@ -61,16 +61,19 @@
                     <ColumnDefinition Width="80" />
                 </Grid.ColumnDefinitions>
                 <ComboBox x:Name="SportCombobox" Background="White" Grid.Column="0" Height="40" Width="380"
-                          VerticalContentAlignment="Center" />
+                          VerticalContentAlignment="Center" ItemsSource="{Binding Sports}"
+                          SelectedItem="{Binding Sport, Mode=TwoWay}"/>
                 <Button x:Name="AddSportButton" Grid.Column="1" Height="40" Width="70" Foreground="White"
                         FontWeight="SemiBold" FontSize="16"
-                        Background="Green">
+                        Background="Green" Command="{Binding AddNewSportCommand}">
                     Add
                 </Button>
             </Grid>
             <!-- Format selection -->
             <ComboBox x:Name="FormatCombobox" Background="White" Grid.Column="1" Grid.Row="2" Height="40" Width="460"
-                      VerticalContentAlignment="Center" />
+                      VerticalContentAlignment="Center" 
+                      SelectedItem="{Binding GameFormat, Mode=TwoWay}"
+                      ItemsSource="{Binding Formats}"/>
             <!-- Dates -->
             <Grid Grid.Column="1" Grid.Row="3" Height="40">
                 <Grid.ColumnDefinitions>
@@ -78,9 +81,10 @@
                     <ColumnDefinition Width="240" />
                 </Grid.ColumnDefinitions>
                 <DatePicker x:Name="DateFrom" Background="White" Grid.Column="0" Width="220" Height="40"
-                            VerticalContentAlignment="Center" />
+                            VerticalContentAlignment="Center" 
+                            SelectedDate="{Binding DateFrom}"/>
                 <DatePicker x:Name="DateTo" Background="White" Grid.Column="1" Width="220" Height="40"
-                            VerticalContentAlignment="Center" />
+                            VerticalContentAlignment="Center" SelectedDate="{Binding DateTo}"/>
             </Grid>
             <!-- Teams Slider and TextBlock-->
             <Grid Grid.Column="1" Grid.Row="4" Width="480" Height="40">
@@ -91,7 +95,9 @@
                 <Slider VerticalAlignment="Center" x:Name="TeamSlider" Foreground="Aqua" Grid.Column="0" Width="380"
                         Minimum="4" Maximum="32" TickPlacement="BottomRight"
                         IsSnapToTickEnabled="True" AutoToolTipPlacement="BottomRight"
-                        Ticks="4, 8, 16, 32" />
+                        Ticks="4, 8, 16, 32" 
+                        Value="{Binding TeamsCount, Mode=TwoWay}"
+                        />
                 <TextBlock Grid.Column="1" Width="60" Text="{Binding ElementName=TeamSlider, Path=Value}"
                            TextAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="SemiBold"
                            Foreground="White" />
@@ -112,19 +118,24 @@
                     Win
                 </TextBlock>
                 <TextBox x:Name="WinPoints" Grid.Column="1" Background="White" Height="40" Width="60"
-                         VerticalContentAlignment="Center" />
+                         VerticalContentAlignment="Center" 
+                         Text="{Binding Win, Mode=TwoWay}"/>
                 <TextBlock Grid.Column="2" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center"
-                           FontSize="20" Foreground="White">
+                           FontSize="20" Foreground="White"
+                           >
                     Draw
                 </TextBlock>
                 <TextBox x:Name="DrawPoints" Grid.Column="3" Background="White" Height="40" Width="60"
-                         VerticalContentAlignment="Center" />
+                         VerticalContentAlignment="Center" 
+                         Text="{Binding Draw, Mode=TwoWay}"/>
                 <TextBlock Grid.Column="4" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center"
-                           FontSize="20" Foreground="White">
+                           FontSize="20" Foreground="White"
+                           >
                     Loss
                 </TextBlock>
                 <TextBox x:Name="LossPoints" Grid.Column="5" Background="White" Height="40" Width="60"
-                         VerticalContentAlignment="Center" />
+                         VerticalContentAlignment="Center" 
+                         Text="{Binding Loss, Mode=TwoWay}"/>
             </Grid>
             <Button Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" Height="40" Width="460"
                     Foreground="White" FontWeight="SemiBold" FontSize="16"
