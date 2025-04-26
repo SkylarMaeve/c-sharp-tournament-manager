@@ -23,9 +23,8 @@
                 </Grid.ColumnDefinitions>
 
                 <ComboBox Grid.Column="0"
-                          DisplayMemberPath="TournamentName" 
+                          DisplayMemberPath="Name" 
                           FontWeight="Bold"
-                          Background="White" 
                           Height="40" Width="140" 
                           VerticalContentAlignment="Center"
                           ItemsSource="{Binding Tournaments}"

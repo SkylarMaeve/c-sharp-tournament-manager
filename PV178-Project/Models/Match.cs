@@ -1,34 +1,18 @@
+using PV178_Project.Models.Abstracts;
 using PV178_Project.Models.Enums;
 
 namespace PV178_Project.Models;
 
-public class Match
+public class Match(
+    int id, 
+    Tournament tournament, 
+    Team teamA, 
+    Team teamB, 
+    DateTime startTime) : BaseModel(id)
 {
-    public Match(Team teamA, Team teamB, DateTime startTime)
-    {
-        TeamA = teamA;
-        TeamB = teamB;
-        StartTime = startTime;
-        ScoreTeamA = 0;
-        ScoreTeamB = 0;
-    }
-
-    public Team TeamA { get; set; }
-    public Team TeamB { get; set; }
-    public DateTime StartTime { get; set; }
-    public int ScoreTeamA { get; private set; }
-    public int ScoreTeamB { get; private set; }
-
-    public MatchResult GetMatchResult()
-    {
-        if (ScoreTeamA > ScoreTeamB) return MatchResult.TeamA;
-        if (ScoreTeamA < ScoreTeamB) return MatchResult.TeamB;
-        return MatchResult.Tie;
-    }
-
-    public void AddPoints(Team team, int points)
-    {
-        if (team == TeamA) ScoreTeamA += points;
-        if (team == TeamB) ScoreTeamB += points;
-    }
+    public Tournament Tournament { get; set; } = tournament;
+    public Team TeamA { get; private set; } = teamA;
+    public Team TeamB { get; private set; } = teamB;
+    public DateTime StartTime { get; set; } = startTime;
+    public Team? Winner { get; set; } = null;
 }

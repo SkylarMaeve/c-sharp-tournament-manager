@@ -21,10 +21,10 @@ public class DataProvider
         setTournaments();
         setTeams();
         setPlayers();
-        Sports.Add(new Sport("Hockey", 60));
-        Sports.Add(new Sport("FImon", 60));
-        Sports.Add(new Sport("Basketball", 60));
-        Sports.Add(new Sport("Pitchi", 60));
+        Sports.Add(new Sport(0, "Hockey", 60));
+        Sports.Add(new Sport(1, "FImon", 60));
+        Sports.Add(new Sport(2,"Basketball", 60));
+        Sports.Add(new Sport(3,"Pitchi", 60));
         
         Tournaments[0].Sport = Sports[0];
     }
@@ -33,9 +33,9 @@ public class DataProvider
     {
         var data =  new List<Team>
         {
-            new Team("Team A",Tournaments[0], "A"),
-            new Team("Team B",Tournaments[0], "A"),
-            new Team("Team C",Tournaments[0], "A"),
+            new Team(0,"Team A",Tournaments[0], "A"),
+            new Team(1,"Team B",Tournaments[0], "A"),
+            new Team(2,"Team C",Tournaments[0], "A"),
         };
         Teams = data;
         return data;
@@ -44,14 +44,13 @@ public class DataProvider
     {
          var data = new List<Player>
         {
-            new Player("John Meyer", Teams[0], "null", new DateTime(2002, 12, 1)),
-            new Player("John Meyer", Teams[0], "null", new DateTime(2002, 12, 1)),
-            new Player("John Meyer", Teams[0], "null", new DateTime(2002, 12, 1)),
-            new Player("John Meyer", Teams[0], "null", new DateTime(2002, 12, 1)),
-            new Player("John Meyer", Teams[0], "null", new DateTime(2002, 12, 1)),
+            new Player(0,"John Meyer", Teams[0], new DateTime(2002, 12, 1)),
+            new Player(1,"John Meyer", Teams[0], new DateTime(2002, 12, 1)),
+            new Player(2,"John Meyer", Teams[0], new DateTime(2002, 12, 1)),
+            new Player(3,"John Meyer", Teams[0], new DateTime(2002, 12, 1)),
+            new Player(4,"John Meyer", Teams[0], new DateTime(2002, 12, 1)),
         };
          Players = data;
-         Teams[0].AddPlayer(data[0]);
         return data;
     }
 
@@ -59,11 +58,11 @@ public class DataProvider
     {
         var data =  new List<Tournament>
         {
-            new Tournament(0L, "Dunno", TournamentFormat.GroupsAndPlayOff, 2, 1, 0, DateTime.Now, DateTime.Now, new Sport("vole", 56)),
-            new Tournament(1L, "FImon", TournamentFormat.GroupsAndPlayOff, 2, 1, 0, DateTime.Now, DateTime.Now, new Sport("vole", 56)),
-            new Tournament(2L, "Poker", TournamentFormat.GroupsAndPlayOff, 2, 1, 0, DateTime.Now, DateTime.Now, new Sport("vole", 56)),
-            new Tournament(3L, "Kys", TournamentFormat.GroupsAndPlayOff, 2, 1, 0, DateTime.Now, DateTime.Now, new Sport("vole", 56)),
-            new Tournament(4L, "Vole", TournamentFormat.GroupsAndPlayOff, 2, 1, 0, DateTime.Now, DateTime.Now, new Sport("vole", 56)),
+            new Tournament(0, "FImonWorld CHampionship",  new Sport(0, "vole", 56), Format.GroupsAndPlayOff, DateTime.Now, DateTime.Now, 2, 1, 0),
+            new Tournament(1, "Dunno",  new Sport(0, "Hickey", 56), Format.GroupsAndPlayOff, DateTime.Now, DateTime.Now, 2, 1, 0),
+            new Tournament(2, "Dunno",  new Sport(0, "Hockey", 56), Format.GroupsAndPlayOff, DateTime.Now, DateTime.Now, 2, 1, 0),
+            new Tournament(3, "Dunno",  new Sport(0, "Hackey", 56), Format.GroupsAndPlayOff, DateTime.Now, DateTime.Now, 2, 1, 0),
+            new Tournament(4, "Dunno",  new Sport(0, "Meh", 56), Format.GroupsAndPlayOff, DateTime.Now, DateTime.Now, 2, 1, 0),
         };
         Tournaments = data;
         return data;

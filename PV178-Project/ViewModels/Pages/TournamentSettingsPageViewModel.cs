@@ -23,12 +23,12 @@ public class TournamentSettingsPageViewModel : BaseViewModel
     public string? TournamentName
     {
         get
-        {   if (_selectedTournament != null) return _selectedTournament.TournamentName;
+        {   if (_selectedTournament != null) return _selectedTournament.Name;
             return null;
         }
         set
         {
-            if (_selectedTournament != null) _selectedTournament.TournamentName = value;
+            if (value != null) _selectedTournament.Name = value;
         }
     }
     public Sport? Sport
@@ -42,7 +42,7 @@ public class TournamentSettingsPageViewModel : BaseViewModel
             if (_selectedTournament != null) _selectedTournament.Sport = value;
         }
     }
-    public TournamentFormat? GameFormat
+    public Format? GameFormat
     {
         get
         {   if (_selectedTournament != null) return _selectedTournament.Format;
@@ -56,7 +56,7 @@ public class TournamentSettingsPageViewModel : BaseViewModel
     public DateTime? DateFrom
     {
         get
-        {   if (_selectedTournament != null) return _selectedTournament.StartDate;
+        {   if (_selectedTournament != null) return _selectedTournament.Start;
             return null;
         }
         set
@@ -67,7 +67,7 @@ public class TournamentSettingsPageViewModel : BaseViewModel
     public DateTime? DateTo
     {
         get
-        {   if (_selectedTournament != null) return _selectedTournament.EndDate;
+        {   if (_selectedTournament != null) return _selectedTournament.End;
             return null;
         }
         set
@@ -104,7 +104,7 @@ public class TournamentSettingsPageViewModel : BaseViewModel
     public int Draw
     {
         get
-        {   if (_selectedTournament != null) return _selectedTournament.PointsTie;
+        {   if (_selectedTournament != null) return _selectedTournament.PointsDraw;
             return 0;
         }
         set
@@ -131,11 +131,11 @@ public class TournamentSettingsPageViewModel : BaseViewModel
         get => _dataProvider.Sports;
     }
     
-    public List<TournamentFormat> Formats
+    public List<Format> Formats
     {
         get
         {
-            return Enum.GetValues(typeof(TournamentFormat)).Cast<TournamentFormat>().ToList();
+            return Enum.GetValues(typeof(Format)).Cast<Format>().ToList();
         }
         set
         {

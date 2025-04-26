@@ -34,7 +34,7 @@ public class PlayersPageViewModel
         {
             if (_selectedTeam != null)
             {
-                var team = _selectedTeam.TeamName;
+                var team = _selectedTeam.Name;
                 return "Players of " + team;
             }
 

@@ -1,6 +1,6 @@
 namespace PV178_Project.Models.Enums;
 
-public enum TournamentFormat
+public enum Format
 {
     PlayOff,
     Groups,
