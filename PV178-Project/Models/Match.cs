@@ -15,4 +15,7 @@ public class Match(
     public Team TeamB { get; private set; } = teamB;
     public DateTime StartTime { get; set; } = startTime;
     public Team? Winner { get; set; } = null;
+    
+    public int PointsTeamA { get; set; } = 0;
+    public int PointsTeamB { get; set; } = 0;
 }

@@ -21,7 +21,7 @@ public class TeamsPageViewModel : BaseViewModel
         _dataProvider = dataProvider;
         _mainFrame = frame;
         //Filter by Teams in Tournament
-        Teams = _dataProvider.Teams.Where(t => t.Tournament == _selectedTournament).ToList();
+        Teams = _dataProvider.Teams.GetData().Where(t => t.Tournament == _selectedTournament).ToList();
         AddTeamWindowCommand = new RelayCommand(AddTeam, Anything);
         ShowTeamPlayersCommand = new RelayCommand(ExecuteNavigateToPlayers, Anything);
     }

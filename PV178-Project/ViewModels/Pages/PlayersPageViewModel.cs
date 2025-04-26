@@ -16,11 +16,11 @@ public class PlayersPageViewModel
         _selectedTournament = selectedTournament;
         _dataProvider = dataProvider;
         //Filter by Teams in Tournament
-        Players = _dataProvider.Players;
+        Players = _dataProvider.Players.GetData().ToList();
         _selectedTeam = selectedTeam;
         if (selectedTeam != null)
         {
-            Players = _dataProvider.Players.Where(p => p.Team == selectedTeam).ToList();
+            Players = Players.Where(p => p.Team == selectedTeam).ToList();
         }
         AddPlayerCommand = new RelayCommand(AddPlayer, Anything);
     }

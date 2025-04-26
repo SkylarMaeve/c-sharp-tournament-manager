@@ -79,10 +79,10 @@
                                 >Players</Button>
                         <TextBlock Grid.Column="1" FontWeight="SemiBold" FontSize="16" Foreground="White"
                                    TextAlignment="Center" VerticalAlignment="Center" Width="300"
-                                   Text="{Binding TeamName}" />
+                                   Text="{Binding Name}" />
                         <TextBlock Grid.Column="2" FontWeight="SemiBold" FontSize="16" Foreground="White"
                                    TextAlignment="Center" VerticalAlignment="Center" Width="50"
-                                   Text="{Binding GroupName}" />
+                                   Text="{Binding Group}" />
                         <TextBlock Grid.Column="3" FontWeight="SemiBold" FontSize="16" Foreground="White"
                                    TextAlignment="Center" VerticalAlignment="Center" Width="50" Text="{Binding Wins}" />
                         <TextBlock Grid.Column="4" FontWeight="SemiBold" FontSize="16" Foreground="White"

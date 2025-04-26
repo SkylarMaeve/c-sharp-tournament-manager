@@ -128,7 +128,7 @@ public class TournamentSettingsPageViewModel : BaseViewModel
 
     public List<Sport> Sports
     {
-        get => _dataProvider.Sports;
+        get => _dataProvider.Sports.GetData().ToList();
     }
     
     public List<Format> Formats

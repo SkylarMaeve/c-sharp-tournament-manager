@@ -18,6 +18,8 @@ public class MainViewModel : BaseViewModel
     {
         _mainFrame = mainFrame;
         _dataProvider = new DataProvider();
+        _dataProvider.Initialize();
+        
         // Initialize commands
         NavigateToSettingsCommand = new RelayCommand(NavigateToSettings, Anything);
         NavigateToGamePlanCommand = new RelayCommand(NavigateToGamePlan, Anything);
@@ -26,7 +28,7 @@ public class MainViewModel : BaseViewModel
         LoadTournamentCommand = new RelayCommand(LoadTournament, Anything);
         AddTournamentCommand = new RelayCommand(AddTournament, Anything);
         // Populate tournaments
-        Tournaments = _dataProvider.Tournaments;
+        Tournaments = _dataProvider.Tournaments.GetData().ToList();
         _mainFrame.Navigate(new WelcomePage());
     }
 
