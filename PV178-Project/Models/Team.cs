@@ -2,12 +2,10 @@ namespace PV178_Project.Models;
 
 public class Team
 {
-    public Team(string teamName, Sport sport, Tournament tournament, string groupName)
+    public Team(string teamName, Tournament tournament, string groupName)
     {
         TeamName = teamName;
-        Tournaments = new List<Tournament>();
         Players = new List<Player>();
-        Sport = sport;
         Points = 0;
         Tournament = tournament;
         GroupName = groupName;
@@ -25,16 +23,9 @@ public class Team
     public int Points { get; set; }
     public int? Placement { get; set; }
     public string TeamName { get; private set; }
-    public List<Tournament> Tournaments { get; }
     public List<Player> Players { get; }
     public Sport Sport { get; private set; }
-
-    public bool AddTournament(Tournament tournament)
-    {
-        if (Tournaments.Contains(tournament)) return false;
-        Tournaments.Add(tournament);
-        return true;
-    }
+    
 
     public bool AddPlayer(Player player)
     {
@@ -56,5 +47,10 @@ public class Team
     {
         TeamName = newTeamName;
         return true;
+    }
+
+    public override string ToString()
+    {
+        return TeamName;
     }
 }

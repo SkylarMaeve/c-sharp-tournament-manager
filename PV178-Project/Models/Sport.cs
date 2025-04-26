@@ -13,6 +13,7 @@ public class Sport
 
     public bool ChangeSportName(string newSportName)
     {
+        if (newSportName.Length <= 3) return false;
         SportName = newSportName;
         return true;
     }

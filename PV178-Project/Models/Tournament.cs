@@ -8,6 +8,8 @@ public class Tournament : Entity
     public Tournament(long id, string tournamentName, TournamentFormat format, int pointsWin, int pointsTie,
         int pointsLoss, DateTime startDate, DateTime endDate, Sport sport) : base(id)
     {
+        //Groups
+        //Count
         TournamentName = tournamentName;
         Format = format;
         PointsWin = pointsWin;
@@ -23,12 +25,12 @@ public class Tournament : Entity
 
     public string TournamentName { get; set; }
     public TournamentFormat Format { get; set; }
-    public int PointsWin { get; private set; }
-    public int PointsTie { get; private set; }
-    public int PointsLoss { get; private set; }
-    public DateTime StartDate { get; private set; }
-    public DateTime EndDate { get; private set; }
-    public Sport Sport { get; private set; }
+    public int PointsWin { get;  set; }
+    public int PointsTie { get;  set; }
+    public int PointsLoss { get;  set; }
+    public DateTime StartDate { get;  set; }
+    public DateTime EndDate { get;  set; }
+    public Sport Sport { get;  set; }
     public List<Team> Teams { get; }
     public List<Match> Matches { get; }
     public bool Ongoing { get; set; }
