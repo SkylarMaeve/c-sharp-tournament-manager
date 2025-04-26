@@ -10,6 +10,7 @@ public class Tournament(
     Format format,
     DateTime startDate,
     DateTime endDate,
+    int teamsCount,
     int groups,
     int pointsWin,
     int pointsDraw,
@@ -21,6 +22,7 @@ public class Tournament(
     public Format Format { get; set; } = format;
     public DateTime Start { get; set; } = startDate;
     public DateTime End { get; set; } = endDate;
+    public int TeamsCount { get; set; } = teamsCount;
     public int GroupsCount { get; set; } = groups;
 
     public List<string> Groups { get; set; } = Enumerable

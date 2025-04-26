@@ -5,50 +5,32 @@ using PV178_Project.Views.Windows;
 
 namespace PV178_Project.ViewModels;
 
-public class PlayersPageViewModel
+public class PlayersPageViewModel : BaseViewModel
 {
-    private readonly DataProvider _dataProvider;
-    private Tournament _selectedTournament;
-    private Team? _selectedTeam;
+    private DataProvider DataProvider { get; set; }
+    private Tournament Tournament { get; set; }
+    private Team? Team { get; set; }
 
-    public PlayersPageViewModel(DataProvider dataProvider, Tournament selectedTournament, Team? selectedTeam)
-    {
-        _selectedTournament = selectedTournament;
-        _dataProvider = dataProvider;
-        //Filter by Teams in Tournament
-        Players = _dataProvider.Players.GetData().ToList();
-        _selectedTeam = selectedTeam;
-        if (selectedTeam != null)
-        {
-            Players = Players.Where(p => p.Team == selectedTeam).ToList();
-        }
-        AddPlayerCommand = new RelayCommand(AddPlayer, Anything);
-    }
-
+    public string Header => Team != null ? $"Players of {Team}" : "Players";
     public List<Player> Players { get; private set; }
-    public ICommand AddPlayerCommand { get; }
 
-    public string Header
+    public RelayCommand AddPlayerCommand { get; set; }
+
+    public PlayersPageViewModel(
+        DataProvider dataProvider,
+        Tournament tournament,
+        Team? team)
     {
-        get
-        {
-            if (_selectedTeam != null)
-            {
-                var team = _selectedTeam.Name;
-                return "Players of " + team;
-            }
+        DataProvider = dataProvider;
+        Tournament = tournament;
+        Team = team;
+        Players = DataProvider.Players.GetData().ToList();
 
-            return "Players";
-        }
+        AddPlayerCommand = new RelayCommand(AddPlayer, _ => true);
+
+        //Filter by Team if Team is chosen
+        if (Team != null) Players = Players.Where(player => player.Team == Team).ToList();
     }
 
-    private void AddPlayer(object? obj)
-    {
-        new AddPlayerWindow().ShowDialog();
-    }
-
-    private bool Anything(object? obj)
-    {
-        return true;
-    }
+    private void AddPlayer(object? obj) => new AddPlayerWindow().ShowDialog();
 }

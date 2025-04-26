@@ -3,15 +3,16 @@ using PV178_Project.Services;
 
 namespace PV178_Project.ViewModels;
 
-public class GamePlanPageViewModel
+public class GamePlanPageViewModel: BaseViewModel
 {
-    private readonly DataProvider _dataProvider;
-    private Tournament _selectedTournament;
+    private DataProvider DataProvider { get; set; }
+    private Tournament Tournament { get; set; }
 
     public GamePlanPageViewModel(DataProvider dataProvider, Tournament selectedTournament)
     {
-        _selectedTournament = selectedTournament;
-        _dataProvider = dataProvider;
-        //Filter by Teams in Tournament
+        DataProvider = dataProvider;
+        Tournament = selectedTournament;
+
+        //TODO Implement GamePlan Page
     }
 }

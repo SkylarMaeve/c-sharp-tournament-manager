@@ -1,10 +1,10 @@
-<Page x:Class="PV178_Project.Views.TournamentSettingsPage"
+<Page x:Class="PV178_Project.Views.TournamentPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      Title="TournamentSettingsPage">
+      Title="TournamentPage">
     <Grid Margin="50,50,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -65,14 +65,14 @@
                           SelectedItem="{Binding Sport, Mode=TwoWay}"/>
                 <Button x:Name="AddSportButton" Grid.Column="1" Height="40" Width="70" Foreground="White"
                         FontWeight="SemiBold" FontSize="16"
-                        Background="Green" Command="{Binding AddNewSportCommand}">
+                        Background="Green" Command="{Binding AddSportCommand}">
                     Add
                 </Button>
             </Grid>
             <!-- Format selection -->
             <ComboBox x:Name="FormatCombobox" Background="White" Grid.Column="1" Grid.Row="2" Height="40" Width="460"
                       VerticalContentAlignment="Center" 
-                      SelectedItem="{Binding GameFormat, Mode=TwoWay}"
+                      SelectedItem="{Binding Format, Mode=TwoWay}"
                       ItemsSource="{Binding Formats}"/>
             <!-- Dates -->
             <Grid Grid.Column="1" Grid.Row="3" Height="40">

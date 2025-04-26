@@ -11,50 +11,32 @@ namespace PV178_Project.ViewModels;
 
 public class TeamsPageViewModel : BaseViewModel
 {
-    private readonly DataProvider _dataProvider;
-    private Tournament _selectedTournament;
-    private Frame _mainFrame;
-
-    public TeamsPageViewModel(DataProvider dataProvider, Tournament selectedTournament, Frame frame)
-    {
-        _selectedTournament = selectedTournament;
-        _dataProvider = dataProvider;
-        _mainFrame = frame;
-        //Filter by Teams in Tournament
-        Teams = _dataProvider.Teams.GetData().Where(t => t.Tournament == _selectedTournament).ToList();
-        AddTeamWindowCommand = new RelayCommand(AddTeam, Anything);
-        ShowTeamPlayersCommand = new RelayCommand(ExecuteNavigateToPlayers, Anything);
-    }
-
-    public ICommand AddTeamWindowCommand { get; }
-    public ICommand ShowTeamPlayersCommand { get; }
-
+    private DataProvider DataProvider { get; }
+    private Tournament Tournament { get; }
+    private Frame MainFrame { get; }
     public List<Team> Teams { get; private set; }
 
-    private void AddTeam(object? obj)
+    public RelayCommand AddTeamCommand { get; }
+    public RelayCommand ShowPlayersCommand { get; }
+
+    public TeamsPageViewModel(
+        DataProvider dataProvider,
+        Tournament selectedTournament,
+        Frame frame)
     {
-        new AddTeamWindow().ShowDialog();
+        Tournament = selectedTournament;
+        DataProvider = dataProvider;
+        MainFrame = frame;
+
+        AddTeamCommand = new RelayCommand(AddTeam, _ => true);
+        ShowPlayersCommand = new RelayCommand(NavigateToPlayers, _ => true);
+
+        //Filter by Tournament
+        Teams = DataProvider.Teams.GetData().Where(t => t.Tournament == Tournament).ToList();
     }
 
-    private bool Anything(object? obj)
-    {
-        return true;
-    }
-    
-    private void PlayersButtonCLick(object? obj)
-    {
-        Console.WriteLine(obj);
-        Console.WriteLine("Tlačidlo");
-        _mainFrame.Navigate(new PlayersPage(_dataProvider, _selectedTournament, null));
-    }
-    
-    private void ExecuteNavigateToPlayers(object? parameter)
-    {
-        if (parameter is Team selectedTeam)
-        {
-            // Handle navigation logic here (e.g., open Players page)
-            Console.WriteLine("pitcho");
-            _mainFrame.Navigate(new PlayersPage(_dataProvider, _selectedTournament, selectedTeam));
-        }
-    }
+    private void AddTeam(object? obj) => new AddTeamWindow().ShowDialog();
+
+    private void NavigateToPlayers(object? parameter) =>
+        MainFrame.Navigate(parameter is Team team ? new PlayersPage(DataProvider, Tournament, team) : null);
 }

@@ -8,6 +8,6 @@ public partial class AddTournamentWindow : Window
     public AddTournamentWindow()
     {
         InitializeComponent();
-        MainFrame.Navigate(new TournamentSettingsPage(new DataProvider(), null));
+        //TODO new logic
     }
 }

@@ -21,7 +21,7 @@
             <Button x:Name="AddTeamButton" Grid.Column="1" Height="40" Width="70" Foreground="White"
                     FontWeight="SemiBold" FontSize="16"
                     Background="Green" HorizontalAlignment="Left"
-                    Command="{Binding AddTeamWindowCommand}">
+                    Command="{Binding AddTeamCommand}">
                 Add
             </Button>
         </Grid>
@@ -74,7 +74,7 @@
                             <RowDefinition Height="40" />
                         </Grid.RowDefinitions>
                         <Button Grid.Column="0" Width="130" Height="30" Background="Green" Foreground="White" 
-                                Command="{Binding DataContext.ShowTeamPlayersCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                Command="{Binding DataContext.ShowPlayersCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                 CommandParameter="{Binding}"
                                 >Players</Button>
                         <TextBlock Grid.Column="1" FontWeight="SemiBold" FontSize="16" Foreground="White"

@@ -42,16 +42,16 @@
 
             <!-- Navigation -->
             <Button Content="Tournament settings"
-                    Command="{Binding NavigateToSettingsCommand}"
+                    Command="{Binding SettingsCommand}"
                     Style="{StaticResource NavigationButton}" />
             <Button Content="GamePlan"
-                    Command="{Binding NavigateToGamePlanCommand}"
+                    Command="{Binding GamePlanCommand}"
                     Style="{StaticResource NavigationButton}" />
             <Button Content="Teams" 
-                    Command="{Binding NavigateToTeamsCommand}"
+                    Command="{Binding TeamsCommand}"
                     Style="{DynamicResource NavigationButton}" />
             <Button Content="Players" 
-                    Command="{Binding NavigateToPlayersCommand}"
+                    Command="{Binding PlayersCommand}"
                     Style="{StaticResource NavigationButton}" />
 
             <!-- Bottom Import/Export/Delete -->
