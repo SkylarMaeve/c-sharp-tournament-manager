@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PV178_Project"
-        xmlns:viewModels= "clr-namespace:PV178_Project.ViewModels"
+        xmlns:viewModels="clr-namespace:PV178_Project.ViewModels"
         mc:Ignorable="d"
         Title="Tournament Manager" MinHeight="600" MinWidth="800">
     <Grid>
@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
 
 
-        <StackPanel Grid.Column="0" Background="#1d232a" x:Name="Sidebar">
+        <StackPanel Grid.Column="0" Background="{StaticResource Sidebar}" x:Name="Sidebar">
             <!-- Tournament Selector -->
             <Grid Margin="25">
                 <Grid.ColumnDefinitions>
@@ -22,9 +22,14 @@
                     <ColumnDefinition Width="50" />
                 </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Column="0" x:Name="TournamentBox" DisplayMemberPath="TournamentName" FontWeight="Bold"
-                          Background="Gray" Height="40" Width="140" VerticalContentAlignment="Center"
-                          ItemsSource="{Binding Tournaments}"/>
+                <ComboBox Grid.Column="0"
+                          DisplayMemberPath="TournamentName" 
+                          FontWeight="Bold"
+                          Background="White" 
+                          Height="40" Width="140" 
+                          VerticalContentAlignment="Center"
+                          ItemsSource="{Binding Tournaments}"
+                          SelectedItem="{Binding SelectedTournament, Mode=TwoWay}" />
                 <Button Grid.Column="1"
                         Height="40"
                         Width="40"
@@ -37,22 +42,24 @@
             </Grid>
 
             <!-- Navigation -->
-            <Button Content="Tournament settings" Command="{Binding NavigateToSettingsCommand}" Background="Transparent"
-                    Foreground="White" FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
-            <Button Content="GamePlan" Command="{Binding NavigateToGamePlanCommand}" Background="Transparent" Foreground="White"
-                    FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
-            <Button Content="Ranking" Command="{Binding NavigateToRankingCommand}" Background="Transparent" Foreground="White"
-                    FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
-            <Button Content="Teams" Command="{Binding NavigateToTeamsCommand}" Background="Transparent" Foreground="White"
-                    FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
-            <Button Content="Players" Command="{Binding NavigateToPlayersCommand}" Background="Transparent" Foreground="White"
-                    FontWeight="Bold" FontSize="14" Height="40" Width="180" Margin="35,0,0,0" />
+            <Button Content="Tournament settings"
+                    Command="{Binding NavigateToSettingsCommand}"
+                    Style="{StaticResource NavigationButton}" />
+            <Button Content="GamePlan"
+                    Command="{Binding NavigateToGamePlanCommand}"
+                    Style="{StaticResource NavigationButton}" />
+            <Button Content="Teams" 
+                    Command="{Binding NavigateToTeamsCommand}"
+                    Style="{DynamicResource NavigationButton}" />
+            <Button Content="Players" 
+                    Command="{Binding NavigateToPlayersCommand}"
+                    Style="{StaticResource NavigationButton}" />
 
             <!-- Bottom Import/Export/Delete -->
-            <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,250,0,0">
+            <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="60" />
-                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="60" />
                     <ColumnDefinition Width="60" />
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0"
@@ -81,7 +88,8 @@
                         Background="Red"
                         Height="40"
                         Width="40"
-                        ToolTip="Delete Tournament">
+                        ToolTip="Delete Tournament"
+                        IsEnabled="{Binding IsButtonEnabled}">
                     <TextBlock FontSize="16" FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE74D;" />
                 </Button>
 
