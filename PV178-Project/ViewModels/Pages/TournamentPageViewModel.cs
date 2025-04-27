@@ -68,7 +68,7 @@ public class TournamentPageViewModel : BaseViewModel
         SaveChangesCommand = new RelayCommand(SaveChanges, CanSaveChanges);
     }
 
-    private void AddSport(object? obj) => new AddSportWindow().ShowDialog();
+    private void AddSport(object? obj) => new AddSportWindow(DataProvider, null).ShowDialog();
 
     private void SaveChanges(object? obj)
     {

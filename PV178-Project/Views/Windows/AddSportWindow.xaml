@@ -34,13 +34,14 @@
             </TextBlock>
             <!-- Input -->
             <TextBox x:Name="TeamName" Background="White" Grid.Column="1" Grid.Row="0" Height="40" Width="230"
-                     VerticalContentAlignment="Center" />
+                     VerticalContentAlignment="Center" Text="{Binding Name}"/>
             <!-- Group selection -->
             <TextBox x:Name="MatchLength" Background="White" Grid.Column="1" Grid.Row="1" Height="40" Width="230"
-            VerticalContentAlignment="Center" />
+            VerticalContentAlignment="Center" Text="{Binding MatchLength}"/>
             <Button Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Height="40" Width="230"
                     Foreground="White" FontWeight="SemiBold" FontSize="16"
-                    Background="Green">
+                    Background="Green"
+                    Command="{Binding SaveCommand}">
                 Add new Sport
             </Button>
         </Grid>
