@@ -139,7 +139,8 @@
             </Grid>
             <Button Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" Height="40" Width="460"
                     Foreground="White" FontWeight="SemiBold" FontSize="16"
-                    Background="Green">
+                    Background="Green"
+                    Command="{Binding SaveChangesCommand}">
                 Confirm Tournament Settings
             </Button>
 

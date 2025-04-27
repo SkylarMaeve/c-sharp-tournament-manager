@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using PV178_Project.Models;
 using PV178_Project.Models.Enums;
@@ -9,19 +11,18 @@ namespace PV178_Project.ViewModels;
 public class TournamentPageViewModel : BaseViewModel
 {
     private DataProvider DataProvider { get; set; }
-    private Tournament Tournament { get; set; }
-    public string TournamentName { get; set; }
+    private Tournament? Tournament { get; set; }
+    public string TournamentName { get; set; } = "New Tournament";
     public Sport Sport { get; set; }
     public Format Format { get; set; }
-    public DateTime DateFrom { get; set; }
-    public DateTime DateTo { get; set; }
+    public DateTime DateFrom { get; set; }= DateTime.Now;
+    public DateTime DateTo { get; set; }= DateTime.Now;
     public int TeamsCount { get; set; }
     public int GroupsCount { get; set; }
-    public List<string> Groups => Tournament.Groups;
     public int Win { get; set; }
     public int Draw { get; set; }
     public int Loss { get; set; }
-    public List<Sport> Sports => DataProvider.Sports.GetData().ToList();
+    public ObservableCollection<Sport> Sports => DataProvider.Sports.GetData();
 
     public List<Format> Formats
     {
@@ -34,22 +35,29 @@ public class TournamentPageViewModel : BaseViewModel
 
     public TournamentPageViewModel(
         DataProvider dataProvider,
-        Tournament tournament)
+        Tournament? tournament)
     {
         Tournament = tournament;
         DataProvider = dataProvider;
 
         //Initialize Properties
-        TournamentName = Tournament.Name;
-        Sport = Tournament.Sport;
-        Format = Tournament.Format;
-        DateFrom = Tournament.Start;
-        DateTo = Tournament.End;
-        TeamsCount = Tournament.TeamsCount;
-        GroupsCount = Tournament.GroupsCount;
-        Win = Tournament.PointsWin;
-        Draw = Tournament.PointsDraw;
-        Loss = Tournament.PointsLoss;
+        if (tournament != null)
+        {
+            TournamentName = Tournament.Name;
+            Sport = Tournament.Sport;
+            Format = Tournament.Format;
+            DateFrom = Tournament.Start;
+            DateTo = Tournament.End;
+            TeamsCount = Tournament.TeamsCount;
+            GroupsCount = Tournament.GroupsCount;
+            Win = Tournament.PointsWin;
+            Draw = Tournament.PointsDraw;
+            Loss = Tournament.PointsLoss;
+        }
+        else
+        {
+            Sport = DataProvider.Sports.GetData().First();
+        }
 
         AddSportCommand = new RelayCommand(AddSport, _ => true);
         SaveChangesCommand = new RelayCommand(SaveChanges, CanSaveChanges);
@@ -59,21 +67,45 @@ public class TournamentPageViewModel : BaseViewModel
 
     private void SaveChanges(object? obj)
     {
-        Tournament.Name = TournamentName;
-        Tournament.Sport = Sport;
-        Tournament.Format = Format;
-        Tournament.Start = DateFrom;
-        Tournament.End = DateTo;
-        Tournament.TeamsCount = TeamsCount;
-        Tournament.GroupsCount = GroupsCount;
-        Tournament.PointsWin = Win;
-        Tournament.PointsDraw = Draw;
-        Tournament.PointsLoss = Loss;
+        if (Tournament != null)
+        {
+            Tournament.Name = TournamentName;
+            Tournament.Sport = Sport;
+            Tournament.Format = Format;
+            Tournament.Start = DateFrom;
+            Tournament.End = DateTo;
+            Tournament.TeamsCount = TeamsCount;
+            Tournament.GroupsCount = GroupsCount;
+            Tournament.PointsWin = Win;
+            Tournament.PointsDraw = Draw;
+            Tournament.PointsLoss = Loss;
+        }
+        else
+        {
+            DataProvider.Tournaments.Add(new Tournament(
+                0,
+                TournamentName,
+                Sport,
+                Format,
+                DateFrom,
+                DateTo,
+                TeamsCount,
+                GroupsCount,
+                Win,
+                Draw,
+                Loss));
+        }
+        var confirmationWindow = new ConfirmationDialog("Changes Saved");
+        confirmationWindow.Owner = obj as Window;
+        confirmationWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        confirmationWindow.ShowDialog();
     }
 
     private bool CanSaveChanges(object? obj)
     {
-        //TODO Basically Return All is not null
+        //TODO Change Porperties
+        
+        //TODO SaveChangesCommand.RaiseCanExecuteChanged();
         return true;
     }
 }
