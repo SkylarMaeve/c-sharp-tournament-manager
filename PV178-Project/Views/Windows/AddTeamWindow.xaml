@@ -33,13 +33,17 @@
             </TextBlock>
             <!-- Input -->
             <TextBox x:Name="TeamName" Background="White" Grid.Column="1" Grid.Row="0" Height="40" Width="230"
-                     VerticalContentAlignment="Center" />
+                     VerticalContentAlignment="Center" Text="{Binding Name}"/>
             <!-- Group selection -->
             <ComboBox x:Name="GroupComboBox" Background="White" Grid.Column="1" Grid.Row="1" Height="40" Width="230"
-                      VerticalContentAlignment="Center" />
+                      VerticalContentAlignment="Center" 
+                      ItemsSource="{Binding Groups}"
+                      SelectedItem="{Binding Group, Mode=TwoWay}"
+                      />
             <Button Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Height="40" Width="230"
                     Foreground="White" FontWeight="SemiBold" FontSize="16"
-                    Background="Green">
+                    Background="Green"
+                    Command="{Binding SaveTeamCommand}">
                 Add new Team
             </Button>
         </Grid>
