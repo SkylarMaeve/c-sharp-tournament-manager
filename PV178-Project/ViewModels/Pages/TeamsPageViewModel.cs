@@ -1,5 +1,8 @@
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using PV178_Project.Models;
@@ -14,7 +17,7 @@ public class TeamsPageViewModel : BaseViewModel
     private DataProvider DataProvider { get; }
     private Tournament Tournament { get; }
     private Frame MainFrame { get; }
-    public List<Team> Teams { get; private set; }
+    public ICollectionView Teams { get; private set; }
 
     public RelayCommand AddTeamCommand { get; }
     public RelayCommand ShowPlayersCommand { get; }
@@ -30,13 +33,31 @@ public class TeamsPageViewModel : BaseViewModel
 
         AddTeamCommand = new RelayCommand(AddTeam, _ => true);
         ShowPlayersCommand = new RelayCommand(NavigateToPlayers, _ => true);
-
-        //Filter by Tournament
-        Teams = DataProvider.Teams.GetData().Where(t => t.Tournament == Tournament).ToList();
+        
+        Teams = CollectionViewSource.GetDefaultView(DataProvider.Teams.GetData());
+        Filter();
     }
 
-    private void AddTeam(object? obj) => new AddTeamWindow().ShowDialog();
+    private void AddTeam(object? obj)
+    {
+        var addTeamWindow = new AddTeamWindow(DataProvider, Tournament, null);
+        addTeamWindow.Owner = obj as Window;
+        addTeamWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        addTeamWindow.Show();
+    }
 
     private void NavigateToPlayers(object? parameter) =>
         MainFrame.Navigate(parameter is Team team ? new PlayersPage(DataProvider, Tournament, team) : null);
+    
+    private void Filter()
+    {
+        Teams.Filter = team =>
+        {
+            var t = team as Team;
+            if (t == null) return false;
+            bool a = t.Tournament == Tournament;
+            return a;
+        };
+        Teams.Refresh();
+    }
 }

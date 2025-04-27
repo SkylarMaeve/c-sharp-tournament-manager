@@ -1,7 +1,9 @@
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Navigation;
 using PV178_Project.Models;
 using PV178_Project.Services;
+using PV178_Project.Views;
 using PV178_Project.Views.Windows;
 
 namespace PV178_Project.ViewModels.Windows;
@@ -21,7 +23,7 @@ public class AddPlayerWindowViewModel : BaseViewModel
         set
         {
             _name = value;
-            AddPlayerCommand.RaiseCanExecuteChanged();
+            SavePlayerCommand.RaiseCanExecuteChanged();
         }
     }
 
@@ -31,7 +33,7 @@ public class AddPlayerWindowViewModel : BaseViewModel
         set
         {
             _team = value;
-            AddPlayerCommand.RaiseCanExecuteChanged();
+            SavePlayerCommand.RaiseCanExecuteChanged();
         }
     }
 
@@ -41,7 +43,7 @@ public class AddPlayerWindowViewModel : BaseViewModel
         set
         {
             _dateOfBirth = value;
-            AddPlayerCommand.RaiseCanExecuteChanged();
+            SavePlayerCommand.RaiseCanExecuteChanged();
         }
     }
 
@@ -51,13 +53,14 @@ public class AddPlayerWindowViewModel : BaseViewModel
     private Player? Player { get; set; }
 
     public ObservableCollection<Team> Teams { get; set; }
-    public RelayCommand AddPlayerCommand { get; set; }
+    public RelayCommand SavePlayerCommand { get; set; }
 
-    public AddPlayerWindowViewModel(DataProvider dataProvider, Player? player, Window window)
+    public AddPlayerWindowViewModel(DataProvider dataProvider, Tournament tournament ,Player? player, Window window)
     {
         DataProvider = dataProvider;
         DialogWindow = window;
         Teams = DataProvider.Teams.GetData();
+        Teams = new ObservableCollection<Team>(Teams.Where(t => t.Tournament == tournament));
 
         if (player != null)
         {
@@ -66,10 +69,10 @@ public class AddPlayerWindowViewModel : BaseViewModel
             DateOfBirth = player.DateOfBirth;
         }
 
-        AddPlayerCommand = new RelayCommand(AddPlayer, CanAddPlayer);
+        SavePlayerCommand = new RelayCommand(Save, CanSave);
     }
 
-    private void AddPlayer(object? obj)
+    private void Save(object? obj)
     {
         if (Player != null)
         {
@@ -88,7 +91,7 @@ public class AddPlayerWindowViewModel : BaseViewModel
         DialogWindow.Close();
     }
 
-    private bool CanAddPlayer(object? obj)
+    private bool CanSave(object? obj)
     {
         return Name is not null && Team is not null && DateOfBirth is not null && DateOfBirth < DateTime.Now;
     }

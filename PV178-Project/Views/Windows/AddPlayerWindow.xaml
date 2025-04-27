@@ -71,7 +71,7 @@
                     FontWeight="SemiBold" 
                     FontSize="16"
                     Background="Green"
-                    Command="{Binding AddPlayerCommand}"
+                    Command="{Binding SavePlayerCommand}"
                     >
                 Add new Player
             </Button>

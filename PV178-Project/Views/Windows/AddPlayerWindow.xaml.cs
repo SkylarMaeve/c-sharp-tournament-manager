@@ -7,9 +7,9 @@ namespace PV178_Project.Views.Windows;
 
 public partial class AddPlayerWindow : Window
 {
-    public AddPlayerWindow(DataProvider dataProvider, Player? player)
+    public AddPlayerWindow(DataProvider dataProvider, Tournament tournament, Player? player)
     {
         InitializeComponent();
-        DataContext = new AddPlayerWindowViewModel(dataProvider, player,this);
+        DataContext = new AddPlayerWindowViewModel(dataProvider, tournament, player,this);
     }
 }
