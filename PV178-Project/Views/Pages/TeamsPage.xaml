@@ -21,7 +21,7 @@
             <Button x:Name="AddTeamButton" Grid.Column="1" Height="40" Width="70" Foreground="White"
                     FontWeight="SemiBold" FontSize="16"
                     Background="Green" HorizontalAlignment="Left"
-                    Command="{Binding AddTeamCommand}">
+                    Command="{Binding EditTeamCommand}">
                 Add
             </Button>
         </Grid>
@@ -69,6 +69,7 @@
                             <ColumnDefinition Width="50" />
                             <ColumnDefinition Width="50" />
                             <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40" />
@@ -94,6 +95,10 @@
                         <TextBlock Grid.Column="7" FontWeight="SemiBold" FontSize="16" Foreground="White"
                                    TextAlignment="Right" VerticalAlignment="Center" Width="100"
                                    Text="{Binding Placement}" />
+                        <Button Grid.Column="8" Width="100" Height="30" Background="Green" Foreground="White" 
+                                Command="{Binding DataContext.EditTeamCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}"
+                        >Edit</Button>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

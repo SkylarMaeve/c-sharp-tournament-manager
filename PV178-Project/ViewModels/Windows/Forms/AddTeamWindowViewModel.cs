@@ -44,6 +44,8 @@ public class AddTeamWindowViewModel: BaseViewModel
         Team? team, 
         Window window)
     {
+        SaveTeamCommand = new RelayCommand(Save, CanSave);
+
         DataProvider = dataProvider;
         Tournament = tournament;
         DialogWindow = window;
@@ -54,8 +56,6 @@ public class AddTeamWindowViewModel: BaseViewModel
             Name = Team.Name;
             Group = Team.Group;
         }
-        
-        SaveTeamCommand = new RelayCommand(Save, CanSave);
     }
     
     private void Save(object? obj)

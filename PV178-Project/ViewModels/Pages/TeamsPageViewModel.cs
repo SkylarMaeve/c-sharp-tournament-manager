@@ -18,8 +18,7 @@ public class TeamsPageViewModel : BaseViewModel
     private Tournament Tournament { get; }
     private Frame MainFrame { get; }
     public ICollectionView Teams { get; private set; }
-
-    public RelayCommand AddTeamCommand { get; }
+    public RelayCommand EditTeamCommand { get; }
     public RelayCommand ShowPlayersCommand { get; }
 
     public TeamsPageViewModel(
@@ -31,22 +30,27 @@ public class TeamsPageViewModel : BaseViewModel
         DataProvider = dataProvider;
         MainFrame = frame;
 
-        AddTeamCommand = new RelayCommand(AddTeam, _ => true);
-        ShowPlayersCommand = new RelayCommand(NavigateToPlayers, _ => true);
+        EditTeamCommand = new RelayCommand(EditTeam, _ => true);
+        ShowPlayersCommand = new RelayCommand(ShowPlayers, _ => true);
         
         Teams = CollectionViewSource.GetDefaultView(DataProvider.Teams.GetData());
         Filter();
     }
-
-    private void AddTeam(object? obj)
+    
+    private void EditTeam(object? parameter)
     {
-        var addTeamWindow = new AddTeamWindow(DataProvider, Tournament, null);
-        addTeamWindow.Owner = obj as Window;
-        addTeamWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-        addTeamWindow.Show();
+        var addTeamWindow = new AddTeamWindow(
+            DataProvider, 
+            Tournament, 
+            (parameter is Team team) ? team : null
+        );
+        addTeamWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        addTeamWindow.ShowDialog();
+        Teams.Refresh();
     }
+    
 
-    private void NavigateToPlayers(object? parameter) =>
+    private void ShowPlayers(object? parameter) =>
         MainFrame.Navigate(parameter is Team team ? new PlayersPage(DataProvider, Tournament, team) : null);
     
     private void Filter()

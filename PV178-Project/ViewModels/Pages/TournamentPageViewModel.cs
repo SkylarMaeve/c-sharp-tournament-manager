@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using PV178_Project.Models;
 using PV178_Project.Models.Enums;
@@ -22,6 +23,8 @@ public class TournamentPageViewModel : BaseViewModel
     public int Win { get; set; }
     public int Draw { get; set; }
     public int Loss { get; set; }
+
+    private MainViewModel ParentModel {get; set;}
     public ObservableCollection<Sport> Sports => DataProvider.Sports.GetData();
 
     public List<Format> Formats
@@ -34,11 +37,13 @@ public class TournamentPageViewModel : BaseViewModel
     public RelayCommand SaveChangesCommand { get; set; }
 
     public TournamentPageViewModel(
+        MainViewModel model, 
         DataProvider dataProvider,
         Tournament? tournament)
     {
         Tournament = tournament;
         DataProvider = dataProvider;
+        ParentModel = model;
 
         //Initialize Properties
         if (tournament != null)
@@ -83,7 +88,7 @@ public class TournamentPageViewModel : BaseViewModel
         else
         {
             DataProvider.Tournaments.Add(new Tournament(
-                0,
+                89,
                 TournamentName,
                 Sport,
                 Format,
@@ -99,6 +104,9 @@ public class TournamentPageViewModel : BaseViewModel
         confirmationWindow.Owner = obj as Window;
         confirmationWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
         confirmationWindow.ShowDialog();
+        
+        //TODO fix Updating SideBar
+        ParentModel.Tournaments.Refresh();
     }
 
     private bool CanSaveChanges(object? obj)

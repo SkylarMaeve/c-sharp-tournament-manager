@@ -1,4 +1,6 @@
+using System.ComponentModel;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using PV178_Project.Models;
 using PV178_Project.Services;
@@ -25,7 +27,7 @@ public class MainViewModel : BaseViewModel
     }
 
     public bool IsButtonEnabled => Tournament != null;
-    public List<Tournament> Tournaments { get; set; }
+    public ICollectionView Tournaments { get; set; }
 
     public RelayCommand SettingsCommand { get; }
     public RelayCommand GamePlanCommand { get; }
@@ -47,14 +49,21 @@ public class MainViewModel : BaseViewModel
         LoadTournamentCommand = new RelayCommand(LoadTournament, _ => true);
         AddTournamentCommand = new RelayCommand(AddTournament, _ => true);
 
-        Tournaments = DataProvider.Tournaments.GetData().ToList();
-        MainFrame.Navigate(new WelcomePage()); //Default Welcome Page
+        Tournaments = CollectionViewSource.GetDefaultView(DataProvider.Tournaments.GetData().ToList());
+        MainFrame.Navigate(new WelcomePage());
     }
 
-    private void AddTournament(object? obj) => MainFrame.Navigate(new TournamentPage(DataProvider, null));
+    private void AddTournament(object? obj)
+    {
+        MainFrame.Navigate(new TournamentPage(this, DataProvider, null));
+        Tournaments.Refresh();
+    }
 
-    private void NavigateToSettings(object? obj) =>
-        MainFrame.Navigate(new TournamentPage(DataProvider, SelectedTournament));
+    private void NavigateToSettings(object? obj)
+    {
+        MainFrame.Navigate(new TournamentPage(this, DataProvider, SelectedTournament));
+        Tournaments.Refresh();
+    }
 
     private void NavigateToGamePlan(object? obj) =>
         MainFrame.Navigate(new GamePlanPage(DataProvider, SelectedTournament));
@@ -66,5 +75,5 @@ public class MainViewModel : BaseViewModel
         MainFrame.Navigate(new PlayersPage(DataProvider, SelectedTournament, null));
 
     private void LoadTournament(object? obj) =>
-        MainFrame.Navigate(new TournamentPage(DataProvider, SelectedTournament));
+        MainFrame.Navigate(new TournamentPage(this, DataProvider, SelectedTournament));
 }
