@@ -1,6 +1,95 @@
+using System.Collections.ObjectModel;
+using System.Windows;
+using PV178_Project.Models;
+using PV178_Project.Services;
+using PV178_Project.Views.Windows;
+
 namespace PV178_Project.ViewModels.Windows;
 
 public class AddPlayerWindowViewModel : BaseViewModel
 {
-    
+    private DataProvider DataProvider { get; set; }
+    private Window DialogWindow { get; set; }
+
+    private string? _name;
+    private Team? _team;
+    private DateTime? _dateOfBirth;
+
+    public string? Name
+    {
+        get => _name;
+        set
+        {
+            _name = value;
+            AddPlayerCommand.RaiseCanExecuteChanged();
+        }
+    }
+
+    public Team? Team
+    {
+        get => _team;
+        set
+        {
+            _team = value;
+            AddPlayerCommand.RaiseCanExecuteChanged();
+        }
+    }
+
+    public DateTime? DateOfBirth
+    {
+        get => _dateOfBirth;
+        set
+        {
+            _dateOfBirth = value;
+            AddPlayerCommand.RaiseCanExecuteChanged();
+        }
+    }
+
+    public string Header => Player != null ? "Edit Player" : "Add Player";
+
+
+    private Player? Player { get; set; }
+
+    public ObservableCollection<Team> Teams { get; set; }
+    public RelayCommand AddPlayerCommand { get; set; }
+
+    public AddPlayerWindowViewModel(DataProvider dataProvider, Player? player, Window window)
+    {
+        DataProvider = dataProvider;
+        DialogWindow = window;
+        Teams = DataProvider.Teams.GetData();
+
+        if (player != null)
+        {
+            Name = player.Name;
+            Team = player.Team;
+            DateOfBirth = player.DateOfBirth;
+        }
+
+        AddPlayerCommand = new RelayCommand(AddPlayer, CanAddPlayer);
+    }
+
+    private void AddPlayer(object? obj)
+    {
+        if (Player != null)
+        {
+            Player.Name = Name;
+            Player.Team = Team;
+            Player.DateOfBirth = DateOfBirth.Value;
+        }
+        else
+        {
+            DataProvider.Players.Add(new Player(0, Name, Team, DateOfBirth.Value));
+        }
+
+        var confirmationWindow = new ConfirmationDialog("Changes Saved");
+        confirmationWindow.ShowDialog();
+
+        DialogWindow.Close();
+    }
+
+    private bool CanAddPlayer(object? obj)
+    {
+        return Name is not null && Team is not null && DateOfBirth is not null && DateOfBirth < DateTime.Now;
+    }
 }

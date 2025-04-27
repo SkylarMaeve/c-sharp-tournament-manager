@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using PV178_Project.Models;
 using PV178_Project.Services;
@@ -12,7 +14,7 @@ public class PlayersPageViewModel : BaseViewModel
     private Team? Team { get; set; }
 
     public string Header => Team != null ? $"Players of {Team}" : "Players";
-    public List<Player> Players { get; private set; }
+    public ObservableCollection<Player> Players { get; private set; }
 
     public RelayCommand AddPlayerCommand { get; set; }
 
@@ -24,13 +26,19 @@ public class PlayersPageViewModel : BaseViewModel
         DataProvider = dataProvider;
         Tournament = tournament;
         Team = team;
-        Players = DataProvider.Players.GetData().ToList();
+        Players = DataProvider.Players.GetData();
 
         AddPlayerCommand = new RelayCommand(AddPlayer, _ => true);
 
         //Filter by Team if Team is chosen
-        if (Team != null) Players = Players.Where(player => player.Team == Team).ToList();
+        if (Team != null) Players = new ObservableCollection<Player>(Players.Where(player => player.Team == Team));
     }
 
-    private void AddPlayer(object? obj) => new AddPlayerWindow().ShowDialog();
+    private void AddPlayer(object? obj)
+    {
+        var addPlayerWindow = new AddPlayerWindow(DataProvider, null);
+        addPlayerWindow.Owner = obj as Window;
+        addPlayerWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        addPlayerWindow.Show();
+    }
 }

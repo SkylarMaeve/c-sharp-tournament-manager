@@ -4,17 +4,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Title="Add new Player" Height="350" Width="450" Background="#3a4859" ResizeMode="CanMinimize">
+        Title="{Binding Header}" Height="350" Width="450" Background="#3a4859" ResizeMode="CanMinimize"
+        >
     <Grid Width="400" Height="350">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Text="Add new Player" FontSize="28" Height="40" FontWeight="Bold" Foreground="White"
+        <TextBlock Text="{Binding Header}" FontSize="28" Height="40" FontWeight="Bold" Foreground="White"
                    TextAlignment="Left" />
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
@@ -33,27 +33,46 @@
                        FontSize="20" Foreground="White">
                 Team
             </TextBlock>
+
             <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center"
-                       FontSize="20" Foreground="White">
-                Position
-            </TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="3" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center"
                        FontSize="20" Foreground="White">
                 Date of Birth
             </TextBlock>
             <!-- Input -->
-            <TextBox x:Name="Name" Background="White" Grid.Column="1" Grid.Row="0" Height="40" Width="230"
-                     VerticalContentAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="0" 
+                     x:Name="Name" 
+                     Background="White"  
+                     Height="40" 
+                     Width="230"
+                     VerticalContentAlignment="Center" 
+                     Text="{Binding Name, Mode=TwoWay}"/>
             <!-- Team selection -->
-            <ComboBox x:Name="TeamComboBox" Background="White" Grid.Column="1" Grid.Row="1" Height="40" Width="230"
-                      VerticalContentAlignment="Center" />
-            <TextBox x:Name="Position" Background="White" Grid.Column="1" Grid.Row="2" Height="40" Width="230"
-                     VerticalContentAlignment="Center" />
-            <DatePicker x:Name="DateFrom" Background="White" Grid.Column="1" Grid.Row="3" Width="230" Height="40"
-                        VerticalContentAlignment="Center" />
-            <Button Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" Height="40" Width="230"
-                    Foreground="White" FontWeight="SemiBold" FontSize="16"
-                    Background="Green">
+            <ComboBox Grid.Column="1" Grid.Row="1"
+                      x:Name="TeamComboBox"
+                      Background="White"
+                      Height="40"
+                      Width="230"
+                      VerticalContentAlignment="Center" 
+                      ItemsSource="{Binding Teams}"
+                      SelectedItem="{Binding Team, Mode=TwoWay}"/>
+            <DatePicker Grid.Column="1" Grid.Row="2" 
+                        x:Name="DateFrom" 
+                        Background="White"
+                
+                        Width="230" 
+                        Height="40"
+                        VerticalContentAlignment="Center" 
+                        SelectedDate="{Binding DateOfBirth, Mode=TwoWay}"/>
+            <Button Grid.Column="1" Grid.Row="3" 
+                    HorizontalAlignment="Center" 
+                    Height="40" 
+                    Width="230"
+                    Foreground="White" 
+                    FontWeight="SemiBold" 
+                    FontSize="16"
+                    Background="Green"
+                    Command="{Binding AddPlayerCommand}"
+                    >
                 Add new Player
             </Button>
         </Grid>
