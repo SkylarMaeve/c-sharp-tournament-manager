@@ -16,15 +16,15 @@ public class TournamentPageViewModel : BaseViewModel
     public string TournamentName { get; set; } = "New Tournament";
     public Sport Sport { get; set; }
     public Format Format { get; set; }
-    public DateTime DateFrom { get; set; }= DateTime.Now;
-    public DateTime DateTo { get; set; }= DateTime.Now;
+    public DateTime DateFrom { get; set; } = DateTime.Now;
+    public DateTime DateTo { get; set; } = DateTime.Now;
     public int TeamsCount { get; set; }
     public int GroupsCount { get; set; }
     public int Win { get; set; }
     public int Draw { get; set; }
     public int Loss { get; set; }
 
-    private MainViewModel ParentModel {get; set;}
+    private MainViewModel ParentModel { get; set; }
     public ObservableCollection<Sport> Sports => DataProvider.Sports.GetData();
 
     public List<Format> Formats
@@ -37,7 +37,7 @@ public class TournamentPageViewModel : BaseViewModel
     public RelayCommand SaveChangesCommand { get; set; }
 
     public TournamentPageViewModel(
-        MainViewModel model, 
+        MainViewModel model,
         DataProvider dataProvider,
         Tournament? tournament)
     {
@@ -100,19 +100,17 @@ public class TournamentPageViewModel : BaseViewModel
                 Draw,
                 Loss));
         }
+
         var confirmationWindow = new ConfirmationDialog("Changes Saved");
         confirmationWindow.Owner = obj as Window;
         confirmationWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
         confirmationWindow.ShowDialog();
-        
-        //TODO fix Updating SideBar
-        ParentModel.Tournaments.Refresh();
     }
 
     private bool CanSaveChanges(object? obj)
     {
         //TODO Change Porperties
-        
+
         //TODO SaveChangesCommand.RaiseCanExecuteChanged();
         return true;
     }

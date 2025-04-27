@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -27,7 +28,7 @@ public class MainViewModel : BaseViewModel
     }
 
     public bool IsButtonEnabled => Tournament != null;
-    public ICollectionView Tournaments { get; set; }
+    public ObservableCollection<Tournament> Tournaments { get; set; }
 
     public RelayCommand SettingsCommand { get; }
     public RelayCommand GamePlanCommand { get; }
@@ -49,20 +50,18 @@ public class MainViewModel : BaseViewModel
         LoadTournamentCommand = new RelayCommand(LoadTournament, _ => true);
         AddTournamentCommand = new RelayCommand(AddTournament, _ => true);
 
-        Tournaments = CollectionViewSource.GetDefaultView(DataProvider.Tournaments.GetData().ToList());
+        Tournaments = DataProvider.Tournaments.GetData();
         MainFrame.Navigate(new WelcomePage());
     }
 
     private void AddTournament(object? obj)
     {
         MainFrame.Navigate(new TournamentPage(this, DataProvider, null));
-        Tournaments.Refresh();
     }
 
     private void NavigateToSettings(object? obj)
     {
         MainFrame.Navigate(new TournamentPage(this, DataProvider, SelectedTournament));
-        Tournaments.Refresh();
     }
 
     private void NavigateToGamePlan(object? obj) =>
