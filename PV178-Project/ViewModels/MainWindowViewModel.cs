@@ -51,7 +51,7 @@ public class MainViewModel : BaseViewModel
         MainFrame.Navigate(new WelcomePage()); //Default Welcome Page
     }
 
-    private void AddTournament(object? obj) => new AddTournamentWindow().ShowDialog();
+    private void AddTournament(object? obj) => MainFrame.Navigate(new TournamentPage(DataProvider, null));
 
     private void NavigateToSettings(object? obj) =>
         MainFrame.Navigate(new TournamentPage(DataProvider, SelectedTournament));
