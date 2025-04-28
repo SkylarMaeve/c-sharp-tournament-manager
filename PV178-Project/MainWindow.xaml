@@ -105,6 +105,6 @@
             </Grid>
         </StackPanel>
         <!-- Main Frame -->
-        <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden" Background="#3a4859" />
+        <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden" Background="{StaticResource Background}" />
     </Grid>
 </Window>

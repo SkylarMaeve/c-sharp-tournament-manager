@@ -1,7 +1,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Color x:Key="Background" >White</Color>
-    <Brush x:Key="Sidebar" >#1d232a</Brush>
+    <Brush x:Key="Background" >#FF9B9B</Brush>
+    <Brush x:Key="Sidebar" >#960000</Brush>
     <Style x:Key="NavigationButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="White" />
