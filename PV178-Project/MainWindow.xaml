@@ -41,17 +41,27 @@
             </Grid>
 
             <!-- Navigation -->
+            <Button Content="Tournaments"
+                    Command="{Binding TournamentsCommand}"
+                    Style="{StaticResource NavigationButton}" />
+            <Button Content="Sports"
+                    Command="{Binding SportsCommand}"
+                    Style="{StaticResource NavigationButton}" />
             <Button Content="Tournament settings"
                     Command="{Binding SettingsCommand}"
+                    IsEnabled="{Binding IsButtonEnabled}"
                     Style="{StaticResource NavigationButton}" />
             <Button Content="GamePlan"
                     Command="{Binding GamePlanCommand}"
+                    IsEnabled="{Binding IsButtonEnabled}"
                     Style="{StaticResource NavigationButton}" />
             <Button Content="Teams" 
                     Command="{Binding TeamsCommand}"
+                    IsEnabled="{Binding IsButtonEnabled}"
                     Style="{DynamicResource NavigationButton}" />
             <Button Content="Players" 
                     Command="{Binding PlayersCommand}"
+                    IsEnabled="{Binding IsButtonEnabled}"
                     Style="{StaticResource NavigationButton}" />
 
             <!-- Bottom Import/Export/Delete -->

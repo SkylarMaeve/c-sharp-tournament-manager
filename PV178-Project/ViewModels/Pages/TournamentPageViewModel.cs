@@ -87,7 +87,7 @@ public class TournamentPageViewModel : BaseViewModel
         }
         else
         {
-            DataProvider.Tournaments.Add(new Tournament(
+            var tournament = new Tournament(
                 89,
                 TournamentName,
                 Sport,
@@ -98,7 +98,10 @@ public class TournamentPageViewModel : BaseViewModel
                 GroupsCount,
                 Win,
                 Draw,
-                Loss));
+                Loss);
+            DataProvider.Tournaments.Add(tournament);
+            Tournament = tournament;
+            ParentModel.SelectedTournament = tournament;
         }
 
         var confirmationWindow = new ConfirmationDialog("Changes Saved");

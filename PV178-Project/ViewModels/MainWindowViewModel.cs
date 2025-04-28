@@ -6,6 +6,7 @@ using System.Windows.Input;
 using PV178_Project.Models;
 using PV178_Project.Services;
 using PV178_Project.Views;
+using PV178_Project.Views.Pages;
 using PV178_Project.Views.Windows;
 
 namespace PV178_Project.ViewModels;
@@ -13,7 +14,7 @@ namespace PV178_Project.ViewModels;
 public class MainViewModel : BaseViewModel
 {
     private DataProvider DataProvider { get; }
-    private Frame MainFrame { get; }
+    public Frame MainFrame { get; }
     private Tournament? Tournament { get; set; }
 
     public Tournament? SelectedTournament
@@ -36,6 +37,8 @@ public class MainViewModel : BaseViewModel
     public RelayCommand PlayersCommand { get; }
     public RelayCommand LoadTournamentCommand { get; }
     public RelayCommand AddTournamentCommand { get; }
+    public RelayCommand SportsCommand { get; }
+    public RelayCommand TournamentsCommand { get; }
 
     public MainViewModel(Frame mainFrame)
     {
@@ -49,9 +52,11 @@ public class MainViewModel : BaseViewModel
         PlayersCommand = new RelayCommand(NavigateToPlayers, _ => true);
         LoadTournamentCommand = new RelayCommand(LoadTournament, _ => true);
         AddTournamentCommand = new RelayCommand(AddTournament, _ => true);
+        SportsCommand = new RelayCommand(NavigateToSports, _ => true);
+        TournamentsCommand = new RelayCommand(NavigateToTournaments, _ => true);
 
         Tournaments = DataProvider.Tournaments.GetData();
-        MainFrame.Navigate(new WelcomePage());
+        MainFrame.Navigate(new TournamentsPage(this, DataProvider));
     }
 
     private void AddTournament(object? obj)
@@ -72,6 +77,10 @@ public class MainViewModel : BaseViewModel
 
     private void NavigateToPlayers(object? obj) =>
         MainFrame.Navigate(new PlayersPage(DataProvider, SelectedTournament, null));
+    private void NavigateToSports(object? obj) =>
+        MainFrame.Navigate(new SportsPage(DataProvider));
+    private void NavigateToTournaments(object? obj) =>
+        MainFrame.Navigate(new TournamentsPage(this, DataProvider));
 
     private void LoadTournament(object? obj) =>
         MainFrame.Navigate(new TournamentPage(this, DataProvider, SelectedTournament));
