@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
 
 
-        <StackPanel Grid.Column="0" Background="{StaticResource Sidebar}" x:Name="Sidebar">
+        <StackPanel Grid.Column="0" Background="{StaticResource Sidebar}" x:Name="Sidebar" >
             <!-- Tournament Selector -->
             <Grid Margin="25">
                 <Grid.ColumnDefinitions>
@@ -51,9 +51,13 @@
                     Command="{Binding SettingsCommand}"
                     IsEnabled="{Binding IsButtonEnabled}"
                     Style="{StaticResource NavigationButton}" />
-            <Button Content="GamePlan"
-                    Command="{Binding GamePlanCommand}"
+            <Button Content="Match Schedule"
+                    Command="{Binding MatchScheduleCommand}"
                     IsEnabled="{Binding IsButtonEnabled}"
+                    Style="{StaticResource NavigationButton}" />
+            <Button Content="Match Spider"
+                    Command="{Binding MatchScheduleCommand}"
+                    IsEnabled="False"
                     Style="{StaticResource NavigationButton}" />
             <Button Content="Teams" 
                     Command="{Binding TeamsCommand}"
@@ -105,6 +109,13 @@
             </Grid>
         </StackPanel>
         <!-- Main Frame -->
-        <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden" Background="{StaticResource Background}" />
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Height="40" Width="40" Background="Aqua" Command="{Binding }"> </Button>
+            <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Background="{StaticResource Background}" />
+        </Grid>
     </Grid>
 </Window>

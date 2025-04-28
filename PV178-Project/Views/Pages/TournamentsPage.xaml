@@ -16,7 +16,7 @@
                 <ColumnDefinition Width="730" />
                 <ColumnDefinition Width="70" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Teams" FontSize="28" Height="40" FontWeight="Bold" Foreground="White"
+            <TextBlock Text="Tournaments" FontSize="28" Height="40" FontWeight="Bold" Foreground="White"
                        TextAlignment="Left" />
             <Button x:Name="AddTeamButton" Grid.Column="1" Height="40" Width="70" Foreground="White"
                     FontWeight="SemiBold" FontSize="16"
@@ -73,9 +73,11 @@
                                    TextAlignment="Center" VerticalAlignment="Center" Width="100"
                                    Text="{Binding Sport}" />
                         <TextBlock Grid.Column="2" FontWeight="SemiBold" FontSize="16" Foreground="White"
-                                   TextAlignment="Center" VerticalAlignment="Center" Width="100" Text="{Binding Start}" />
+                                   TextAlignment="Center" VerticalAlignment="Center" Width="100" 
+                                   Text="{Binding Start, StringFormat='{}{0:dd.MM.yyyy}'}" />
                         <TextBlock Grid.Column="3" FontWeight="SemiBold" FontSize="16" Foreground="White"
-                                   TextAlignment="Center" VerticalAlignment="Center" Width="100" Text="{Binding End}" />
+                                   TextAlignment="Center" VerticalAlignment="Center" Width="100" 
+                                   Text="{Binding End, StringFormat='{}{0:dd.MM.yyyy}'}" />
                         <TextBlock Grid.Column="4" FontWeight="SemiBold" FontSize="16" Foreground="White"
                                    TextAlignment="Center" VerticalAlignment="Center" Width="100"
                                    Text="{Binding TeamsCount}" />

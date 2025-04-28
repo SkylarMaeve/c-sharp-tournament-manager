@@ -18,6 +18,7 @@ public class DataProvider()
         SetTournaments();
         SetTeams();
         SetPlayers();
+        SetMatches();
     }
 
     private void SetSports()
@@ -82,6 +83,17 @@ public class DataProvider()
         foreach (var value in data)
         {
             Tournaments.Add(value);
+        }
+    }
+    private void SetMatches()
+    {
+        var data = new List<Match>
+        {
+            new Match(0, Tournaments.GetData()[0], "Final",Teams.GetData()[0], Teams.GetData()[1], DateTime.Now)
+        };
+        foreach (var value in data)
+        {
+            Matches.Add(value);
         }
     }
 }

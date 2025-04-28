@@ -3,12 +3,15 @@ using PV178_Project.Services;
 
 namespace PV178_Project.ViewModels;
 
-public class GamePlanPageViewModel: BaseViewModel
+public class MatchSpiderPageViewModel
 {
     private DataProvider DataProvider { get; set; }
     private Tournament Tournament { get; set; }
+    
+    public RelayCommand ExportSpiderCommand { get; }
 
-    public GamePlanPageViewModel(DataProvider dataProvider, Tournament selectedTournament)
+
+    public MatchSpiderPageViewModel(DataProvider dataProvider, Tournament selectedTournament)
     {
         DataProvider = dataProvider;
         Tournament = selectedTournament;
