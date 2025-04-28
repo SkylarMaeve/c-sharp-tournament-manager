@@ -7,12 +7,13 @@ using PV178_Project.Views;
 
 namespace PV178_Project.ViewModels;
 
-public class TournamentsPageViewModel
+public class TournamentsPageViewModel : BaseViewModel
 {
     private DataProvider DataProvider { get; }
     public ICollectionView Tournaments { get; private set; }
     private MainViewModel ParentModel { get; set; }
     public RelayCommand EditTournamentCommand { get; }
+
     public TournamentsPageViewModel(MainViewModel model, DataProvider dataProvider)
     {
         ParentModel = model;
@@ -21,11 +22,12 @@ public class TournamentsPageViewModel
         EditTournamentCommand = new RelayCommand(EditTournament, _ => true);
 
         model.SelectedTournament = null;
+        OnPropertyChanged(nameof(model.SelectedTournament));
     }
 
     private void EditTournament(object? parameter)
     {
-       var page = new TournamentPage(
+        var page = new TournamentPage(
             ParentModel,
             DataProvider,
             (parameter is Tournament t) ? t : null

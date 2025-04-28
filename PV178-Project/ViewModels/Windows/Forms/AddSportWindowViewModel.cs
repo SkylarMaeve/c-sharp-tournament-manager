@@ -12,7 +12,7 @@ public class AddSportWindowViewModel
     private Window DialogWindow { get; set; }
     private Sport? Sport { get; }
 
-    private string? _name;
+    private string _name;
     private int _matchLength;
 
     public string Name
@@ -42,6 +42,7 @@ public class AddSportWindowViewModel
         Sport? sport,
         Window window)
     {
+        SaveCommand = new RelayCommand(Save, CanSave);
         DataProvider = dataProvider;
         Sport = sport;
         DialogWindow = window;
@@ -51,7 +52,6 @@ public class AddSportWindowViewModel
             MatchLength = Sport.MatchLength;
         }
 
-        SaveCommand = new RelayCommand(Save, CanSave);
     }
 
     private void Save(object? obj)
