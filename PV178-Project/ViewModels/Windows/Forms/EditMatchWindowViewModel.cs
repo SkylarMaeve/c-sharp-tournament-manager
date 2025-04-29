@@ -18,6 +18,8 @@ public class EditMatchWindowViewModel: BaseViewModel
     
     public int PointsTeamA { get; set; }
     public int PointsTeamB { get; set; }
+    
+    public bool CanSaveResult { get; set; } = false;
 
     
     public ObservableCollection<Team> Teams { get; set; }
@@ -35,6 +37,8 @@ public class EditMatchWindowViewModel: BaseViewModel
         SaveResultsCommand = new RelayCommand(SaveResult, _ => true);
         SaveChangesCommand = new RelayCommand(SaveData, _ => true);
         DataProvider = dataProvider;
+        StartTime = DateTime.Now;
+
         if (match != null)
         {
             Match = match;
@@ -45,6 +49,7 @@ public class EditMatchWindowViewModel: BaseViewModel
             Winner = match.Winner;
             PointsTeamA = match.PointsTeamA;
             PointsTeamB = match.PointsTeamB;
+            CanSaveResult = true;
         }
         DialogWindow = window;
         Teams = dataProvider.Teams.GetData();
@@ -102,11 +107,9 @@ public class EditMatchWindowViewModel: BaseViewModel
     
     private void SaveData(object? obj)
     {
-        Match.Name = Name;
-        Match.Winner = Winner;
-        Match.StartTime = StartTime;
-        Match.TeamA = TeamA;
-        Match.TeamB = TeamB;
+        var match = new Match(0, Tournament, Name, TeamA, TeamB, StartTime);
+        if (Match != null) DataProvider.Matches.Update(match, Match);
+        else DataProvider.Matches.Add(match);
         
         var confirmationWindow = new ConfirmationDialog("Changes Saved");
         confirmationWindow.ShowDialog();

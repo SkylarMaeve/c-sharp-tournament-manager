@@ -41,6 +41,8 @@
                 <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" />
@@ -76,7 +78,16 @@
             <Button Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" Height="40" Width="230"
                     Foreground="White" FontWeight="SemiBold" FontSize="16"
                     Background="Green"
-                    Command="{Binding SaveCommand}">
+                    IsEnabled="{Binding CanSaveResult}"
+                    Command="{Binding SaveResultsCommand}">
+                Save Result
+            </Button>
+            <Button Grid.Column="1" Grid.Row="5" 
+                    HorizontalAlignment="Center" 
+                    Height="40" Width="230"
+                    Foreground="White" FontWeight="SemiBold" FontSize="16"
+                    Background="Green"
+                    Command="{Binding SaveChangesCommand}">
                 Save Changes
             </Button>
         </Grid>

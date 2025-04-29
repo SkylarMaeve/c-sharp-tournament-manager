@@ -13,19 +13,26 @@
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
             <TextBlock Text="Match Schedule" FontSize="28" Height="40" FontWeight="Bold" Foreground="White"
                        TextAlignment="Left" />
-            <Button Grid.Column="1" Height="40" Width="180" Foreground="White"
+            <Button Grid.Column="1" Height="40" Width="80" Foreground="White"
+                    FontWeight="SemiBold" FontSize="16"
+                    Background="Green" HorizontalAlignment="Left"
+                    Command="{Binding AddMatchCommand}">
+                Add
+            </Button>
+            <Button Grid.Column="2" Height="40" Width="180" Foreground="White"
                     FontWeight="SemiBold" FontSize="16"
                     Background="DarkRed" HorizontalAlignment="Left"
                     Command="{Binding GenerateMatchesCommand}">
                 Generate Matches
             </Button>
-            <Button Grid.Column="2" Height="40" Width="200" Foreground="White"
+            <Button Grid.Column="3" Height="40" Width="200" Foreground="White"
                     FontWeight="SemiBold" FontSize="16"
                     Background="DarkRed" HorizontalAlignment="Left"
                     Command="{Binding ExportMatchesCommand}">

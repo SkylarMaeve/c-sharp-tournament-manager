@@ -17,6 +17,7 @@ public class MatchSchedulePageViewModel : BaseViewModel
     public RelayCommand GenerateMatchesCommand { get; }
     public RelayCommand ExportMatchesCommand { get; }
     public RelayCommand EditMatchCommand { get; }
+    public RelayCommand AddMatchCommand { get; }
 
     public MatchSchedulePageViewModel(DataProvider dataProvider, Tournament selectedTournament)
     {
@@ -27,6 +28,7 @@ public class MatchSchedulePageViewModel : BaseViewModel
         GenerateMatchesCommand = new RelayCommand(GenerateMatches, _ => true);
         ExportMatchesCommand = new RelayCommand(ExportMatches, _ => true);
         EditMatchCommand = new RelayCommand(EditMatch, _ => true);
+        AddMatchCommand = new RelayCommand(AddMatch, _ => true);
         Filter();
     }
 
@@ -60,6 +62,14 @@ public class MatchSchedulePageViewModel : BaseViewModel
     private void EditMatch(object? parameter)
     {
         var window = new EditMatchWindow(DataProvider, (parameter is Match match) ? match : null, Tournament);
+        window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        window.ShowDialog();
+        Matches.Refresh();
+    }
+    
+    private void AddMatch(object? parameter)
+    {
+        var window = new EditMatchWindow(DataProvider, null, Tournament);
         window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         window.ShowDialog();
         Matches.Refresh();
