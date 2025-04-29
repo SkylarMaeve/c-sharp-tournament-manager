@@ -2,13 +2,15 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Brush x:Key="Background" >#FF9B9B</Brush>
     <Brush x:Key="Sidebar" >#960000</Brush>
+    
     <Style x:Key="NavigationButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="Height" Value="40" />
-        <Setter Property="Width" Value="180" />
+        <Setter Property="Width" Value="200" />
+        <Setter Property="IsEnabled" Value="{Binding IsButtonEnabled}"/>
         <Setter Property="Margin" Value="0,5"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="BorderThickness" Value="0"/>

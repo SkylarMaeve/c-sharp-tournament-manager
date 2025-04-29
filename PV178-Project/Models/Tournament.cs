@@ -12,7 +12,6 @@ public class Tournament(
     DateTime startDate,
     DateTime endDate,
     int teamsCount,
-    int groups,
     int pointsWin,
     int pointsDraw,
     int pointsLoss
@@ -38,10 +37,8 @@ public class Tournament(
     public DateTime Start { get; set; } = startDate;
     public DateTime End { get; set; } = endDate;
     public int TeamsCount { get; set; } = teamsCount;
-    public int GroupsCount { get; set; } = groups;
-
     public List<string> Groups { get; set; } = Enumerable
-        .Range(0, groups)
+        .Range(0, format == Format.PlayOff ? 2 : 1)
         .Select(i => ((char)('A' + i)).ToString())
         .ToList();
 

@@ -69,15 +69,15 @@ public class DataProvider()
     {
         var data = new List<Tournament>
         {
-            new Tournament(0, "FImonWorld CHampionship", Sports.GetData()[0], Format.GroupsAndPlayOff, DateTime.Now,
-                DateTime.Now, 3, 3, 2, 1, 0),
-            new Tournament(1, "Dunno", Sports.GetData()[0], Format.GroupsAndPlayOff, DateTime.Now, DateTime.Now, 3, 3, 2,
+            new Tournament(0, "FImonWorld CHampionship", Sports.GetData()[0], Format.AllAgainstAll, DateTime.Now,
+                DateTime.Now, 3, 2, 1, 0),
+            new Tournament(1, "Dunno", Sports.GetData()[0], Format.AllAgainstAll, DateTime.Now, DateTime.Now, 3, 2,
                 1, 0),
-            new Tournament(2, "Dunno", Sports.GetData()[1], Format.GroupsAndPlayOff, DateTime.Now, DateTime.Now, 3, 3, 2,
+            new Tournament(2, "Dunno", Sports.GetData()[1], Format.PlayOff, DateTime.Now, DateTime.Now,  3, 2,
                 1, 0),
-            new Tournament(3, "Dunno", Sports.GetData()[2], Format.PlayOff, DateTime.Now, DateTime.Now, 3, 3, 2,
+            new Tournament(3, "Dunno", Sports.GetData()[2], Format.PlayOff, DateTime.Now, DateTime.Now,  3, 2,
                 1, 0),
-            new Tournament(4, "Dunno", Sports.GetData()[1], Format.GroupsAndPlayOff, DateTime.Now, DateTime.Now, 3, 3, 2,
+            new Tournament(4, "Dunno", Sports.GetData()[1], Format.AllAgainstAll, DateTime.Now, DateTime.Now, 3, 2,
                 1, 0),
         };
         foreach (var value in data)

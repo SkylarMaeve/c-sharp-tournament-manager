@@ -10,6 +10,6 @@ public partial class AddPlayerWindow : Window
     public AddPlayerWindow(DataProvider dataProvider, Tournament tournament, Player? player)
     {
         InitializeComponent();
-        DataContext = new AddPlayerWindowViewModel(dataProvider, tournament, player,this);
+        DataContext = new EditPlayerWindowViewModel(dataProvider, tournament, player,this);
     }
 }

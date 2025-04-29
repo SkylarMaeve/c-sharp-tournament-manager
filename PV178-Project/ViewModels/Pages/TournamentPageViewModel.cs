@@ -15,11 +15,22 @@ public class TournamentPageViewModel : BaseViewModel
     private Tournament? Tournament { get; set; }
     public string TournamentName { get; set; } = "New Tournament";
     public Sport Sport { get; set; }
-    public Format Format { get; set; }
+    private Format _format;
+
+    public Format Format
+    {
+        get => _format;
+        set
+        {
+            _format = value;
+            OnPropertyChanged(nameof(Format));
+        }
+    }
+    
     public DateTime DateFrom { get; set; } = DateTime.Now;
     public DateTime DateTo { get; set; } = DateTime.Now;
     public int TeamsCount { get; set; }
-    public int GroupsCount { get; set; }
+    
     public int Win { get; set; }
     public int Draw { get; set; }
     public int Loss { get; set; }
@@ -54,7 +65,6 @@ public class TournamentPageViewModel : BaseViewModel
             DateFrom = Tournament.Start;
             DateTo = Tournament.End;
             TeamsCount = Tournament.TeamsCount;
-            GroupsCount = Tournament.GroupsCount;
             Win = Tournament.PointsWin;
             Draw = Tournament.PointsDraw;
             Loss = Tournament.PointsLoss;
@@ -72,38 +82,28 @@ public class TournamentPageViewModel : BaseViewModel
 
     private void SaveChanges(object? obj)
     {
+        var tournament = new Tournament(
+            89, //UselessValue
+            TournamentName,
+            Sport,
+            Format,
+            DateFrom,
+            DateTo,
+            TeamsCount,
+            Win,
+            Draw,
+            Loss);
+        
         if (Tournament != null)
         {
-            Tournament.Name = TournamentName;
-            Tournament.Sport = Sport;
-            Tournament.Format = Format;
-            Tournament.Start = DateFrom;
-            Tournament.End = DateTo;
-            Tournament.TeamsCount = TeamsCount;
-            Tournament.GroupsCount = GroupsCount;
-            Tournament.PointsWin = Win;
-            Tournament.PointsDraw = Draw;
-            Tournament.PointsLoss = Loss;
+            DataProvider.Tournaments.Update(tournament, Tournament);
         }
         else
         {
-            var tournament = new Tournament(
-                89,
-                TournamentName,
-                Sport,
-                Format,
-                DateFrom,
-                DateTo,
-                TeamsCount,
-                GroupsCount,
-                Win,
-                Draw,
-                Loss);
             DataProvider.Tournaments.Add(tournament);
             Tournament = tournament;
-            ParentModel.SelectedTournament = tournament;
         }
-
+        ParentModel.SelectedTournament = Tournament;
         var confirmationWindow = new ConfirmationDialog("Changes Saved");
         confirmationWindow.Owner = obj as Window;
         confirmationWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;

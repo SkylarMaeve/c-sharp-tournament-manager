@@ -16,17 +16,18 @@
 
         <StackPanel Grid.Column="0" Background="{StaticResource Sidebar}" x:Name="Sidebar" >
             <!-- Tournament Selector -->
-            <Grid Margin="25">
+            <Grid Margin="15,25">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="60" />
                 </Grid.ColumnDefinitions>
 
                 <ComboBox Grid.Column="0"
                           DisplayMemberPath="Name" 
                           FontWeight="Bold"
-                          Height="40" Width="140" 
+                          Height="40" Width="150" 
                           VerticalContentAlignment="Center"
+                          HorizontalAlignment="Right"
                           ItemsSource="{Binding Tournaments}"
                           SelectedItem="{Binding SelectedTournament, Mode=TwoWay}" />
                 <Button Grid.Column="1"
@@ -35,6 +36,7 @@
                         Foreground="DarkGreen"
                         Background="Green"
                         FontSize="16"
+                        HorizontalAlignment="Center"
                         Command="{Binding AddTournamentCommand}">
                     <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xF8AA;" />
                 </Button>
@@ -42,80 +44,34 @@
 
             <!-- Navigation -->
             <Button Content="Tournaments"
+                    IsEnabled="True"
                     Command="{Binding TournamentsCommand}"
                     Style="{StaticResource NavigationButton}" />
             <Button Content="Sports"
+                    IsEnabled="True"
                     Command="{Binding SportsCommand}"
                     Style="{StaticResource NavigationButton}" />
             <Button Content="Tournament settings"
                     Command="{Binding SettingsCommand}"
-                    IsEnabled="{Binding IsButtonEnabled}"
                     Style="{StaticResource NavigationButton}" />
             <Button Content="Match Schedule"
                     Command="{Binding MatchScheduleCommand}"
-                    IsEnabled="{Binding IsButtonEnabled}"
                     Style="{StaticResource NavigationButton}" />
             <Button Content="Match Spider"
                     Command="{Binding MatchScheduleCommand}"
-                    IsEnabled="False"
                     Style="{StaticResource NavigationButton}" />
             <Button Content="Teams" 
                     Command="{Binding TeamsCommand}"
-                    IsEnabled="{Binding IsButtonEnabled}"
                     Style="{DynamicResource NavigationButton}" />
             <Button Content="Players" 
                     Command="{Binding PlayersCommand}"
-                    IsEnabled="{Binding IsButtonEnabled}"
                     Style="{StaticResource NavigationButton}" />
-
-            <!-- Bottom Import/Export/Delete -->
-            <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="60" />
-                    <ColumnDefinition Width="60" />
-                    <ColumnDefinition Width="60" />
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0"
-                        HorizontalAlignment="Center"
-                        Foreground="DarkGreen"
-                        Background="Green"
-                        Height="40"
-                        Width="40"
-                        FontSize="16"
-                        ToolTip="Import Tournament">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE898;" />
-                </Button>
-                <Button Grid.Column="1"
-                        HorizontalAlignment="Center"
-                        Height="40"
-                        Width="40"
-                        Foreground="DimGray"
-                        Background="Gray"
-                        FontSize="16"
-                        ToolTip="Export Tournament">
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE896;" />
-                </Button>
-                <Button Grid.Column="2"
-                        HorizontalAlignment="Center"
-                        Foreground="DarkRed"
-                        Background="Red"
-                        Height="40"
-                        Width="40"
-                        ToolTip="Delete Tournament"
-                        IsEnabled="{Binding IsButtonEnabled}">
-                    <TextBlock FontSize="16" FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE74D;" />
-                </Button>
-
-            </Grid>
+            <Button Content="Delete Tournament" 
+                    Command="{Binding PlayersCommand}"
+                    Background="Red" Foreground="DarkRed"
+                    Style="{StaticResource NavigationButton}"/>
         </StackPanel>
         <!-- Main Frame -->
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Button Grid.Row="0" Height="40" Width="40" Background="Aqua" Command="{Binding }"> </Button>
-            <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Background="{StaticResource Background}" />
-        </Grid>
+        <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden" Background="{StaticResource Background}" />
     </Grid>
 </Window>

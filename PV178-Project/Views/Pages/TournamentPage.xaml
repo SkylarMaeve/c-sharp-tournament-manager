@@ -49,6 +49,10 @@
             </TextBlock>
             <TextBlock Grid.Column="0" Grid.Row="5" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center"
                        FontSize="20" Foreground="White">
+                Groups Count
+            </TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="6" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center"
+                       FontSize="20" Foreground="White">
                 Scoring
             </TextBlock>
             <!-- Input -->

@@ -9,43 +9,50 @@ namespace PV178_Project.ViewModels.Windows;
 
 public class EditMatchWindowViewModel: BaseViewModel
 {
-    public string Name { get; set; }
+    public string? Name { get; set; }
     public Team? TeamA { get; set; }
     public Team? TeamB { get; set; }
     public DateTime StartTime { get; set; }
     public Team? Winner { get; set; }
-    private Match Match { get; set; }
+    private Match? Match { get; set; }
     
     public int PointsTeamA { get; set; }
     public int PointsTeamB { get; set; }
 
     
     public ObservableCollection<Team> Teams { get; set; }
+    private DataProvider DataProvider { get; set; }
     private Window DialogWindow { get; set; }
     private Tournament Tournament { get; set; }
     
     
-    public RelayCommand SaveCommand { get; set; }
+    public RelayCommand SaveChangesCommand { get; set; }
+    public RelayCommand SaveResultsCommand { get; set; }
     
     private bool NotRecordedYet { get; set; }
-    public EditMatchWindowViewModel(DataProvider dataProvider, Match match, Tournament tournament, Window window)
+    public EditMatchWindowViewModel(DataProvider dataProvider, Match? match, Tournament tournament, Window window)
     {
-        SaveCommand = new RelayCommand(Save, _ => true);
-        Match = match;
-        Name = match.Name;
-        TeamA = match.TeamA;
-        TeamB = match.TeamB;
-        StartTime = match.StartTime;
-        Winner = match.Winner;
+        SaveResultsCommand = new RelayCommand(SaveResult, _ => true);
+        SaveChangesCommand = new RelayCommand(SaveData, _ => true);
+        DataProvider = dataProvider;
+        if (match != null)
+        {
+            Match = match;
+            Name = match.Name;
+            TeamA = match.TeamA;
+            TeamB = match.TeamB;
+            StartTime = match.StartTime;
+            Winner = match.Winner;
+            PointsTeamA = match.PointsTeamA;
+            PointsTeamB = match.PointsTeamB;
+        }
         DialogWindow = window;
         Teams = dataProvider.Teams.GetData();
         Tournament = tournament;
-        PointsTeamA = match.PointsTeamA;
-        PointsTeamB = match.PointsTeamB;
         NotRecordedYet = Winner == null && PointsTeamA == 0 && PointsTeamB == 0;
     }
     
-    private void Save(object? obj)
+    private void SaveResult(object? obj)
     {
         Match.Name = Name;
         Match.Winner = Winner;
@@ -87,6 +94,20 @@ public class EditMatchWindowViewModel: BaseViewModel
         }
         
 
+        var confirmationWindow = new ConfirmationDialog("Changes Saved");
+        confirmationWindow.ShowDialog();
+        DialogWindow.Close();
+
+    }
+    
+    private void SaveData(object? obj)
+    {
+        Match.Name = Name;
+        Match.Winner = Winner;
+        Match.StartTime = StartTime;
+        Match.TeamA = TeamA;
+        Match.TeamB = TeamB;
+        
         var confirmationWindow = new ConfirmationDialog("Changes Saved");
         confirmationWindow.ShowDialog();
         DialogWindow.Close();

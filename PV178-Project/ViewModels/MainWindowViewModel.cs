@@ -24,6 +24,7 @@ public class MainViewModel : BaseViewModel
         {
             Tournament = value;
             OnPropertyChanged(nameof(IsButtonEnabled));
+            OnPropertyChanged(nameof(SelectedTournament));
             LoadTournament(null);
         }
     }

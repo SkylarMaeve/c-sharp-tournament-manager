@@ -5,7 +5,7 @@ using PV178_Project.Views.Windows;
 
 namespace PV178_Project.ViewModels.Windows;
 
-public class AddTeamWindowViewModel: BaseViewModel
+public class EditTeamWindowViewModel : BaseViewModel
 
 {
     private DataProvider DataProvider { get; set; }
@@ -13,10 +13,10 @@ public class AddTeamWindowViewModel: BaseViewModel
     private Tournament Tournament { get; }
 
     private Team? Team { get; set; }
-    
+
     private string? _name;
     private string? _group;
-    
+
     public string? Name
     {
         get => _name;
@@ -36,12 +36,14 @@ public class AddTeamWindowViewModel: BaseViewModel
             SaveTeamCommand.RaiseCanExecuteChanged();
         }
     }
+
     public List<string> Groups { get; set; }
-    public RelayCommand SaveTeamCommand { get; } 
-    public AddTeamWindowViewModel(
-        DataProvider dataProvider, 
+    public RelayCommand SaveTeamCommand { get; }
+
+    public EditTeamWindowViewModel(
+        DataProvider dataProvider,
         Tournament tournament,
-        Team? team, 
+        Team? team,
         Window window)
     {
         SaveTeamCommand = new RelayCommand(Save, CanSave);
@@ -57,18 +59,13 @@ public class AddTeamWindowViewModel: BaseViewModel
             Group = Team.Group;
         }
     }
-    
+
     private void Save(object? obj)
     {
-        if (Team != null)
-        {
-            Team.Name = Name;
-            Team.Group = Group;
-        }
-        else
-        {
-            DataProvider.Teams.Add(new Team(0, Name, Tournament, Group));
-        }
+        var newTeam = new Team(0, Name, Tournament, Group);
+        if (Team != null) DataProvider.Teams.Update(newTeam, Team);
+        else DataProvider.Teams.Add(newTeam);
+
         var confirmationWindow = new ConfirmationDialog("Changes Saved");
         confirmationWindow.ShowDialog();
         DialogWindow.Close();
@@ -76,6 +73,6 @@ public class AddTeamWindowViewModel: BaseViewModel
 
     private bool CanSave(object? obj)
     {
-        return Name is not null && Group is not null ;
+        return Name is not null && Group is not null;
     }
 }

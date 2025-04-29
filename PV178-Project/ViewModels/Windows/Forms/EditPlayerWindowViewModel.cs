@@ -8,7 +8,7 @@ using PV178_Project.Views.Windows;
 
 namespace PV178_Project.ViewModels.Windows;
 
-public class AddPlayerWindowViewModel : BaseViewModel
+public class EditPlayerWindowViewModel : BaseViewModel
 {
     private DataProvider DataProvider { get; set; }
     private Window DialogWindow { get; set; }
@@ -55,7 +55,7 @@ public class AddPlayerWindowViewModel : BaseViewModel
     public ObservableCollection<Team> Teams { get; set; }
     public RelayCommand SavePlayerCommand { get; set; }
 
-    public AddPlayerWindowViewModel(DataProvider dataProvider, Tournament tournament ,Player? player, Window window)
+    public EditPlayerWindowViewModel(DataProvider dataProvider, Tournament tournament ,Player? player, Window window)
     {
         DataProvider = dataProvider;
         DialogWindow = window;
@@ -74,11 +74,10 @@ public class AddPlayerWindowViewModel : BaseViewModel
 
     private void Save(object? obj)
     {
+        var newPlayer = new Player(0, Name, Team, DateOfBirth.Value);
         if (Player != null)
         {
-            Player.Name = Name;
-            Player.Team = Team;
-            Player.DateOfBirth = DateOfBirth.Value;
+            DataProvider.Players.Update(newPlayer, Player);
         }
         else
         {

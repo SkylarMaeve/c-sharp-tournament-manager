@@ -7,7 +7,7 @@ namespace PV178_Project.Views.Windows;
 
 public partial class EditMatchWindow : Window
 {
-    public EditMatchWindow(DataProvider dataProvider, Match match, Tournament tournament)
+    public EditMatchWindow(DataProvider dataProvider, Match? match, Tournament tournament)
     {
         InitializeComponent();
         DataContext = new EditMatchWindowViewModel(dataProvider, match, tournament,this);

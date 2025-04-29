@@ -6,7 +6,7 @@ using PV178_Project.Views.Windows;
 
 namespace PV178_Project.ViewModels.Windows;
 
-public class AddSportWindowViewModel
+public class EditSportWindowViewModel
 {
     private DataProvider DataProvider { get; set; }
     private Window DialogWindow { get; set; }
@@ -37,7 +37,7 @@ public class AddSportWindowViewModel
 
     public RelayCommand SaveCommand { get; }
 
-    public AddSportWindowViewModel(
+    public EditSportWindowViewModel(
         DataProvider dataProvider,
         Sport? sport,
         Window window)
