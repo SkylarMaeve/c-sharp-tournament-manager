@@ -58,7 +58,7 @@
                     Command="{Binding MatchScheduleCommand}"
                     Style="{StaticResource NavigationButton}" />
             <Button Content="Match Spider"
-                    Command="{Binding MatchScheduleCommand}"
+                    Command="{Binding MatchSpiderCommand}"
                     Style="{StaticResource NavigationButton}" />
             <Button Content="Teams" 
                     Command="{Binding TeamsCommand}"

@@ -72,7 +72,7 @@ public class EditMatchWindowViewModel: BaseViewModel
         {
             if (PointsTeamA > PointsTeamB)
             {
-                Winner = TeamA;
+                Match.Winner = TeamA;
                 TeamA.Points += Tournament.PointsWin;
                 TeamB.Points += Tournament.PointsLoss;
                 TeamA.Wins += 1;
@@ -81,7 +81,7 @@ public class EditMatchWindowViewModel: BaseViewModel
             }
             if (PointsTeamA < PointsTeamB)
             {
-                Winner = TeamB;
+                Match.Winner = TeamB;
                 TeamB.Points += Tournament.PointsWin;
                 TeamA.Points += Tournament.PointsLoss;
                 TeamB.Wins += 1;

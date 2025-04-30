@@ -38,6 +38,8 @@ public class MainViewModel : BaseViewModel
     public RelayCommand TeamsCommand { get; }
     public RelayCommand PlayersCommand { get; }
     public RelayCommand LoadTournamentCommand { get; }
+    public RelayCommand DeleteTournamentCommand { get; }
+
     public RelayCommand AddTournamentCommand { get; }
     public RelayCommand SportsCommand { get; }
     public RelayCommand TournamentsCommand { get; }
@@ -49,7 +51,7 @@ public class MainViewModel : BaseViewModel
         DataProvider.Initialize();
 
         SettingsCommand = new RelayCommand(NavigateToSettings, _ => true);
-        MatchScheduleCommand = new RelayCommand(NavigateToGamePlan, _ => true);
+        MatchScheduleCommand = new RelayCommand(NavigateToMatchSchedule, _ => true);
         TeamsCommand = new RelayCommand(NavigateToTeams, _ => true);
         PlayersCommand = new RelayCommand(NavigateToPlayers, _ => true);
         LoadTournamentCommand = new RelayCommand(LoadTournament, _ => true);
@@ -57,7 +59,7 @@ public class MainViewModel : BaseViewModel
         SportsCommand = new RelayCommand(NavigateToSports, _ => true);
         TournamentsCommand = new RelayCommand(NavigateToTournaments, _ => true);
         MatchSpiderCommand = new RelayCommand(NavigateToSpider, _ => true);
-
+        DeleteTournamentCommand = new RelayCommand(DeleteTournament, _ => true);
         Tournaments = DataProvider.Tournaments.GetData();
         MainFrame.Navigate(new TournamentsPage(this, DataProvider));
     }
@@ -66,14 +68,23 @@ public class MainViewModel : BaseViewModel
     {
         MainFrame.Navigate(new TournamentPage(this, DataProvider, null));
     }
+    
+    private void DeleteTournament(object? obj)
+    {
+        var tournament = SelectedTournament;
+        SelectedTournament = null;
+        DataProvider.Tournaments.Remove(tournament);
+        NavigateToTournaments(null);
+    }
 
     private void NavigateToSettings(object? obj)
     {
         MainFrame.Navigate(new TournamentPage(this, DataProvider, SelectedTournament));
     }
 
-    private void NavigateToGamePlan(object? obj) =>
+    private void NavigateToMatchSchedule(object? obj) =>
         MainFrame.Navigate(new MatchSchedulePage(DataProvider, SelectedTournament));
+    
 
     private void NavigateToTeams(object? obj) =>
         MainFrame.Navigate(new TeamsPage(DataProvider, SelectedTournament, MainFrame));

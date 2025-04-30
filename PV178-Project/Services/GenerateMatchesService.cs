@@ -11,10 +11,10 @@ public static class GenerateMatchesService
         {
             case Format.PlayOff:
                 GeneratePlayOff(tournament, dataProvider);
-                break;
+                return;
             case Format.AllAgainstAll:
                 GenerateAllVsAll(tournament, dataProvider);
-                break;
+                return;
             default: //NOTHING
                 return;
         }
@@ -51,16 +51,19 @@ public static class GenerateMatchesService
         GenerateSpiderSide(teamsA, matchLength, dataProvider, tournament, false);
         //Right side
         GenerateSpiderSide(teamsB, matchLength, dataProvider, tournament, true);
-
+            
+        //Third Place
+        dataProvider.Matches.Add(new Match(0, tournament, "3rd Place Match", null, null,
+            tournament.Start.AddMinutes(matchLength * ((teams.Count() / 2) + 1))));
         //Final
         dataProvider.Matches.Add(new Match(0, tournament, "Final", null, null,
-            tournament.Start.AddMinutes(matchLength * (teams.Count() / 2) + 1)));
+            tournament.Start.AddMinutes(matchLength * ((teams.Count() / 2) + 2))));
     }
 
     private static void GenerateSpiderSide(List<Team> teams, int matchLength, DataProvider dataProvider,
         Tournament tournament, bool right)
     {
-        string[] matchNames = new string[] { "Round of 16", "Quarterfinals", "Semifinals", "Final" };
+        string[] matchNames = new string[] { "Round of 16", "Quarterfinals", "Semifinals" };
         int[] matches = new int[] { 4, 2, 1 };
         var matchIndex = 0;
         int count = teams.Count;
@@ -84,7 +87,7 @@ public static class GenerateMatchesService
                 var matchDate = date.AddMinutes(matchLength * matchIndex);
                 var matchNumber = right ? matches[i] + j + 1 : j + 1;
                 var group = right ? "B" : "A";
-                dataProvider.Matches.Add(new Match(0, tournament, $"{matchNames[i]} {matchNumber} {group}", teamA,
+                dataProvider.Matches.Add(new Match(0, tournament, $"{matchNames[i]} {group} {matchNumber}", teamA,
                     teamB,
                     matchDate));
                 matchIndex++;

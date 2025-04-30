@@ -54,9 +54,10 @@ public class MatchSchedulePageViewModel : BaseViewModel
         Matches.Refresh();
     }
 
-    private void ExportMatches(object? parameter)
+    private async void ExportMatches(object? parameter)
     {
-        //TODO Static Match Exporter(DataProvider, Tournament)
+        PdfExporter exporter = new PdfExporter();
+        await exporter.ExportMatchesToPdfAsync(Matches.Cast<Match>().ToList());
     }
 
     private void EditMatch(object? parameter)
