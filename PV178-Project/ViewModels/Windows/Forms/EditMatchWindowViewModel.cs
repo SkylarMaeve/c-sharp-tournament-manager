@@ -1,4 +1,3 @@
-
 using System.Collections.ObjectModel;
 using System.Windows;
 using PV178_Project.Models;
@@ -7,7 +6,7 @@ using PV178_Project.Views.Windows;
 
 namespace PV178_Project.ViewModels.Windows;
 
-public class EditMatchWindowViewModel: BaseViewModel
+public class EditMatchWindowViewModel : BaseViewModel
 {
     public string? Name { get; set; }
     public Team? TeamA { get; set; }
@@ -15,23 +14,24 @@ public class EditMatchWindowViewModel: BaseViewModel
     public DateTime StartTime { get; set; }
     public Team? Winner { get; set; }
     private Match? Match { get; set; }
-    
+
     public int PointsTeamA { get; set; }
     public int PointsTeamB { get; set; }
-    
+
     public bool CanSaveResult { get; set; } = false;
 
-    
+
     public ObservableCollection<Team> Teams { get; set; }
     private DataProvider DataProvider { get; set; }
     private Window DialogWindow { get; set; }
     private Tournament Tournament { get; set; }
-    
-    
+
+
     public RelayCommand SaveChangesCommand { get; set; }
     public RelayCommand SaveResultsCommand { get; set; }
-    
+
     private bool NotRecordedYet { get; set; }
+
     public EditMatchWindowViewModel(DataProvider dataProvider, Match? match, Tournament tournament, Window window)
     {
         SaveResultsCommand = new RelayCommand(SaveResult, _ => true);
@@ -51,12 +51,13 @@ public class EditMatchWindowViewModel: BaseViewModel
             PointsTeamB = match.PointsTeamB;
             CanSaveResult = true;
         }
+
         DialogWindow = window;
-        Teams = dataProvider.Teams.GetData();
+        Teams = dataProvider.Teams.GetAll();
         Tournament = tournament;
         NotRecordedYet = Winner == null && PointsTeamA == 0 && PointsTeamB == 0;
     }
-    
+
     private void SaveResult(object? obj)
     {
         Match.Name = Name;
@@ -67,7 +68,7 @@ public class EditMatchWindowViewModel: BaseViewModel
         //Update
         Match.PointsTeamA = PointsTeamA;
         Match.PointsTeamB = PointsTeamB;
-        
+
         if (NotRecordedYet)
         {
             if (PointsTeamA > PointsTeamB)
@@ -77,8 +78,8 @@ public class EditMatchWindowViewModel: BaseViewModel
                 TeamB.Points += Tournament.PointsLoss;
                 TeamA.Wins += 1;
                 TeamB.Losses += 1;
-
             }
+
             if (PointsTeamA < PointsTeamB)
             {
                 Match.Winner = TeamB;
@@ -97,23 +98,30 @@ public class EditMatchWindowViewModel: BaseViewModel
                 TeamB.Draws += 1;
             }
         }
-        
+
 
         var confirmationWindow = new ConfirmationDialog("Changes Saved");
         confirmationWindow.ShowDialog();
         DialogWindow.Close();
-
     }
-    
-    private void SaveData(object? obj)
+
+    private async void SaveData(object? obj)
     {
-        var match = new Match(0, Tournament, Name, TeamA, TeamB, StartTime);
-        if (Match != null) DataProvider.Matches.Update(match, Match);
-        else DataProvider.Matches.Add(match);
-        
+        var match = new Match
+        {
+            Id = 0,
+            Tournament = Tournament,
+            TeamA = TeamA,
+            TeamB = TeamB,
+            Name = Name,
+            StartTime = StartTime
+        };
+
+        if (Match != null) await DataProvider.Matches.Update(match, Match);
+        else await DataProvider.Matches.Add(match);
+
         var confirmationWindow = new ConfirmationDialog("Changes Saved");
         confirmationWindow.ShowDialog();
         DialogWindow.Close();
-
     }
 }

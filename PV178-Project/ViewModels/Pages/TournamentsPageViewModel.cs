@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
@@ -18,7 +19,7 @@ public class TournamentsPageViewModel : BaseViewModel
     {
         ParentModel = model;
         DataProvider = dataProvider;
-        Tournaments = CollectionViewSource.GetDefaultView(dataProvider.Tournaments.GetData());
+        Tournaments = CollectionViewSource.GetDefaultView(dataProvider.Tournaments.GetAll());
         EditTournamentCommand = new RelayCommand(EditTournament, _ => true);
 
         model.SelectedTournament = null;

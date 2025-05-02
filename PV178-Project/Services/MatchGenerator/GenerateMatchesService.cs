@@ -20,9 +20,9 @@ public static class GenerateMatchesService
         }
     }
 
-    private static void GenerateAllVsAll(Tournament tournament, DataProvider dataProvider)
+    private async static void GenerateAllVsAll(Tournament tournament, DataProvider dataProvider)
     {
-        var teams = dataProvider.Teams.GetData().Where(t => t.Tournament == tournament);
+        var teams = dataProvider.Teams.GetAll().Where(t => t.Tournament == tournament);
         var matchLength = tournament.Sport.MatchLength;
         var date = tournament.Start;
         var matchIndex = 0;
@@ -33,34 +33,59 @@ public static class GenerateMatchesService
                 if (teamA != teamB)
                 {
                     var matchDate = date.AddMinutes(matchLength * matchIndex);
-                    dataProvider.Matches.Add(new Match(0, tournament, $"{teamA} vs {teamB}", teamA, teamB, matchDate));
+                    await dataProvider.Matches.Add(new Match
+                    {
+                        Id = 0,
+                        Tournament = tournament,
+                        TeamA = teamA,
+                        TeamB = teamB,
+                        Name = $"{teamA} vs {teamB}",
+                        StartTime = matchDate
+                    });
                     matchIndex++;
                 }
             }
         }
     }
 
-    private static void GeneratePlayOff(Tournament tournament, DataProvider dataProvider)
+    private async static void GeneratePlayOff(Tournament tournament, DataProvider dataProvider)
     {
-        var teams = dataProvider.Teams.GetData().Where(t => t.Tournament == tournament);
-        var teamsA = teams.Where(t => t.Group == "A").ToList();
-        var teamsB = teams.Where(t => t.Group == "B").ToList();
+        var teams = dataProvider.Teams.GetAll().Where(t => t.Tournament == tournament);
+        var teamsA = teams.Where(t => t.GroupName == "A").ToList();
+        var teamsB = teams.Where(t => t.GroupName == "B").ToList();
 
         var matchLength = tournament.Sport.MatchLength;
         //Left side
-        GenerateSpiderSide(teamsA, matchLength, dataProvider, tournament, false);
+        await GenerateSpiderSide(teamsA, matchLength, dataProvider, tournament, false);
         //Right side
-        GenerateSpiderSide(teamsB, matchLength, dataProvider, tournament, true);
-            
+        await GenerateSpiderSide(teamsB, matchLength, dataProvider, tournament, true);
+
         //Third Place
-        dataProvider.Matches.Add(new Match(0, tournament, "3rd Place Match", null, null,
-            tournament.Start.AddMinutes(matchLength * ((teams.Count() / 2) + 1))));
+        await dataProvider.Matches.Add(
+            new Match
+            {
+                Tournament = tournament,
+                TeamA = null,
+                TeamB = null,
+                Name = "3rd Place Match",
+                StartTime = tournament.Start.AddMinutes(matchLength * ((teams.Count() / 2) + 1))
+            }
+        );
+
         //Final
-        dataProvider.Matches.Add(new Match(0, tournament, "Final", null, null,
-            tournament.Start.AddMinutes(matchLength * ((teams.Count() / 2) + 2))));
+        await dataProvider.Matches.Add(
+            new Match
+            {
+                Tournament = tournament,
+                TeamA = null,
+                TeamB = null,
+                Name = "Final",
+                StartTime = tournament.Start.AddMinutes(matchLength * ((teams.Count() / 2) + 2))
+            }
+        );
     }
 
-    private static void GenerateSpiderSide(List<Team> teams, int matchLength, DataProvider dataProvider,
+    private async static Task GenerateSpiderSide(List<Team> teams, int matchLength, DataProvider dataProvider,
         Tournament tournament, bool right)
     {
         string[] matchNames = new string[] { "Round of 16", "Quarterfinals", "Semifinals" };
@@ -87,9 +112,16 @@ public static class GenerateMatchesService
                 var matchDate = date.AddMinutes(matchLength * matchIndex);
                 var matchNumber = right ? matches[i] + j + 1 : j + 1;
                 var group = right ? "B" : "A";
-                dataProvider.Matches.Add(new Match(0, tournament, $"{matchNames[i]} {group} {matchNumber}", teamA,
-                    teamB,
-                    matchDate));
+                await dataProvider.Matches.Add(
+                    new Match
+                    {
+                        Tournament = tournament,
+                        TeamA = teamA,
+                        TeamB = teamB,
+                        Name = $"{matchNames[i]} {group} {matchNumber}",
+                        StartTime = matchDate
+                    }
+                );
                 matchIndex++;
             }
         }

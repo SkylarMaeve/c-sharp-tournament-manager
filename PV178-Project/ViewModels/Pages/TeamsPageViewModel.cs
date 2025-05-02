@@ -33,7 +33,7 @@ public class TeamsPageViewModel : BaseViewModel
         EditTeamCommand = new RelayCommand(EditTeam, _ => true);
         ShowPlayersCommand = new RelayCommand(ShowPlayers, _ => true);
         
-        Teams = CollectionViewSource.GetDefaultView(DataProvider.Teams.GetData());
+        Teams = CollectionViewSource.GetDefaultView(DataProvider.Teams.GetAll());
         Filter();
     }
     

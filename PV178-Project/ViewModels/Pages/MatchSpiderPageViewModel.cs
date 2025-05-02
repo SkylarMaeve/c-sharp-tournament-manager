@@ -34,7 +34,7 @@ public class MatchSpiderPageViewModel : BaseViewModel
         Tournament = selectedTournament;
         
         //TODO Implement GamePlan Page
-        var matches = DataProvider.Matches.GetData().Where(m => m.Tournament == Tournament);
+        var matches = DataProvider.Matches.GetAll().Where(m => m.Tournament == Tournament);
 
         //Setup
         MatchesR16A = CollectionViewSource.GetDefaultView(matches.Where(t => t.Name.Contains("Round of 16 A")).ToList());
@@ -54,8 +54,11 @@ public class MatchSpiderPageViewModel : BaseViewModel
         
         ExportSpiderCommand = new RelayCommand(ExportSpider, _ => true);
     }
-    private void ExportSpider(object? obj)
+    private async void ExportSpider(object? obj)
     {
-        //TODO Export
+        var matches = DataProvider.Matches.GetAll().Where(m => m.Tournament == Tournament).ToList();
+        await MatchExporter.ExportMatchesToPdfAsync(matches);
+
+
     }
 }

@@ -59,7 +59,7 @@ public class EditPlayerWindowViewModel : BaseViewModel
     {
         DataProvider = dataProvider;
         DialogWindow = window;
-        Teams = DataProvider.Teams.GetData();
+        Teams = DataProvider.Teams.GetAll();
         Teams = new ObservableCollection<Team>(Teams.Where(t => t.Tournament == tournament));
 
         if (player != null)
@@ -72,16 +72,17 @@ public class EditPlayerWindowViewModel : BaseViewModel
         SavePlayerCommand = new RelayCommand(Save, CanSave);
     }
 
-    private void Save(object? obj)
+    private async void Save(object? obj)
     {
-        var newPlayer = new Player(0, Name, Team, DateOfBirth.Value);
+
+        var newPlayer = new Player { Name = Name, Team = Team, DateOfBirth = DateOfBirth.Value };
         if (Player != null)
         {
-            DataProvider.Players.Update(newPlayer, Player);
+            await DataProvider.Players.Update(newPlayer, Player);
         }
         else
         {
-            DataProvider.Players.Add(new Player(0, Name, Team, DateOfBirth.Value));
+            await DataProvider.Players.Add( new Player { Name = Name, Team = Team, DateOfBirth = DateOfBirth.Value });
         }
 
         var confirmationWindow = new ConfirmationDialog("Changes Saved");

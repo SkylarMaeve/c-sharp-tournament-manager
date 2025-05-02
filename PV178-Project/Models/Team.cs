@@ -1,16 +1,13 @@
-using PV178_Project.Models.Abstracts;
 
 namespace PV178_Project.Models;
 
-public class Team(
-    int id, 
-    string name, 
-    Tournament tournament, 
-    string group) : BaseModel(id)
+public class Team()
 {
-    public string Name { get; set; } = name;
-    public Tournament Tournament { get; set; } = tournament;
-    public string Group { get; set; } = group;
+    public int Id { get; set; }
+
+    public string Name { get; set; }
+    public virtual Tournament Tournament { get; set; }
+    public string GroupName { get; set; }
 
     public int Wins { get; set; } = 0;
     public int Losses { get; set; } = 0;

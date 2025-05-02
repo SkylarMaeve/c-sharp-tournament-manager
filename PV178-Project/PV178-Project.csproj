@@ -39,11 +39,10 @@
 
     <ItemGroup>
       <PackageReference Include="iTextSharp" Version="5.5.13.4" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="9.0.4" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
       <PackageReference Include="Npgsql" Version="9.0.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Data\db\" />
     </ItemGroup>
 
 </Project>

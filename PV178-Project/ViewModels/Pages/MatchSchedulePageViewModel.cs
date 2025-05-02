@@ -23,8 +23,8 @@ public class MatchSchedulePageViewModel : BaseViewModel
     {
         DataProvider = dataProvider;
         Tournament = selectedTournament;
-        Matches = CollectionViewSource.GetDefaultView(DataProvider.Matches.GetData());
-        //TODO implement Generator, Exporters
+        Matches = CollectionViewSource.GetDefaultView(DataProvider.Matches.GetAll());
+
         GenerateMatchesCommand = new RelayCommand(GenerateMatches, _ => true);
         ExportMatchesCommand = new RelayCommand(ExportMatches, _ => true);
         EditMatchCommand = new RelayCommand(EditMatch, _ => true);

@@ -36,7 +36,7 @@ public class TournamentPageViewModel : BaseViewModel
     public int Loss { get; set; }
 
     private MainViewModel ParentModel { get; set; }
-    public ObservableCollection<Sport> Sports => DataProvider.Sports.GetData();
+    public ObservableCollection<Sport> Sports => DataProvider.Sports.GetAll();
 
     public List<Format> Formats
     {
@@ -55,7 +55,6 @@ public class TournamentPageViewModel : BaseViewModel
         Tournament = tournament;
         DataProvider = dataProvider;
         ParentModel = model;
-
         //Initialize Properties
         if (tournament != null)
         {
@@ -71,7 +70,7 @@ public class TournamentPageViewModel : BaseViewModel
         }
         else
         {
-            Sport = DataProvider.Sports.GetData().First();
+            Sport = DataProvider.Sports.GetAll().FirstOrDefault();
         }
 
         AddSportCommand = new RelayCommand(AddSport, _ => true);
@@ -80,38 +79,44 @@ public class TournamentPageViewModel : BaseViewModel
 
     private void AddSport(object? obj) => new AddSportWindow(DataProvider, null).ShowDialog();
 
-    private void SaveChanges(object? obj)
+    private async void SaveChanges(object? obj)
     {
-        var tournament = new Tournament(
-            89, //UselessValue
-            TournamentName,
-            Sport,
-            Format,
-            DateFrom,
-            DateTo,
-            TeamsCount,
-            Win,
-            Draw,
-            Loss);
+        var tournament = new Tournament
+        {
+            Name = TournamentName,
+            Sport = Sport,
+            Format = Format,
+            Start = DateFrom,
+            End = DateTo,
+            TeamsCount = TeamsCount,
+            PointsWin = Win,
+            PointsDraw = Draw,
+            PointsLoss = Loss,
+            
+        };
         
         if (Tournament != null)
         {
-            DataProvider.Tournaments.Update(tournament, Tournament);
+            await DataProvider.Tournaments.Update(tournament, Tournament);
         }
         else
         {
-            DataProvider.Tournaments.Add(tournament);
+            await DataProvider.Tournaments.Add(tournament);
             Tournament = tournament;
         }
+
         ParentModel.SelectedTournament = Tournament;
+        
         var confirmationWindow = new ConfirmationDialog("Changes Saved");
         confirmationWindow.Owner = obj as Window;
         confirmationWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
         confirmationWindow.ShowDialog();
     }
+    
 
     private bool CanSaveChanges(object? obj)
     {
+        
         //TODO Change Porperties
 
         //TODO SaveChangesCommand.RaiseCanExecuteChanged();

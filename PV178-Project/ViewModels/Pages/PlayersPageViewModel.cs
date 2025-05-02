@@ -32,7 +32,7 @@ public class PlayersPageViewModel : BaseViewModel
 
         AddPlayerCommand = new RelayCommand(AddPlayer, _ => true);
         
-        Players = CollectionViewSource.GetDefaultView(DataProvider.Players.GetData());
+        Players = CollectionViewSource.GetDefaultView(DataProvider.Players.GetAll());
         Filter();
     }
 

@@ -51,19 +51,23 @@ public class EditSportWindowViewModel
             Name = Sport.Name;
             MatchLength = Sport.MatchLength;
         }
-
     }
 
-    private void Save(object? obj)
+    private async void Save(object? obj)
     {
+        var newSport = new Sport
+        {
+            Name = Name,
+            MatchLength = MatchLength
+        };
+
         if (Sport != null)
         {
-            Sport.Name = Name;
-            Sport.MatchLength = MatchLength;
+            await DataProvider.Sports.Update(newSport, Sport);
         }
         else
         {
-            DataProvider.Sports.Add(new Sport(0, Name, MatchLength));
+            await DataProvider.Sports.Add(newSport);
         }
 
         var confirmationWindow = new ConfirmationDialog("Changes Saved");

@@ -1,11 +1,11 @@
-using PV178_Project.Models.Abstracts;
 
 namespace PV178_Project.Models;
 
-public class Sport(int id, string name, int matchLength): BaseModel(id)
+public class Sport()
 {
-    public string Name { get; set; } = name;
-    public int MatchLength { get; set; } = matchLength;
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public int MatchLength { get; set; }
     public override string ToString()
     {
         return Name;

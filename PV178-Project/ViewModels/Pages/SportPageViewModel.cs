@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
@@ -15,11 +16,12 @@ public class SportPageViewModel : BaseViewModel
 
     public SportPageViewModel(DataProvider dataProvider)
     {
+        
         DataProvider = dataProvider;
-        Sports = CollectionViewSource.GetDefaultView(dataProvider.Sports.GetData());
+        Sports = CollectionViewSource.GetDefaultView(dataProvider.Sports.GetAll());
         EditSportCommand = new RelayCommand(EditSport, _ => true);
     }
-
+    
     private void EditSport(object? parameter)
     {
         var addSportWindow = new AddSportWindow(
@@ -28,6 +30,5 @@ public class SportPageViewModel : BaseViewModel
         );
         addSportWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         addSportWindow.ShowDialog();
-        Sports.Refresh();
     }
 }

@@ -1,5 +1,6 @@
 using System.Windows;
 using PV178_Project.Models;
+using PV178_Project.Models.Enums;
 using PV178_Project.Services;
 using PV178_Project.Views.Windows;
 
@@ -27,7 +28,7 @@ public class EditTeamWindowViewModel : BaseViewModel
         }
     }
 
-    public string? Group
+    public string? GroupName
     {
         get => _group;
         set
@@ -52,19 +53,27 @@ public class EditTeamWindowViewModel : BaseViewModel
         Tournament = tournament;
         DialogWindow = window;
         Team = team;
-        Groups = Tournament.Groups;
+        Groups = Enumerable
+            .Range(0, Tournament.Format == Format.PlayOff ? 2 : 1)
+            .Select(i => ((char)('A' + i)).ToString())
+            .ToList();
         if (Team != null)
         {
             Name = Team.Name;
-            Group = Team.Group;
+            GroupName = Team.GroupName;
         }
     }
 
-    private void Save(object? obj)
+    private async void Save(object? obj)
     {
-        var newTeam = new Team(0, Name, Tournament, Group);
-        if (Team != null) DataProvider.Teams.Update(newTeam, Team);
-        else DataProvider.Teams.Add(newTeam);
+        var newTeam = new Team
+        {
+            Name = Name,
+            GroupName = GroupName,
+            Tournament = Tournament
+        };
+        if (Team != null) await DataProvider.Teams.Update(newTeam, Team);
+        else await DataProvider.Teams.Add(newTeam);
 
         var confirmationWindow = new ConfirmationDialog("Changes Saved");
         confirmationWindow.ShowDialog();
@@ -73,6 +82,6 @@ public class EditTeamWindowViewModel : BaseViewModel
 
     private bool CanSave(object? obj)
     {
-        return Name is not null && Group is not null;
+        return Name is not null && GroupName is not null;
     }
 }

@@ -60,7 +60,7 @@ public class MainViewModel : BaseViewModel
         TournamentsCommand = new RelayCommand(NavigateToTournaments, _ => true);
         MatchSpiderCommand = new RelayCommand(NavigateToSpider, _ => true);
         DeleteTournamentCommand = new RelayCommand(DeleteTournament, _ => true);
-        Tournaments = DataProvider.Tournaments.GetData();
+        Tournaments = DataProvider.Tournaments.GetAll();
         MainFrame.Navigate(new TournamentsPage(this, DataProvider));
     }
 
@@ -69,11 +69,11 @@ public class MainViewModel : BaseViewModel
         MainFrame.Navigate(new TournamentPage(this, DataProvider, null));
     }
     
-    private void DeleteTournament(object? obj)
+    private async void DeleteTournament(object? obj)
     {
         var tournament = SelectedTournament;
         SelectedTournament = null;
-        DataProvider.Tournaments.Remove(tournament);
+        await DataProvider.Tournaments.Remove(tournament);
         NavigateToTournaments(null);
     }
 

@@ -1,23 +1,13 @@
 using System.ComponentModel;
-using PV178_Project.Models.Abstracts;
 using PV178_Project.Models.Enums;
 
 namespace PV178_Project.Models;
 
-public class Tournament(
-    int id,
-    string name,
-    Sport sport,
-    Format format,
-    DateTime startDate,
-    DateTime endDate,
-    int teamsCount,
-    int pointsWin,
-    int pointsDraw,
-    int pointsLoss
-) : BaseModel(id), INotifyPropertyChanged
+public class Tournament() : INotifyPropertyChanged
 {
-    private string _name = name;
+    private string _name;
+
+    public int Id { get; set; }
 
     public string Name
     {
@@ -32,19 +22,15 @@ public class Tournament(
         }
     }
 
-    public Sport Sport { get; set; } = sport;
-    public Format Format { get; set; } = format;
-    public DateTime Start { get; set; } = startDate;
-    public DateTime End { get; set; } = endDate;
-    public int TeamsCount { get; set; } = teamsCount;
-    public List<string> Groups { get; set; } = Enumerable
-        .Range(0, format == Format.PlayOff ? 2 : 1)
-        .Select(i => ((char)('A' + i)).ToString())
-        .ToList();
+    public virtual Sport Sport { get; set; }
+    public Format Format { get; set; }
+    public DateTime Start { get; set; }
+    public DateTime End { get; set; }
+    public int TeamsCount { get; set; }
 
-    public int PointsWin { get; set; } = pointsWin;
-    public int PointsDraw { get; set; } = pointsDraw;
-    public int PointsLoss { get; set; } = pointsLoss;
+    public int PointsWin { get; set; }
+    public int PointsDraw { get; set; }
+    public int PointsLoss { get; set; }
 
     public event PropertyChangedEventHandler PropertyChanged;
 

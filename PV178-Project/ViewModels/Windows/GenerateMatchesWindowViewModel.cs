@@ -21,7 +21,7 @@ public class GenerateMatchesWindowViewModel : BaseViewModel
         Tournament = tournament;
         DialogWindow = window;
         ExpectedTeamsCount = Tournament.TeamsCount;
-        ActualTeamsCount = DataProvider.Teams.GetData().Where(t => t.Tournament == Tournament).Count();
+        ActualTeamsCount = DataProvider.Teams.GetAll().Where(t => t.Tournament == Tournament).Count();
         GenerateMatchesCommand = new RelayCommand(GenerateMatches, CanGenerateMatches);
     }
 
