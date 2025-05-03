@@ -75,90 +75,91 @@
                 Grid.ColumnSpan="3"
                 Style="{StaticResource ColumnHeader}" />
         </Grid>
-        <ItemsControl Grid.Row="2" ItemsSource="{Binding Teams}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250" /> <!-- Name -->
-                            <ColumnDefinition Width="50" /> <!-- Group -->
-                            <ColumnDefinition Width="50" /> <!-- Wins -->
-                            <ColumnDefinition Width="50" /> <!-- Draws -->
-                            <ColumnDefinition Width="50" /> <!-- Losses -->
-                            <ColumnDefinition Width="50" /> <!-- Points -->
-                            <ColumnDefinition Width="100" /> <!-- Place -->
-                            <ColumnDefinition Width="50" /> <!-- Edit -->
-                            <ColumnDefinition Width="50" /> <!-- Delete -->
-                            <ColumnDefinition Width="50" /> <!-- Players -->
-                        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Teams}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250" /> <!-- Name -->
+                                <ColumnDefinition Width="50" /> <!-- Group -->
+                                <ColumnDefinition Width="50" /> <!-- Wins -->
+                                <ColumnDefinition Width="50" /> <!-- Draws -->
+                                <ColumnDefinition Width="50" /> <!-- Losses -->
+                                <ColumnDefinition Width="50" /> <!-- Points -->
+                                <ColumnDefinition Width="100" /> <!-- Place -->
+                                <ColumnDefinition Width="50" /> <!-- Edit -->
+                                <ColumnDefinition Width="50" /> <!-- Delete -->
+                                <ColumnDefinition Width="50" /> <!-- Players -->
+                            </Grid.ColumnDefinitions>
 
-                        <TextBlock
-                            Text="{Binding Name}"
-                            Grid.Column="0"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding GroupName}"
-                            Grid.Column="1"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding Wins}"
-                            Grid.Column="2"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding Draws}"
-                            Grid.Column="3"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding Losses}"
-                            Grid.Column="4"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding Points}"
-                            Grid.Column="5"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding Placement}"
-                            Grid.Column="6"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <Button
-                            Grid.Column="7"
-                            Width="40"
-                            Command="{Binding DataContext.EditTeamCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                            CommandParameter="{Binding}"
-                            Style="{StaticResource StandardButton}">
                             <TextBlock
-                                FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                Text="&#xE70F;" />
-                        </Button>
+                                Text="{Binding Name}"
+                                Grid.Column="0"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding GroupName}"
+                                Grid.Column="1"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding Wins}"
+                                Grid.Column="2"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding Draws}"
+                                Grid.Column="3"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding Losses}"
+                                Grid.Column="4"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding Points}"
+                                Grid.Column="5"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding Placement}"
+                                Grid.Column="6"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <Button
+                                Grid.Column="7"
+                                Width="40"
+                                Command="{Binding DataContext.EditTeamCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource StandardButton}">
+                                <TextBlock
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    Text="&#xE70F;" />
+                            </Button>
 
-                        <Button
-                            Grid.Column="8"
-                            Width="40"
-                            Background="{StaticResource DeleteButton}"
-                            Command="{Binding DataContext.DeleteTeamCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                            CommandParameter="{Binding}"
-                            Style="{StaticResource StandardButton}"
-                            >
-                            <TextBlock
-                                FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                Text="&#xE74D;" />
-                        </Button>
-                        
-                        <Button
-                            Grid.Column="9"
-                            Width="40"
-                            Background="{StaticResource SpecialButton}"
-                            Command="{Binding DataContext.ShowPlayersCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                            CommandParameter="{Binding}"
-                            Style="{StaticResource StandardButton}">
-                            <TextBlock
-                                FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                Text="&#xE77B;" />
-                        </Button>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                            <Button
+                                Grid.Column="8"
+                                Width="40"
+                                Background="{StaticResource DeleteButton}"
+                                Command="{Binding DataContext.DeleteTeamCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource StandardButton}">
+                                <TextBlock
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    Text="&#xE74D;" />
+                            </Button>
+
+                            <Button
+                                Grid.Column="9"
+                                Width="40"
+                                Background="{StaticResource SpecialButton}"
+                                Command="{Binding DataContext.ShowPlayersCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource StandardButton}">
+                                <TextBlock
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    Text="&#xE77B;" />
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 
 </Page>

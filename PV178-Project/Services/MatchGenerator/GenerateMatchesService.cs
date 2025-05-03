@@ -57,7 +57,7 @@ public static class GenerateMatchesService
         
         //Avoid
         if (teamsA.Count() != teamsB.Count()) return false;
-
+        var matchCount = 3 - GetMatchStartIndex(teamsA.Count);
         var matchLength = tournament.Sport.MatchLength;
         if (teams.Count() >= 4)
         {
@@ -73,11 +73,10 @@ public static class GenerateMatchesService
                     TeamA = null,
                     TeamB = null,
                     Name = "3rd Place Match",
-                    StartTime = tournament.Start.AddMinutes(matchLength * ((teams.Count() / 2) + 1))
+                    StartTime = tournament.Start.AddMinutes(matchLength * (matchCount + 1))
                 }
             );
         }
-        
         
         Team? finalTeamA = null;
         Team? finalTeamB = null;
@@ -94,7 +93,7 @@ public static class GenerateMatchesService
                 TeamA = finalTeamA,
                 TeamB = finalTeamB,
                 Name = "Final",
-                StartTime = tournament.Start.AddMinutes(matchLength * ((teams.Count() / 2) + 2))
+                StartTime = tournament.Start.AddMinutes(matchLength * (matchCount + 2))
             }
         );
         return true;
@@ -105,7 +104,6 @@ public static class GenerateMatchesService
     {
         string[] matchNames = new string[] { "Round of 16", "Quarterfinals", "Semifinals" };
         int[] matches = new int[] { 4, 2, 1 };
-        var matchIndex = 0;
         int count = teams.Count;
         var date = tournament.Start;
         var startIndex = GetMatchStartIndex(count);
@@ -123,6 +121,7 @@ public static class GenerateMatchesService
                     teamB = teams[index + 1];
                 }
                 var matchDate = date.AddMinutes(matchLength * i);
+                Console.WriteLine("", matchNames[i]);
                 var matchNumber = right ? matches[i] + j + 1 : j + 1;
                 var group = right ? "B" : "A";
                 await dataProvider.Matches.Add(
@@ -135,7 +134,6 @@ public static class GenerateMatchesService
                         StartTime = matchDate
                     }
                 );
-                matchIndex++;
             }
         }
     }

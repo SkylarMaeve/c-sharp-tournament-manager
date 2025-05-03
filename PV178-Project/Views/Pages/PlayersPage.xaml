@@ -53,55 +53,57 @@
                 Grid.ColumnSpan="2"
                 Style="{StaticResource ColumnHeader}" />
         </Grid>
-        <ItemsControl Grid.Row="2" ItemsSource="{Binding Players}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200" /><!-- Name -->
-                            <ColumnDefinition Width="200" /><!-- Team Name -->
-                            <ColumnDefinition Width="100" /><!-- DoB -->
-                            <ColumnDefinition Width="50" /><!-- Edit -->
-                            <ColumnDefinition Width="50" /><!-- Delete -->
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Text="{Binding Name}"
-                            Grid.Column="0"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding Team}"
-                            Grid.Column="1"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding DateOfBirth, StringFormat='{}{0:dd.MM.yyyy}'}"
-                            Grid.Column="2"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <Button
-                            Grid.Column="3"
-                            Width="40"
-                            Command="{Binding DataContext.EditPlayerCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                            CommandParameter="{Binding}"
-                            Style="{StaticResource StandardButton}">
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Players}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" /><!-- Name -->
+                                <ColumnDefinition Width="200" /><!-- Team Name -->
+                                <ColumnDefinition Width="100" /><!-- DoB -->
+                                <ColumnDefinition Width="50" /><!-- Edit -->
+                                <ColumnDefinition Width="50" /><!-- Delete -->
+                            </Grid.ColumnDefinitions>
                             <TextBlock
-                                FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                Text="&#xE70F;" />
-                        </Button>
+                                Text="{Binding Name}"
+                                Grid.Column="0"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding Team}"
+                                Grid.Column="1"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding DateOfBirth, StringFormat='{}{0:dd.MM.yyyy}'}"
+                                Grid.Column="2"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <Button
+                                Grid.Column="3"
+                                Width="40"
+                                Command="{Binding DataContext.EditPlayerCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource StandardButton}">
+                                <TextBlock
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    Text="&#xE70F;" />
+                            </Button>
 
-                        <Button
-                            Grid.Column="4"
-                            Width="40"
-                            Background="{StaticResource DeleteButton}"
-                            Command="{Binding DataContext.DeletePlayerCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                            CommandParameter="{Binding}"
-                            Style="{StaticResource StandardButton}">
-                            <TextBlock
-                                FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                Text="&#xE74D;" />
-                        </Button>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                            <Button
+                                Grid.Column="4"
+                                Width="40"
+                                Background="{StaticResource DeleteButton}"
+                                Command="{Binding DataContext.DeletePlayerCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource StandardButton}">
+                                <TextBlock
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    Text="&#xE74D;" />
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 
 </Page>

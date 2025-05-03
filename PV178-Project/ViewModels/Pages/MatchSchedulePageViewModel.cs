@@ -13,7 +13,13 @@ public class MatchSchedulePageViewModel : BaseViewModel
     private Tournament Tournament { get; set; }
 
     public ICollectionView Matches { get; private set; }
-    public bool CanGenerate { get => Matches.Cast<object>().Count() == 0; set{} }
+
+    public bool CanGenerate
+    {
+        get => Matches.Cast<object>().Count() == 0;
+        set { }
+    }
+
     public RelayCommand GenerateMatchesCommand { get; }
     public RelayCommand ExportMatchesCommand { get; }
     public RelayCommand EditMatchCommand { get; }
@@ -30,6 +36,8 @@ public class MatchSchedulePageViewModel : BaseViewModel
         EditMatchCommand = new RelayCommand(EditMatch, _ => true);
         DeleteMatchCommand = new RelayCommand(DeleteMatch, _ => true);
         Filter();
+        //Sort by date
+        Matches.SortDescriptions.Add(new SortDescription(nameof(Match.StartTime), ListSortDirection.Ascending));
     }
 
     private void Filter()
@@ -48,17 +56,12 @@ public class MatchSchedulePageViewModel : BaseViewModel
     {
         var window = new GenerateMatchesWindow(Tournament, DataProvider);
         window.ShowDialog();
-        //Sort by date
-        Matches.SortDescriptions.Add(new SortDescription(nameof(Match.StartTime), ListSortDirection.Ascending));
         Matches.Refresh();
         OnPropertyChanged(nameof(CanGenerate));
     }
 
-    private async void ExportMatches(object? parameter)
-    {
-        PdfExporter exporter = new PdfExporter();
-        await exporter.ExportMatchesToPdfAsync(Matches.Cast<Match>().ToList());
-    }
+    private async void ExportMatches(object? parameter) =>
+        await TournamentExportService.ExportTournamentMatchesSchedule(Matches.Cast<Match>().ToList(), Tournament.Name);
 
     private void EditMatch(object? parameter)
     {
@@ -67,13 +70,14 @@ public class MatchSchedulePageViewModel : BaseViewModel
         Matches.Refresh();
         OnPropertyChanged(nameof(CanGenerate));
     }
+
     private async void DeleteMatch(object? parameter)
     {
         if (parameter is Match match)
         {
             await DataProvider.Matches.Remove(match);
         }
+
         OnPropertyChanged(nameof(CanGenerate));
     }
-    
 }

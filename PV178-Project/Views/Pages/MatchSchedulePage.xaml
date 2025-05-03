@@ -79,85 +79,88 @@
                 Grid.ColumnSpan="2"
                 Style="{StaticResource ColumnHeader}" />
         </Grid>
-
-        <ItemsControl Grid.Row="2" ItemsSource="{Binding Matches}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid HorizontalAlignment="Left">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="300" /> <!-- Team A -->
-                            <ColumnDefinition Width="50" /> <!-- Score -->
-                            <ColumnDefinition Width="200" /> <!-- Date -->
-                            <ColumnDefinition Width="50" /> <!-- Score -->
-                            <ColumnDefinition Width="300" /> <!-- Team B -->
-                            <ColumnDefinition Width="50" /> <!-- Edit -->
-                            <ColumnDefinition Width="50" /> <!-- Delete -->
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="35" />
-                            <RowDefinition Height="50" />
-                        </Grid.RowDefinitions>
-                        <!--Row 0-->
-                        <TextBlock
-                            Text="{Binding Name}"
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="5"
-                            Foreground="Black"
-                            FontSize="14"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <!--Row 1-->
-                        <TextBlock
-                            Text="{Binding TeamA}"
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding PointsTeamA}"
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding StartTime, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"
-                            Grid.Row="1"
-                            Grid.Column="2"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding PointsTeamB}"
-                            Grid.Row="1"
-                            Grid.Column="3"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding TeamB}"
-                            Grid.Row="1"
-                            Grid.Column="4"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <Button
-                            Grid.Row="1"
-                            Grid.Column="5"
-                            Width="40"
-                            Command="{Binding DataContext.EditMatchCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                            CommandParameter="{Binding}"
-                            Style="{StaticResource StandardButton}">
-                            <TextBlock
-                                FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                Text="&#xE70F;" />
-                        </Button>
-                        <Button
-                            Grid.Row="1"
-                            Grid.Column="6"
-                            Width="40"
-                            Background="{StaticResource DeleteButton}"
-                            Command="{Binding DataContext.DeleteMatchCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                            CommandParameter="{Binding}"
-                            Style="{StaticResource StandardButton}">
-                            <TextBlock
-                                FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                Text="&#xE74D;" />
-                        </Button>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Matches}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="{StaticResource  Sidebar}" BorderThickness="0,1 ">
+                            <Grid HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="300" /> <!-- Team A -->
+                                    <ColumnDefinition Width="50" /> <!-- Score -->
+                                    <ColumnDefinition Width="200" /> <!-- Date -->
+                                    <ColumnDefinition Width="50" /> <!-- Score -->
+                                    <ColumnDefinition Width="300" /> <!-- Team B -->
+                                    <ColumnDefinition Width="50" /> <!-- Edit -->
+                                    <ColumnDefinition Width="50" /> <!-- Delete -->
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <!--Row 0-->
+                                <TextBlock
+                                    Text="{Binding Name}"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="5"
+                                    Foreground="Black"
+                                    FontSize="14"
+                                    Style="{StaticResource StandardTextBlock}" />
+                                <!--Row 1-->
+                                <TextBlock
+                                    Text="{Binding TeamA}"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Style="{StaticResource StandardTextBlock}" />
+                                <TextBlock
+                                    Text="{Binding PointsTeamA}"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Style="{StaticResource StandardTextBlock}" />
+                                <TextBlock
+                                    Text="{Binding StartTime, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Style="{StaticResource StandardTextBlock}" />
+                                <TextBlock
+                                    Text="{Binding PointsTeamB}"
+                                    Grid.Row="1"
+                                    Grid.Column="3"
+                                    Style="{StaticResource StandardTextBlock}" />
+                                <TextBlock
+                                    Text="{Binding TeamB}"
+                                    Grid.Row="1"
+                                    Grid.Column="4"
+                                    Style="{StaticResource StandardTextBlock}" />
+                                <Button
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    Width="40"
+                                    Command="{Binding DataContext.EditMatchCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                    CommandParameter="{Binding}"
+                                    Style="{StaticResource StandardButton}">
+                                    <TextBlock
+                                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                        Text="&#xE70F;" />
+                                </Button>
+                                <Button
+                                    Grid.Row="1"
+                                    Grid.Column="6"
+                                    Width="40"
+                                    Background="{StaticResource DeleteButton}"
+                                    Command="{Binding DataContext.DeleteMatchCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                    CommandParameter="{Binding}"
+                                    Style="{StaticResource StandardButton}">
+                                    <TextBlock
+                                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                        Text="&#xE74D;" />
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Page>

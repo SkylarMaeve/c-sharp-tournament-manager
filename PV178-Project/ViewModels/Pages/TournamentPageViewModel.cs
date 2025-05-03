@@ -80,7 +80,7 @@ public class TournamentPageViewModel : BaseViewModel
             Draw = Tournament.PointsDraw;
             Loss = Tournament.PointsLoss;
         }
-
+        Console.WriteLine(DateFrom.Hour);
 
     }
 
@@ -89,7 +89,10 @@ public class TournamentPageViewModel : BaseViewModel
 
     private async void SaveChanges(object? obj)
     {
-        DateFrom = DateFrom.AddHours(9); //9 AM is Nice
+        if (Tournament != null)
+        {
+            DateFrom = DateFrom.AddHours(9); //9 AM is Nice
+        }
         var tournament = new Tournament
         {
             Name = Name,

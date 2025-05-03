@@ -85,84 +85,86 @@
                 Style="{StaticResource ColumnHeader}" />
         </Grid>
         <!-- Data -->
-        <ItemsControl Grid.Row="2" ItemsSource="{Binding Tournaments}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid HorizontalAlignment="Left" Height="50">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250" /> <!-- Name -->
-                            <ColumnDefinition Width="100" /> <!-- Sport -->
-                            <ColumnDefinition Width="100" /> <!-- Format -->
-                            <ColumnDefinition Width="100" /> <!-- Date Start -->
-                            <ColumnDefinition Width="100" /> <!-- Date End-->
-                            <ColumnDefinition Width="100" /> <!-- Teams Count -->
-                            <ColumnDefinition Width="50" /> <!-- Win Points -->
-                            <ColumnDefinition Width="50" /> <!-- Draw points -->
-                            <ColumnDefinition Width="50" /> <!-- Loss points -->
-                            <ColumnDefinition Width="50" /> <!-- Edit -->
-                            <ColumnDefinition Width="50" /> <!-- Delete -->
-                        </Grid.ColumnDefinitions>
-                        <!-- Data-->
-                        <TextBlock
-                            Text="{Binding Name}"
-                            Grid.Column="0"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding Sport}"
-                            Grid.Column="1"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding Format}"
-                            Grid.Column="2"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding Start, StringFormat='{}{0:dd.MM.yyyy}'}" Grid.Column="3"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding End, StringFormat='{}{0:dd.MM.yyyy}'}" Grid.Column="4"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding TeamsCount}"
-                            Grid.Column="5"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding PointsWin}"
-                            Grid.Column="6"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding PointsDraw}"
-                            Grid.Column="7"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <TextBlock
-                            Text="{Binding PointsLoss}"
-                            Grid.Column="8"
-                            Style="{StaticResource StandardTextBlock}" />
-                        <!-- Buttons -->
-                        <Button
-                            Grid.Column="9"
-                            Width="40"
-                            Command="{Binding DataContext.EditTournamentCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                            CommandParameter="{Binding}"
-                            Style="{StaticResource StandardButton}">
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <ItemsControl Grid.Row="2" ItemsSource="{Binding Tournaments}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Left" Height="50">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250" /> <!-- Name -->
+                                <ColumnDefinition Width="100" /> <!-- Sport -->
+                                <ColumnDefinition Width="100" /> <!-- Format -->
+                                <ColumnDefinition Width="100" /> <!-- Date Start -->
+                                <ColumnDefinition Width="100" /> <!-- Date End-->
+                                <ColumnDefinition Width="100" /> <!-- Teams Count -->
+                                <ColumnDefinition Width="50" /> <!-- Win Points -->
+                                <ColumnDefinition Width="50" /> <!-- Draw points -->
+                                <ColumnDefinition Width="50" /> <!-- Loss points -->
+                                <ColumnDefinition Width="50" /> <!-- Edit -->
+                                <ColumnDefinition Width="50" /> <!-- Delete -->
+                            </Grid.ColumnDefinitions>
+                            <!-- Data-->
                             <TextBlock
-                                FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                Text="&#xE70F;" />
-                        </Button>
+                                Text="{Binding Name}"
+                                Grid.Column="0"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding Sport}"
+                                Grid.Column="1"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding Format}"
+                                Grid.Column="2"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding Start, StringFormat='{}{0:dd.MM.yyyy}'}" Grid.Column="3"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding End, StringFormat='{}{0:dd.MM.yyyy}'}" Grid.Column="4"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding TeamsCount}"
+                                Grid.Column="5"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding PointsWin}"
+                                Grid.Column="6"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding PointsDraw}"
+                                Grid.Column="7"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <TextBlock
+                                Text="{Binding PointsLoss}"
+                                Grid.Column="8"
+                                Style="{StaticResource StandardTextBlock}" />
+                            <!-- Buttons -->
+                            <Button
+                                Grid.Column="9"
+                                Width="40"
+                                Command="{Binding DataContext.EditTournamentCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource StandardButton}">
+                                <TextBlock
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    Text="&#xE70F;" />
+                            </Button>
 
-                        <Button
-                            Grid.Column="10"
-                            Width="40"
-                            Background="{StaticResource DeleteButton}"
-                            Command="{Binding DataContext.DeleteTournamentCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                            CommandParameter="{Binding}"
-                            Style="{StaticResource StandardButton}">
-                            <TextBlock
-                                FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                Text="&#xE74D;" />
-                        </Button>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                            <Button
+                                Grid.Column="10"
+                                Width="40"
+                                Background="{StaticResource DeleteButton}"
+                                Command="{Binding DataContext.DeleteTournamentCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource StandardButton}">
+                                <TextBlock
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    Text="&#xE74D;" />
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Page>

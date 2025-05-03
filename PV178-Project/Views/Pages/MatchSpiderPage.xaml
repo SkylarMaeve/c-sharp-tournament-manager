@@ -6,12 +6,58 @@
       xmlns:local="clr-namespace:PV178_Project.Views.Pages"
       mc:Ignorable="d"
       Title="MatchSpiderPage">
-    <Grid Margin="50,50,0,0">
+    <Page.Resources>
+        <DataTemplate x:Key="MatchTemplate">
+            <Grid Margin="0,25">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <!-- Actual Match Block-->
+                <!-- Top -->
+                <TextBlock
+                    Grid.ColumnSpan="2"
+                    Grid.Row="0"
+                    Text="{Binding Name}"
+                    FontWeight="Normal"
+                    Style="{StaticResource MatchSpider}" />
+                <!-- Mid -->
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Text="{Binding TeamA}"
+                    Style="{StaticResource MatchSpider}" />
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Text="{Binding PointsTeamA}"
+                    Style="{StaticResource MatchSpider}" />
+                <!-- Bottom -->
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    Text="{Binding TeamB}"
+                    Style="{StaticResource MatchSpider}" />
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    Text="{Binding PointsTeamB}"
+                    Style="{StaticResource MatchSpider}" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Margin="50,50,0,0" Width="1050" HorizontalAlignment="Left">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
+
         <TextBlock
             Text="Match Spider"
             Grid.Row="0"
@@ -24,215 +70,54 @@
             Command="{Binding ExportSpiderCommand}"
             Background="{StaticResource SpecialButton}"
             Style="{StaticResource StandardButton}" />
-        
-        <Grid Grid.Row="1" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="150" />
-            </Grid.ColumnDefinitions>
-            <ItemsControl Grid.Column="0" ItemsSource="{Binding MatchesR16A}" VerticalAlignment="Center">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="50" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="30" />
-                            </Grid.RowDefinitions>
-                            <!-- Actual Match Block-->
-                            <TextBlock Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding Name}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding TeamA}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding TeamB}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding PointsTeamA}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding PointsTeamB}"
-                                       Style="{StaticResource MatchSpider}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <ItemsControl Grid.Column="1" ItemsSource="{Binding MatchesQfA}" VerticalAlignment="Center">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="50" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="30" />
-                            </Grid.RowDefinitions>
-                            <!-- Actual Match Block-->
-                            <TextBlock Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding Name}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding TeamA}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding TeamB}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding PointsTeamA}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding PointsTeamB}"
-                                       Style="{StaticResource MatchSpider}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <ItemsControl Grid.Column="2" ItemsSource="{Binding MatchesSfA}" VerticalAlignment="Center">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="50" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="30" />
-                            </Grid.RowDefinitions>
-                            <!-- Actual Match Block-->
-                            <TextBlock Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding Name}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding TeamA}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding TeamB}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding PointsTeamA}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding PointsTeamB}"
-                                       Style="{StaticResource MatchSpider}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <ItemsControl Grid.Column="3" ItemsSource="{Binding MatchesFinal}" VerticalAlignment="Center" >
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="50" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="30" />
-                            </Grid.RowDefinitions>
-                            <!-- Actual Match Block-->
-                            <TextBlock Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding Name}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding TeamA}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding TeamB}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding PointsTeamA}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding PointsTeamB}"
-                                       Style="{StaticResource MatchSpider}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <ItemsControl Grid.Column="4" ItemsSource="{Binding MatchesSfB}"  VerticalAlignment="Center">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="50" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="30" />
-                                </Grid.RowDefinitions>
-                                <!-- Actual Match Block-->
-                                <TextBlock Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding Name}"
-                                           Style="{StaticResource MatchSpider}" />
-                                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding TeamA}"
-                                           Style="{StaticResource MatchSpider}" />
-                                <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding TeamB}"
-                                           Style="{StaticResource MatchSpider}" />
-                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding PointsTeamA}"
-                                           Style="{StaticResource MatchSpider}" />
-                                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding PointsTeamB}"
-                                           Style="{StaticResource MatchSpider}" />
-                            </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <ItemsControl Grid.Column="5" ItemsSource="{Binding MatchesQfB}" VerticalAlignment="Center">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="50" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="30" />
-                            </Grid.RowDefinitions>
-                            <!-- Actual Match Block-->
-                            <TextBlock Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding Name}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding TeamA}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding TeamB}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding PointsTeamA}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding PointsTeamB}"
-                                       Style="{StaticResource MatchSpider}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <ItemsControl Grid.Column="6" ItemsSource="{Binding MatchesR16B}" VerticalAlignment="Center">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="50" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="30" />
-                                <RowDefinition Height="30" />
-                            </Grid.RowDefinitions>
-                            <!-- Actual Match Block-->
-                            <TextBlock Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding Name}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding TeamA}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding TeamB}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding PointsTeamA}"
-                                       Style="{StaticResource MatchSpider}" />
-                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding PointsTeamB}"
-                                       Style="{StaticResource MatchSpider}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Grid>
-
-
+        <!-- Columns-->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid Grid.Row="1" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                </Grid.ColumnDefinitions>
+                <ItemsControl
+                    Grid.Column="0"
+                    ItemsSource="{Binding MatchesR16A}"
+                    ItemTemplate="{StaticResource MatchTemplate}"
+                    VerticalAlignment="Center" />
+                <ItemsControl
+                    Grid.Column="1"
+                    ItemsSource="{Binding MatchesQfA}"
+                    ItemTemplate="{StaticResource MatchTemplate}"
+                    VerticalAlignment="Center" />
+                <ItemsControl
+                    Grid.Column="2"
+                    ItemsSource="{Binding MatchesSfA}"
+                    ItemTemplate="{StaticResource MatchTemplate}"
+                    VerticalAlignment="Center" />
+                <ItemsControl
+                    Grid.Column="3"
+                    ItemsSource="{Binding MatchesFinal}"
+                    ItemTemplate="{StaticResource MatchTemplate}"
+                    VerticalAlignment="Center" />
+                <ItemsControl
+                    Grid.Column="4"
+                    ItemsSource="{Binding MatchesSfB}"
+                    ItemTemplate="{StaticResource MatchTemplate}"
+                    VerticalAlignment="Center" />
+                <ItemsControl
+                    Grid.Column="5"
+                    ItemsSource="{Binding MatchesQfB}"
+                    ItemTemplate="{StaticResource MatchTemplate}"
+                    VerticalAlignment="Center" />
+                <ItemsControl
+                    Grid.Column="6"
+                    ItemsSource="{Binding MatchesR16B}"
+                    ItemTemplate="{StaticResource MatchTemplate}"
+                    VerticalAlignment="Center" />
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>
