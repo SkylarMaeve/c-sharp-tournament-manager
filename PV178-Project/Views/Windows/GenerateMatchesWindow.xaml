@@ -5,33 +5,52 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:PV178_Project.Views.Windows"
         mc:Ignorable="d"
-        Title="Generate Matches" Height="250" Width="500">
-    <Grid Background="{StaticResource Background}">
+        Title="Generate Matches"
+        Height="200"
+        Width="270"
+        Background="{StaticResource Background}"
+        ResizeMode="CanMinimize">
+    <Grid
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="50" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
-
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0"   Grid.Column="0"  Style="{StaticResource StandardTextBlock}" Text="Actual Teams Count"/>
-        <TextBlock Grid.Row="1"   Grid.Column="0"  Style="{StaticResource StandardTextBlock}" Text=" Expected Team Count"/>
-
-        <TextBlock Grid.Row="0"   Grid.Column="1" Style="{StaticResource StandardTextBlock}" Text="{Binding ActualTeamsCount}"/>
-        <TextBlock Grid.Row="1"  Grid.Column="1"  Style="{StaticResource StandardTextBlock}"  Text="{Binding ExpectedTeamsCount}"/>
-        <TextBlock Grid.Row="2"  Grid.Column="1"  Style="{StaticResource StandardTextBlock}"  Text="Make sure all teams are registered"
-                   FontSize="14" FontWeight="SemiBold"
-                   />
-
-        <Button Grid.Row="3" Grid.Column="1"  
-                Command="{Binding GenerateMatchesCommand}" 
-                Background="Red"
-                Content="Generate"
-                Style="{StaticResource StandardButton}"/>
-
+        <!-- Labels -->
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            Style="{StaticResource StandardTextBlock}"
+            Text="Teams Registered" />
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0"
+            Style="{StaticResource StandardTextBlock}"
+            Text="Teams Needed" />
+        <!-- Values -->
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="1"
+            Style="{StaticResource StandardTextBlock}"
+            Text="{Binding ActualTeamsCount}" />
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="1"
+            Style="{StaticResource StandardTextBlock}"
+            Text="{Binding ExpectedTeamsCount}" />
+        <!-- Buttons -->
+        <Button
+            Content="Generate"
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Command="{Binding GenerateMatchesCommand}"
+            Style="{StaticResource StandardButton}" />
     </Grid>
 </Window>

@@ -7,8 +7,9 @@ public partial class ConfirmationDialog : Window
 {
     public ConfirmationDialog(string message)
     {
-        //TODO Finish Window Content
         InitializeComponent();
         DataContext = new ConfirmationWindowViewModel(message, this);
+        WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        ShowDialog();
     }
 }

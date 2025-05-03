@@ -38,6 +38,8 @@ public class EditTeamWindowViewModel : BaseViewModel
         }
     }
 
+    public int? Place { get; set; }
+    public List<int> Places { get; set; }
     public List<string> Groups { get; set; }
     public RelayCommand SaveTeamCommand { get; }
 
@@ -57,10 +59,12 @@ public class EditTeamWindowViewModel : BaseViewModel
             .Range(0, Tournament.Format == Format.PlayOff ? 2 : 1)
             .Select(i => ((char)('A' + i)).ToString())
             .ToList();
+        Places = Enumerable.Range(1, Tournament.TeamsCount).ToList();
         if (Team != null)
         {
             Name = Team.Name;
             GroupName = Team.GroupName;
+            Place = Team.Placement;
         }
     }
 
@@ -70,18 +74,26 @@ public class EditTeamWindowViewModel : BaseViewModel
         {
             Name = Name,
             GroupName = GroupName,
-            Tournament = Tournament
+            Tournament = Tournament,
+            Placement = Place
         };
-        if (Team != null) await DataProvider.Teams.Update(newTeam, Team);
-        else await DataProvider.Teams.Add(newTeam);
+        if (Team != null)
+        {
+            newTeam.Wins = Team.Wins;
+            newTeam.Losses = Team.Losses;
+            newTeam.Draws = Team.Draws;
+            newTeam.Points = Team.Points;
+            await DataProvider.Teams.Update(newTeam, Team);
+        }
+        else
+        {
+            await DataProvider.Teams.Add(newTeam);
+        }
+
 
         var confirmationWindow = new ConfirmationDialog("Changes Saved");
-        confirmationWindow.ShowDialog();
         DialogWindow.Close();
     }
 
-    private bool CanSave(object? obj)
-    {
-        return Name is not null && GroupName is not null;
-    }
+    private bool CanSave(object? obj) => Name is not null && GroupName is not null;
 }

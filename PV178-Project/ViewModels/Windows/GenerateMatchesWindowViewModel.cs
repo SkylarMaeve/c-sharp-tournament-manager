@@ -21,21 +21,17 @@ public class GenerateMatchesWindowViewModel : BaseViewModel
         Tournament = tournament;
         DialogWindow = window;
         ExpectedTeamsCount = Tournament.TeamsCount;
-        ActualTeamsCount = DataProvider.Teams.GetAll().Where(t => t.Tournament == Tournament).Count();
+        ActualTeamsCount = DataProvider.Teams.GetAll().Count(t => t.Tournament == Tournament);
         GenerateMatchesCommand = new RelayCommand(GenerateMatches, CanGenerateMatches);
     }
 
-    private void GenerateMatches(object? obj)
+    private async void GenerateMatches(object? obj)
     {
-        GenerateMatchesService.Generate(Tournament, DataProvider);
-        var confirmationWindow = new ConfirmationDialog("Successfully Generated Matches");
-        confirmationWindow.ShowDialog();
+        bool succes = await GenerateMatchesService.Generate(Tournament, DataProvider);
+        string message = succes ? "Matches generated." : "Groups must be equal.";
+        var confirmationWindow = new ConfirmationDialog(message);
         DialogWindow.Close();
     }
 
-    private bool CanGenerateMatches(object? obj)
-    {
-        Console.WriteLine((ExpectedTeamsCount, ActualTeamsCount));
-        return ExpectedTeamsCount == ActualTeamsCount;
-    }
+    private bool CanGenerateMatches(object? obj) => ExpectedTeamsCount == ActualTeamsCount;
 }

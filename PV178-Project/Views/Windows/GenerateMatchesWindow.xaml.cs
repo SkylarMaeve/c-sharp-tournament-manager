@@ -11,5 +11,6 @@ public partial class GenerateMatchesWindow : Window
     {
         InitializeComponent();
         DataContext = new GenerateMatchesWindowViewModel(tournament, dataProvider, this);
+        WindowStartupLocation = WindowStartupLocation.CenterScreen;
     }
 }

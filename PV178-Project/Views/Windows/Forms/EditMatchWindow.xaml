@@ -1,0 +1,142 @@
+<Window x:Class="PV178_Project.Views.Windows.EditMatchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:PV178_Project.Views.Windows"
+        mc:Ignorable="d"
+        Title="Edit Match"
+        Height="400"
+        Width="450"
+        Background="{StaticResource Background}"
+        ResizeMode="CanMinimize">
+    <Grid
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!-- Teams selectors-->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+            <ComboBox
+                Grid.Column="0"
+                ItemsSource="{Binding Teams}"
+                SelectedItem="{Binding TeamA, Mode=TwoWay}"
+                Style="{StaticResource StandardComboBox}" />
+            <TextBlock
+                Grid.Column="1"
+                Text="vs"
+                Style="{StaticResource StandardTextBlock}" />
+            <ComboBox
+                Grid.Column="2"
+                ItemsSource="{Binding Teams}"
+                SelectedItem="{Binding TeamB, Mode=TwoWay}"
+                Style="{StaticResource StandardComboBox}" />
+        </Grid>
+        <!-- Rest of rows-->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+            <!-- Labels -->
+            <TextBlock
+                Text="Name"
+                Grid.Column="0"
+                Grid.Row="0"
+                Style="{StaticResource StandardTextBlock}" />
+
+            <TextBlock
+                Text="Date"
+                Grid.Column="0"
+                Grid.Row="1"
+                Style="{StaticResource StandardTextBlock}" />
+            <TextBlock
+                Text="Time"
+                Grid.Column="0"
+                Grid.Row="2"
+                Style="{StaticResource StandardTextBlock}" />
+
+            <TextBlock
+                Text="Points Left team"
+                Grid.Column="0"
+                Grid.Row="3"
+                Style="{StaticResource StandardTextBlock}" />
+
+            <TextBlock
+                Text="Points Right team"
+                Grid.Column="0"
+                Grid.Row="4"
+                Style="{StaticResource StandardTextBlock}" />
+            <!-- Input -->
+            <TextBox
+                Text="{Binding Name, Mode=TwoWay}"
+                Grid.Column="1"
+                Grid.Row="0"
+                Style="{StaticResource StandardTextBox}" />
+            <DatePicker
+                SelectedDate="{Binding StartTime, Mode=TwoWay}"
+                Grid.Column="1"
+                Grid.Row="1"
+                Style="{StaticResource StandardDatePicker}" />
+            <ComboBox
+                Grid.Column="1"
+                Grid.Row="2"
+                Width="100"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Center"
+                ItemsSource="{Binding Hours}"
+                Text="{Binding Hour, Mode=TwoWay}"
+                Style="{StaticResource StandardComboBox}" />
+            <ComboBox
+                Grid.Column="1"
+                Grid.Row="2"
+                Width="100"
+                HorizontalAlignment="Right"
+                HorizontalContentAlignment="Center"
+                ItemsSource="{Binding Minutes}"
+                Text="{Binding Minute, Mode=TwoWay}"
+                Style="{StaticResource StandardComboBox}" />
+
+            <TextBox
+                Text="{Binding PointsTeamA, Mode=TwoWay}"
+                Grid.Column="1"
+                Grid.Row="3"
+                Style="{StaticResource StandardTextBox}" />
+            <TextBox
+                Text="{Binding PointsTeamB, Mode=TwoWay}"
+                Grid.Column="1"
+                Grid.Row="4"
+                Style="{StaticResource StandardTextBox}" />
+            <Button
+                Content="Save changes"
+                Background="Crimson"
+                Grid.Row="5"
+                Grid.Column="0"
+                IsEnabled="{Binding CanSaveChanges}"
+                Command="{Binding SaveChangesCommand}"
+                Style="{StaticResource StandardButton}" />
+            <Button
+                Content="Save result"
+                IsEnabled="{Binding CanSaveResult}"
+                Grid.Row="5"
+                Grid.Column="1"
+                Command="{Binding SaveResultsCommand}"
+                Style="{StaticResource StandardButton}" />
+        </Grid>
+    </Grid>
+</Window>

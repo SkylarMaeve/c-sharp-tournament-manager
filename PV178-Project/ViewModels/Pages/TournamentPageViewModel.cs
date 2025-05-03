@@ -13,8 +13,21 @@ public class TournamentPageViewModel : BaseViewModel
 {
     private DataProvider DataProvider { get; set; }
     private Tournament? Tournament { get; set; }
-    public string TournamentName { get; set; } = "New Tournament";
-    public Sport Sport { get; set; }
+    public RelayCommand AddSportCommand { get; set; }
+    
+    public RelayCommand SaveChangesCommand { get; set; }
+    public string? Name { get; set; } = "New Tournament";
+    private Sport? _sport;
+
+    public Sport? Sport
+    {
+        get => _sport;
+        set
+        {
+            _sport = value;
+            SaveChangesCommand.RaiseCanExecuteChanged();
+        }
+    }
     private Format _format;
 
     public Format Format
@@ -23,13 +36,11 @@ public class TournamentPageViewModel : BaseViewModel
         set
         {
             _format = value;
-            OnPropertyChanged(nameof(Format));
         }
     }
-    
-    public DateTime DateFrom { get; set; } = DateTime.Now;
-    public DateTime DateTo { get; set; } = DateTime.Now;
-    public int TeamsCount { get; set; }
+    public DateTime DateFrom { get; set; } = DateTime.Today;
+    public DateTime DateTo { get; set; } = DateTime.Today;
+    public int TeamsCount { get; set; } = 2;
     
     public int Win { get; set; }
     public int Draw { get; set; }
@@ -43,9 +54,8 @@ public class TournamentPageViewModel : BaseViewModel
         get => Enum.GetValues(typeof(Format)).Cast<Format>().ToList();
         set => Format = value.First();
     }
-
-    public RelayCommand AddSportCommand { get; set; }
-    public RelayCommand SaveChangesCommand { get; set; }
+    
+    
 
     public TournamentPageViewModel(
         MainViewModel model,
@@ -55,10 +65,12 @@ public class TournamentPageViewModel : BaseViewModel
         Tournament = tournament;
         DataProvider = dataProvider;
         ParentModel = model;
+        AddSportCommand = new RelayCommand(AddSport, _ => true);
+        SaveChangesCommand = new RelayCommand(SaveChanges, CanSave);
         //Initialize Properties
         if (tournament != null)
         {
-            TournamentName = Tournament.Name;
+            Name = Tournament.Name;
             Sport = Tournament.Sport;
             Format = Tournament.Format;
             DateFrom = Tournament.Start;
@@ -68,22 +80,19 @@ public class TournamentPageViewModel : BaseViewModel
             Draw = Tournament.PointsDraw;
             Loss = Tournament.PointsLoss;
         }
-        else
-        {
-            Sport = DataProvider.Sports.GetAll().FirstOrDefault();
-        }
 
-        AddSportCommand = new RelayCommand(AddSport, _ => true);
-        SaveChangesCommand = new RelayCommand(SaveChanges, CanSaveChanges);
+
     }
 
-    private void AddSport(object? obj) => new AddSportWindow(DataProvider, null).ShowDialog();
+    private void AddSport(object? obj) =>
+         new EditSportWindow(DataProvider, null).ShowDialog();
 
     private async void SaveChanges(object? obj)
     {
+        DateFrom = DateFrom.AddHours(9); //9 AM is Nice
         var tournament = new Tournament
         {
-            Name = TournamentName,
+            Name = Name,
             Sport = Sport,
             Format = Format,
             Start = DateFrom,
@@ -104,22 +113,9 @@ public class TournamentPageViewModel : BaseViewModel
             await DataProvider.Tournaments.Add(tournament);
             Tournament = tournament;
         }
-
         ParentModel.SelectedTournament = Tournament;
-        
         var confirmationWindow = new ConfirmationDialog("Changes Saved");
-        confirmationWindow.Owner = obj as Window;
-        confirmationWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-        confirmationWindow.ShowDialog();
     }
-    
+    private bool CanSave(object? obj) => Sport is not null;
 
-    private bool CanSaveChanges(object? obj)
-    {
-        
-        //TODO Change Porperties
-
-        //TODO SaveChangesCommand.RaiseCanExecuteChanged();
-        return true;
-    }
 }

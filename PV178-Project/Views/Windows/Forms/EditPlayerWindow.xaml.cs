@@ -5,11 +5,12 @@ using PV178_Project.ViewModels.Windows;
 
 namespace PV178_Project.Views.Windows;
 
-public partial class AddPlayerWindow : Window
+public partial class EditPlayerWindow : Window
 {
-    public AddPlayerWindow(DataProvider dataProvider, Tournament tournament, Player? player)
+    public EditPlayerWindow(DataProvider dataProvider, Tournament tournament, Player? player)
     {
         InitializeComponent();
+        WindowStartupLocation = WindowStartupLocation.CenterScreen;
         DataContext = new EditPlayerWindowViewModel(dataProvider, tournament, player,this);
     }
 }

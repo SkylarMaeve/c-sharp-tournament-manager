@@ -1,0 +1,70 @@
+<Window x:Class="PV178_Project.Views.Windows.EditTeamWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        Title="Edit Team"
+        Height="250"
+        Width="450"
+        Background="{StaticResource Background}"
+        ResizeMode="CanMinimize">
+    <Grid
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+        <!-- Labels -->
+        <TextBlock
+            Text="Team Name"
+            Grid.Column="0"
+            Grid.Row="0"
+            Style="{StaticResource StandardTextBlock}" />
+        <TextBlock
+            Text="Group"
+            Grid.Column="0"
+            Grid.Row="1"
+            Style="{StaticResource StandardTextBlock}" />
+        <TextBlock
+            Text="Final Place"
+            Grid.Column="0"
+            Grid.Row="2"
+            Style="{StaticResource StandardTextBlock}" />
+        <!-- Input -->
+        <TextBox
+            Text="{Binding Name, Mode=TwoWay}"
+            Grid.Column="1"
+            Grid.Row="0"
+            Style="{StaticResource StandardTextBox}" />
+        <ComboBox
+            Grid.Column="1"
+            Grid.Row="1"
+            Width="200"
+            ItemsSource="{Binding Groups}"
+            SelectedItem="{Binding GroupName, Mode=TwoWay}"
+            Style="{StaticResource StandardComboBox}" />
+        <ComboBox
+            Grid.Column="1"
+            Grid.Row="2"
+            Width="200"
+            ItemsSource="{Binding Places}"
+            SelectedItem="{Binding Place, Mode=TwoWay}"
+            Style="{StaticResource StandardComboBox}" />
+        <!-- Buttons -->
+        <Button
+            Content="Save changes"
+            Grid.Row="3"
+            Grid.Column="1"
+            Command="{Binding SaveTeamCommand}"
+            Style="{StaticResource StandardButton}" />
+    </Grid>
+</Window>

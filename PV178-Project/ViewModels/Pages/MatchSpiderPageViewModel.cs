@@ -58,7 +58,5 @@ public class MatchSpiderPageViewModel : BaseViewModel
     {
         var matches = DataProvider.Matches.GetAll().Where(m => m.Tournament == Tournament).ToList();
         await MatchExporter.ExportMatchesToPdfAsync(matches);
-
-
     }
 }

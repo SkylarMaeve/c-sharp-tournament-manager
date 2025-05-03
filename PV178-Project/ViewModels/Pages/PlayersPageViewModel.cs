@@ -19,7 +19,9 @@ public class PlayersPageViewModel : BaseViewModel
 
     public string Header => Team != null ? $"Players of {Team}" : "Players";
     public ICollectionView Players { get; set; }
-    public RelayCommand AddPlayerCommand { get; set; }
+    public RelayCommand EditPlayerCommand { get; set; }
+    public RelayCommand DeletePlayerCommand { get; set; }
+
 
     public PlayersPageViewModel(
         DataProvider dataProvider,
@@ -30,18 +32,26 @@ public class PlayersPageViewModel : BaseViewModel
         Tournament = tournament;
         Team = team;
 
-        AddPlayerCommand = new RelayCommand(AddPlayer, _ => true);
+        EditPlayerCommand = new RelayCommand(EditPlayer, _ => true);
+        DeletePlayerCommand = new RelayCommand(DeletePlayer, _ => true);
         
         Players = CollectionViewSource.GetDefaultView(DataProvider.Players.GetAll());
         Filter();
     }
 
-    private void AddPlayer(object? obj)
+    private void EditPlayer(object? obj)
     {
-        var addPlayerWindow = new AddPlayerWindow(DataProvider, Tournament,null);
-        addPlayerWindow.Owner = obj as Window;
-        addPlayerWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-        addPlayerWindow.Show();
+        var addPlayerWindow = new EditPlayerWindow(DataProvider, Tournament,(obj is Player player) ? player : null);
+        addPlayerWindow.ShowDialog();
+        Players.Refresh();
+    }
+
+    private async void DeletePlayer(object? obj)
+    {
+        if (obj is Player player)
+        {
+            await DataProvider.Players.Remove(player);
+        }
     }
     
     private void Filter()

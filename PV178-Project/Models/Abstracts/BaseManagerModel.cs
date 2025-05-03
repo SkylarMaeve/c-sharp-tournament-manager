@@ -7,12 +7,14 @@ public class BaseManagerModel<T>(BaseService<T> service) where T : class
     private ObservableCollection<T> Data { get; set; } = new ObservableCollection<T>();
     private BaseService<T> BaseService { get; set; } = service;
     public ObservableCollection<T> GetAll() => Data;
-    public async Task Add(T model, bool dbAccess = true)
+    public async Task Add(T model)
     {
-        if (dbAccess) //Needed for the way loading works
-        {
-            await BaseService.AddAsync(model);
-        }
+        await BaseService.AddAsync(model);
+        Data.Add(model);
+    }
+    public void AddToUi(T model)
+    {
+        //Just for loading data from DB
         Data.Add(model);
     }
 

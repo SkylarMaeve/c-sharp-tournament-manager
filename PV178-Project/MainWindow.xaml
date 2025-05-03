@@ -6,38 +6,37 @@
         xmlns:local="clr-namespace:PV178_Project"
         xmlns:viewModels="clr-namespace:PV178_Project.ViewModels"
         mc:Ignorable="d"
-        Title="Tournament Manager" MinHeight="600" MinWidth="800">
+        Title="Tournament Manager" MinHeight="600" MinWidth="1200">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
-        <StackPanel Grid.Column="0" Background="{StaticResource Sidebar}" x:Name="Sidebar" >
-            <!-- Tournament Selector -->
-            <Grid Margin="15,25">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="160" />
-                    <ColumnDefinition Width="60" />
-                </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Column="0"
-                          DisplayMemberPath="Name" 
-                          FontWeight="Bold"
-                          Height="40" Width="150" 
-                          VerticalContentAlignment="Center"
-                          HorizontalAlignment="Right"
-                          ItemsSource="{Binding Tournaments}"
-                          SelectedItem="{Binding SelectedTournament, Mode=TwoWay}" />
-                <Button Grid.Column="1"
-                        Width="40"
-                        Command="{Binding AddTournamentCommand}"
-                        Style="{StaticResource StandardButton}"
-                        >
-                    <TextBlock FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xF8AA;" />
+        <StackPanel Grid.Column="0" Background="{StaticResource Sidebar}">
+            <!-- Tournament Selector -->
+            <Grid Margin="25,25" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+                <ComboBox
+                    Grid.Column="0"
+                    DisplayMemberPath="Name"
+                    ItemsSource="{Binding Tournaments}"
+                    SelectedItem="{Binding SelectedTournament, Mode=TwoWay}"
+                    Style="{StaticResource StandardComboBox}" />
+                <Button
+                    Grid.Column="1"
+                    Width="40"
+                    HorizontalAlignment="Right"
+                    Command="{Binding AddTournamentCommand}"
+                    Style="{StaticResource StandardButton}">
+                    <TextBlock
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        Text="&#xF8AA;" />
                 </Button>
             </Grid>
-
             <!-- Navigation -->
             <Button Content="Tournaments"
                     IsEnabled="True"
@@ -56,18 +55,21 @@
             <Button Content="Match Spider"
                     Command="{Binding MatchSpiderCommand}"
                     Style="{StaticResource NavigationButton}" />
-            <Button Content="Teams" 
+            <Button Content="Teams"
                     Command="{Binding TeamsCommand}"
                     Style="{DynamicResource NavigationButton}" />
-            <Button Content="Players" 
+            <Button Content="Players"
                     Command="{Binding PlayersCommand}"
                     Style="{StaticResource NavigationButton}" />
-            <Button Content="Delete Tournament" 
+            <Button Content="Delete Tournament"
                     Command="{Binding DeleteTournamentCommand}"
-                    Background="Red" Foreground="DarkRed"
-                    Style="{StaticResource NavigationButton}"/>
+                    Background="{StaticResource DeleteButton}"
+                    Style="{StaticResource NavigationButton}" />
         </StackPanel>
         <!-- Main Frame -->
-        <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden" Background="{StaticResource Background}" />
+        <Frame
+            Grid.Column="1"
+            x:Name="MainFrame"
+            Background="{StaticResource Background}" />
     </Grid>
 </Window>

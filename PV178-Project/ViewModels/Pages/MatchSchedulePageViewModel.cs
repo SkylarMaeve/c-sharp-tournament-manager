@@ -13,11 +13,11 @@ public class MatchSchedulePageViewModel : BaseViewModel
     private Tournament Tournament { get; set; }
 
     public ICollectionView Matches { get; private set; }
-
+    public bool CanGenerate { get => Matches.Cast<object>().Count() == 0; set{} }
     public RelayCommand GenerateMatchesCommand { get; }
     public RelayCommand ExportMatchesCommand { get; }
     public RelayCommand EditMatchCommand { get; }
-    public RelayCommand AddMatchCommand { get; }
+    public RelayCommand DeleteMatchCommand { get; }
 
     public MatchSchedulePageViewModel(DataProvider dataProvider, Tournament selectedTournament)
     {
@@ -28,7 +28,7 @@ public class MatchSchedulePageViewModel : BaseViewModel
         GenerateMatchesCommand = new RelayCommand(GenerateMatches, _ => true);
         ExportMatchesCommand = new RelayCommand(ExportMatches, _ => true);
         EditMatchCommand = new RelayCommand(EditMatch, _ => true);
-        AddMatchCommand = new RelayCommand(AddMatch, _ => true);
+        DeleteMatchCommand = new RelayCommand(DeleteMatch, _ => true);
         Filter();
     }
 
@@ -47,11 +47,11 @@ public class MatchSchedulePageViewModel : BaseViewModel
     private void GenerateMatches(object? parameter)
     {
         var window = new GenerateMatchesWindow(Tournament, DataProvider);
-        window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         window.ShowDialog();
         //Sort by date
         Matches.SortDescriptions.Add(new SortDescription(nameof(Match.StartTime), ListSortDirection.Ascending));
         Matches.Refresh();
+        OnPropertyChanged(nameof(CanGenerate));
     }
 
     private async void ExportMatches(object? parameter)
@@ -63,16 +63,17 @@ public class MatchSchedulePageViewModel : BaseViewModel
     private void EditMatch(object? parameter)
     {
         var window = new EditMatchWindow(DataProvider, (parameter is Match match) ? match : null, Tournament);
-        window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         window.ShowDialog();
         Matches.Refresh();
+        OnPropertyChanged(nameof(CanGenerate));
+    }
+    private async void DeleteMatch(object? parameter)
+    {
+        if (parameter is Match match)
+        {
+            await DataProvider.Matches.Remove(match);
+        }
+        OnPropertyChanged(nameof(CanGenerate));
     }
     
-    private void AddMatch(object? parameter)
-    {
-        var window = new EditMatchWindow(DataProvider, null, Tournament);
-        window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        window.ShowDialog();
-        Matches.Refresh();
-    }
 }

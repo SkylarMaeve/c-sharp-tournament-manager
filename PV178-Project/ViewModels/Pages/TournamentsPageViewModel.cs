@@ -14,6 +14,7 @@ public class TournamentsPageViewModel : BaseViewModel
     public ICollectionView Tournaments { get; private set; }
     private MainViewModel ParentModel { get; set; }
     public RelayCommand EditTournamentCommand { get; }
+    public RelayCommand DeleteTournamentCommand { get; }
 
     public TournamentsPageViewModel(MainViewModel model, DataProvider dataProvider)
     {
@@ -21,7 +22,9 @@ public class TournamentsPageViewModel : BaseViewModel
         DataProvider = dataProvider;
         Tournaments = CollectionViewSource.GetDefaultView(dataProvider.Tournaments.GetAll());
         EditTournamentCommand = new RelayCommand(EditTournament, _ => true);
+        DeleteTournamentCommand = new RelayCommand(DeleteTournament, _ => true);
 
+        //Resetting selected Tournament in MainWindow
         model.SelectedTournament = null;
         OnPropertyChanged(nameof(model.SelectedTournament));
     }
@@ -34,5 +37,12 @@ public class TournamentsPageViewModel : BaseViewModel
             (parameter is Tournament t) ? t : null
         );
         ParentModel.MainFrame.Navigate(page);
+    }
+    private async void DeleteTournament(object? parameter)
+    {
+        if (parameter is Tournament t)
+        {
+            await DataProvider.Tournaments.Remove(t);
+        }
     }
 }

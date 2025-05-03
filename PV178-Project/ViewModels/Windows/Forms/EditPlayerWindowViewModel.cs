@@ -47,52 +47,46 @@ public class EditPlayerWindowViewModel : BaseViewModel
         }
     }
 
-    public string Header => Player != null ? "Edit Player" : "Add Player";
-
-
     private Player? Player { get; set; }
-
     public ObservableCollection<Team> Teams { get; set; }
     public RelayCommand SavePlayerCommand { get; set; }
 
-    public EditPlayerWindowViewModel(DataProvider dataProvider, Tournament tournament ,Player? player, Window window)
+    public EditPlayerWindowViewModel(DataProvider dataProvider, Tournament tournament, Player? player, Window window)
     {
         DataProvider = dataProvider;
         DialogWindow = window;
-        Teams = DataProvider.Teams.GetAll();
-        Teams = new ObservableCollection<Team>(Teams.Where(t => t.Tournament == tournament));
+        SavePlayerCommand = new RelayCommand(Save, CanSave);
 
-        if (player != null)
+        Teams = DataProvider.Teams.GetAll();
+        DateOfBirth = DateTime.Today;
+        Teams = new ObservableCollection<Team>(Teams.Where(t => t.Tournament == tournament));
+        Player = player;
+        if (Player != null)
         {
-            Name = player.Name;
-            Team = player.Team;
-            DateOfBirth = player.DateOfBirth;
+            Name = Player.Name;
+            Team = Player.Team;
+            DateOfBirth = Player.DateOfBirth;
         }
 
-        SavePlayerCommand = new RelayCommand(Save, CanSave);
     }
 
     private async void Save(object? obj)
     {
-
-        var newPlayer = new Player { Name = Name, Team = Team, DateOfBirth = DateOfBirth.Value };
+        var newPlayer = new Player
+        {
+            Name = Name,
+            Team = Team,
+            DateOfBirth = DateOfBirth.Value
+        };
         if (Player != null)
-        {
             await DataProvider.Players.Update(newPlayer, Player);
-        }
         else
-        {
-            await DataProvider.Players.Add( new Player { Name = Name, Team = Team, DateOfBirth = DateOfBirth.Value });
-        }
+            await DataProvider.Players.Add(newPlayer);
 
         var confirmationWindow = new ConfirmationDialog("Changes Saved");
-        confirmationWindow.ShowDialog();
-
         DialogWindow.Close();
     }
 
-    private bool CanSave(object? obj)
-    {
-        return Name is not null && Team is not null && DateOfBirth is not null && DateOfBirth < DateTime.Now;
-    }
+    private bool CanSave(object? obj) =>
+        Name is not null && Team is not null && DateOfBirth is not null && DateOfBirth < DateTime.Now; //No Newborn tournaments
 }

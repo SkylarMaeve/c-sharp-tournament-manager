@@ -29,6 +29,8 @@ public class DataProvider
             .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=PV178_Project;Trusted_Connection=True")
             .Options;
         var context = new ProjectDbContext(options);
+        
+        context.Database.EnsureCreated();
         //DB services
         SportService = new BaseService<Sport>(context);
         TournamentService = new BaseService<Tournament>(context);
@@ -52,10 +54,10 @@ public class DataProvider
         var matches = await MatchService.GetAllAsync();
         var players = await PlayerService.GetAllAsync();
         
-        sports.ForEach(s => Sports.Add(s, false));
-        tournaments.ForEach(s => Tournaments.Add(s, false));
-        teams.ForEach(s => Teams.Add(s, false));
-        matches.ForEach(s => Matches.Add(s, false));
-        players.ForEach(s => Players.Add(s, false));
+        sports.ForEach(s => Sports.AddToUi(s));
+        tournaments.ForEach(t => Tournaments.AddToUi(t));
+        teams.ForEach(t => Teams.AddToUi(t));
+        matches.ForEach(m => Matches.AddToUi(m));
+        players.ForEach(p => Players.AddToUi(p));
     }
 }

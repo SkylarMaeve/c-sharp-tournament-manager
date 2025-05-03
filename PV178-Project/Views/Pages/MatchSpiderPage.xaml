@@ -8,23 +8,23 @@
       Title="MatchSpiderPage">
     <Grid Margin="50,50,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="900" />
-                <ColumnDefinition Width="150" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="Match Spider" FontSize="28" Height="40" FontWeight="Bold" Foreground="White"
-                       TextAlignment="Left" />
-            <Button Grid.Column="1" Height="40" Width="150" Foreground="White"
-                    FontWeight="SemiBold" FontSize="16"
-                    Background="Green" HorizontalAlignment="Left"
-                    Command="{Binding ExportSpiderCommand}">
-                Export Spider
-            </Button>
-        </Grid>
+        
+        <TextBlock
+            Text="Match Spider"
+            Grid.Row="0"
+            HorizontalAlignment="Left"
+            Style="{StaticResource StandardHeader}" />
+        <Button
+            Content="Export spider"
+            Grid.Row="0"
+            HorizontalAlignment="Right"
+            Command="{Binding ExportSpiderCommand}"
+            Background="{StaticResource SpecialButton}"
+            Style="{StaticResource StandardButton}" />
+        
         <Grid Grid.Row="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" />

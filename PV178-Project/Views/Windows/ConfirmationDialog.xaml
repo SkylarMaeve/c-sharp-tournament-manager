@@ -5,9 +5,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:PV178_Project.Views.Windows"
         mc:Ignorable="d"
-        Title="Confirmation Dialog" Height="200" Width="400" ResizeMode="NoResize">
-    <Grid>
-        <TextBlock Text="{Binding Message}"/>
-        <Button Command="{Binding CloseCommand}">OK</Button>
+        Title="Confirmation Dialog" 
+        Height="150" 
+        Width="220" 
+        ResizeMode="NoResize"
+        Background="{StaticResource Background}"
+        >
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <TextBlock 
+            Grid.Row="0"
+            Text="{Binding Message}"
+                   Style="{StaticResource StandardTextBlock}"/>
+        <Button
+            Grid.Row="1"
+            Command="{Binding CloseCommand}"
+            Style="{StaticResource StandardButton}"
+            >OK</Button>
     </Grid>
 </Window>

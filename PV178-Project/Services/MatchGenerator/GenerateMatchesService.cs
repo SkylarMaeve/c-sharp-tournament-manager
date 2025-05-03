@@ -5,22 +5,21 @@ namespace PV178_Project.Models;
 
 public static class GenerateMatchesService
 {
-    public static void Generate(Tournament tournament, DataProvider dataProvider)
+    public static async Task<bool> Generate(Tournament tournament, DataProvider dataProvider)
     {
         switch (tournament.Format)
         {
             case Format.PlayOff:
-                GeneratePlayOff(tournament, dataProvider);
-                return;
+                return await GeneratePlayOff(tournament, dataProvider);
+                
             case Format.AllAgainstAll:
-                GenerateAllVsAll(tournament, dataProvider);
-                return;
+                return await GenerateAllVsAll(tournament, dataProvider);
             default: //NOTHING
-                return;
+                return false;
         }
     }
 
-    private async static void GenerateAllVsAll(Tournament tournament, DataProvider dataProvider)
+    private async static Task<bool> GenerateAllVsAll(Tournament tournament, DataProvider dataProvider)
     {
         var teams = dataProvider.Teams.GetAll().Where(t => t.Tournament == tournament);
         var matchLength = tournament.Sport.MatchLength;
@@ -46,43 +45,59 @@ public static class GenerateMatchesService
                 }
             }
         }
+
+        return true;
     }
 
-    private async static void GeneratePlayOff(Tournament tournament, DataProvider dataProvider)
+    private async static Task<bool> GeneratePlayOff(Tournament tournament, DataProvider dataProvider)
     {
         var teams = dataProvider.Teams.GetAll().Where(t => t.Tournament == tournament);
         var teamsA = teams.Where(t => t.GroupName == "A").ToList();
         var teamsB = teams.Where(t => t.GroupName == "B").ToList();
+        
+        //Avoid
+        if (teamsA.Count() != teamsB.Count()) return false;
 
         var matchLength = tournament.Sport.MatchLength;
-        //Left side
-        await GenerateSpiderSide(teamsA, matchLength, dataProvider, tournament, false);
-        //Right side
-        await GenerateSpiderSide(teamsB, matchLength, dataProvider, tournament, true);
-
-        //Third Place
-        await dataProvider.Matches.Add(
-            new Match
-            {
-                Tournament = tournament,
-                TeamA = null,
-                TeamB = null,
-                Name = "3rd Place Match",
-                StartTime = tournament.Start.AddMinutes(matchLength * ((teams.Count() / 2) + 1))
-            }
-        );
-
+        if (teams.Count() >= 4)
+        {
+            //Left side
+            await GenerateSpiderSide(teamsA, matchLength, dataProvider, tournament, false);
+            //Right side
+            await GenerateSpiderSide(teamsB, matchLength, dataProvider, tournament, true);
+            //Third Place
+            await dataProvider.Matches.Add(
+                new Match
+                {
+                    Tournament = tournament,
+                    TeamA = null,
+                    TeamB = null,
+                    Name = "3rd Place Match",
+                    StartTime = tournament.Start.AddMinutes(matchLength * ((teams.Count() / 2) + 1))
+                }
+            );
+        }
+        
+        
+        Team? finalTeamA = null;
+        Team? finalTeamB = null;
+        if (teams.Count() == 2)
+        {
+            finalTeamA = teamsA[0];
+            finalTeamB = teamsB[0];
+        }
         //Final
         await dataProvider.Matches.Add(
             new Match
             {
                 Tournament = tournament,
-                TeamA = null,
-                TeamB = null,
+                TeamA = finalTeamA,
+                TeamB = finalTeamB,
                 Name = "Final",
                 StartTime = tournament.Start.AddMinutes(matchLength * ((teams.Count() / 2) + 2))
             }
         );
+        return true;
     }
 
     private async static Task GenerateSpiderSide(List<Team> teams, int matchLength, DataProvider dataProvider,
@@ -105,11 +120,9 @@ public static class GenerateMatchesService
                 if (index <= count && index + 1 < count && i == startIndex)
                 {
                     teamA = teams[index];
-                    Console.WriteLine(index + 1);
                     teamB = teams[index + 1];
                 }
-
-                var matchDate = date.AddMinutes(matchLength * matchIndex);
+                var matchDate = date.AddMinutes(matchLength * i);
                 var matchNumber = right ? matches[i] + j + 1 : j + 1;
                 var group = right ? "B" : "A";
                 await dataProvider.Matches.Add(

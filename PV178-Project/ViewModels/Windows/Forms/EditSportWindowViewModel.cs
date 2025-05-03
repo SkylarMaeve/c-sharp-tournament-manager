@@ -12,8 +12,8 @@ public class EditSportWindowViewModel
     private Window DialogWindow { get; set; }
     private Sport? Sport { get; }
 
-    private string _name;
-    private int _matchLength;
+    private string _name = "Sport";
+    private int _matchLength = 15;
 
     public string Name
     {
@@ -46,6 +46,7 @@ public class EditSportWindowViewModel
         DataProvider = dataProvider;
         Sport = sport;
         DialogWindow = window;
+        //When Editing
         if (Sport != null)
         {
             Name = Sport.Name;
@@ -62,21 +63,13 @@ public class EditSportWindowViewModel
         };
 
         if (Sport != null)
-        {
             await DataProvider.Sports.Update(newSport, Sport);
-        }
         else
-        {
             await DataProvider.Sports.Add(newSport);
-        }
 
         var confirmationWindow = new ConfirmationDialog("Changes Saved");
-        confirmationWindow.ShowDialog();
         DialogWindow.Close();
     }
 
-    private bool CanSave(object? obj)
-    {
-        return Name is not null && MatchLength > 0;
-    }
+    private bool CanSave(object? obj) => Name is not null && MatchLength > 0;
 }

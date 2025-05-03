@@ -4,96 +4,156 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      Title="MatchSchedulePage">
-    <Grid Margin="50,50,0,0">
+      Title="MatchSchedulePage"
+      HorizontalAlignment="Left"
+      Background="{StaticResource Background}">
+    <Grid Margin="50,50,0,0" HorizontalAlignment="Left">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid>
+        <!-- Page Header -->
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300" />
-                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Match Schedule" FontSize="28" Height="40" FontWeight="Bold" Foreground="White"
-                       TextAlignment="Left" />
-            <Button Grid.Column="1" Height="40" Width="80" Foreground="White"
-                    FontWeight="SemiBold" FontSize="16"
-                    Background="Green" HorizontalAlignment="Left"
-                    Command="{Binding AddMatchCommand}">
-                Add
-            </Button>
-            <Button Grid.Column="2" Height="40" Width="180" Foreground="White"
-                    FontWeight="SemiBold" FontSize="16"
-                    Background="DarkRed" HorizontalAlignment="Left"
-                    Command="{Binding GenerateMatchesCommand}">
-                Generate Matches
-            </Button>
-            <Button Grid.Column="3" Height="40" Width="200" Foreground="White"
-                    FontWeight="SemiBold" FontSize="16"
-                    Background="DarkRed" HorizontalAlignment="Left"
-                    Command="{Binding ExportMatchesCommand}">
-                Export Matches
-            </Button>
+            <TextBlock
+                Text="Match Schedule"
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                Style="{StaticResource StandardHeader}" />
+            <Button
+                Content="Add Match"
+                Grid.Column="1"
+                Width="190"
+                Command="{Binding EditMatchCommand}"
+                Style="{StaticResource StandardButton}" />
+            <Button
+                Content="Generate Matches"
+                Grid.Column="2"
+                Width="190"
+                Background="{StaticResource SpecialButton}"
+                IsEnabled="{Binding CanGenerate}"
+                Command="{Binding GenerateMatchesCommand}"
+                Style="{StaticResource StandardButton}" />
+            <Button
+                Content="Export Matches"
+                Grid.Column="3"
+                Width="190"
+                Background="{StaticResource SpecialButton}"
+                Command="{Binding ExportMatchesCommand}"
+                Style="{StaticResource StandardButton}" />
         </Grid>
-        <Grid Grid.Row="1" HorizontalAlignment="Left">
+        <!-- Column Header -->
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="250" />
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="300" /> <!-- Team A -->
+                <ColumnDefinition Width="50" /> <!-- Score -->
+                <ColumnDefinition Width="200" /> <!-- Date -->
+                <ColumnDefinition Width="50" /> <!-- Score -->
+                <ColumnDefinition Width="300" /> <!-- Team B -->
+                <ColumnDefinition Width="50" /> <!-- Edit -->
+                <ColumnDefinition Width="50" /> <!-- Delete -->
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-            </Grid.RowDefinitions>
-            <TextBlock Grid.Column="0" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
-                       TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="150" Text="Name " />
-            <TextBlock Grid.Column="1" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
-                       TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="250" Text="Team" />
-            <TextBlock Grid.Column="2" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
-                       TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="150" Text="Date" />
-            <TextBlock Grid.Column="3" FontWeight="SemiBold" FontSize="22" Background="Gray" Foreground="White"
-                       TextAlignment="Center" VerticalAlignment="Center" Height="40" Width="250" Text="Team" />
+            <TextBlock
+                Text="Team"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Style="{StaticResource ColumnHeader}" />
+            <TextBlock
+                Text="Start Time"
+                Grid.Column="2"
+                Style="{StaticResource ColumnHeader}" />
+            <TextBlock
+                Text="Team"
+                Grid.Column="3"
+                Grid.ColumnSpan="2"
+                Style="{StaticResource ColumnHeader}" />
+            <TextBlock
+                Text="Actions"
+                Grid.Column="5"
+                Grid.ColumnSpan="2"
+                Style="{StaticResource ColumnHeader}" />
         </Grid>
+
         <ItemsControl Grid.Row="2" ItemsSource="{Binding Matches}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid HorizontalAlignment="Left">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="300" /> <!-- Team A -->
+                            <ColumnDefinition Width="50" /> <!-- Score -->
+                            <ColumnDefinition Width="200" /> <!-- Date -->
+                            <ColumnDefinition Width="50" /> <!-- Score -->
+                            <ColumnDefinition Width="300" /> <!-- Team B -->
+                            <ColumnDefinition Width="50" /> <!-- Edit -->
+                            <ColumnDefinition Width="50" /> <!-- Delete -->
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="40" />
+                            <RowDefinition Height="35" />
+                            <RowDefinition Height="50" />
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Column="0" FontWeight="SemiBold" FontSize="16" Foreground="White"
-                                   TextAlignment="Center" VerticalAlignment="Center" Width="150"
-                                   Text="{Binding Name}" />
-                        <TextBlock Grid.Column="1" FontWeight="SemiBold" FontSize="16" Foreground="White"
-                                   TextAlignment="Center" VerticalAlignment="Center" Width="250"
-                                   Text="{Binding TeamA}" />
-                        <TextBlock Grid.Column="2" FontWeight="SemiBold" FontSize="16" Foreground="White"
-                                   TextAlignment="Center" VerticalAlignment="Center" Width="50"
-                                   Text="{Binding PointsTeamA}" />
-                        <TextBlock Grid.Column="3" FontWeight="SemiBold" FontSize="16" Foreground="White"
-                                   TextAlignment="Center" VerticalAlignment="Center" Width="150" Text="{Binding StartTime}" />
-                        <TextBlock Grid.Column="4" FontWeight="SemiBold" FontSize="16" Foreground="White"
-                                   TextAlignment="Center" VerticalAlignment="Center" Width="50"
-                                   Text="{Binding PointsTeamB, Mode=TwoWay}" />
-                        <TextBlock Grid.Column="5" FontWeight="SemiBold" FontSize="16" Foreground="White"
-                                   TextAlignment="Center" VerticalAlignment="Center" Width="250" Text="{Binding TeamB}" />
-                        <Button Grid.Column="6" Width="100" Height="30" Background="Green" Foreground="White"
-                                Command="{Binding DataContext.EditMatchCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                CommandParameter="{Binding}">
-                            Edit/Log
+                        <!--Row 0-->
+                        <TextBlock
+                            Text="{Binding Name}"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="5"
+                            Foreground="Black"
+                            FontSize="14"
+                            Style="{StaticResource StandardTextBlock}" />
+                        <!--Row 1-->
+                        <TextBlock
+                            Text="{Binding TeamA}"
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Style="{StaticResource StandardTextBlock}" />
+                        <TextBlock
+                            Text="{Binding PointsTeamA}"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Style="{StaticResource StandardTextBlock}" />
+                        <TextBlock
+                            Text="{Binding StartTime, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Style="{StaticResource StandardTextBlock}" />
+                        <TextBlock
+                            Text="{Binding PointsTeamB}"
+                            Grid.Row="1"
+                            Grid.Column="3"
+                            Style="{StaticResource StandardTextBlock}" />
+                        <TextBlock
+                            Text="{Binding TeamB}"
+                            Grid.Row="1"
+                            Grid.Column="4"
+                            Style="{StaticResource StandardTextBlock}" />
+                        <Button
+                            Grid.Row="1"
+                            Grid.Column="5"
+                            Width="40"
+                            Command="{Binding DataContext.EditMatchCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                            CommandParameter="{Binding}"
+                            Style="{StaticResource StandardButton}">
+                            <TextBlock
+                                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                Text="&#xE70F;" />
+                        </Button>
+                        <Button
+                            Grid.Row="1"
+                            Grid.Column="6"
+                            Width="40"
+                            Background="{StaticResource DeleteButton}"
+                            Command="{Binding DataContext.DeleteMatchCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                            CommandParameter="{Binding}"
+                            Style="{StaticResource StandardButton}">
+                            <TextBlock
+                                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                Text="&#xE74D;" />
                         </Button>
                     </Grid>
                 </DataTemplate>
