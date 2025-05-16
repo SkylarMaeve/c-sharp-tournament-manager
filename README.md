@@ -1,5 +1,8 @@
 # Tournament Manager
 Author : Nikol Otáhalová
 
-Copilot was Consulted on the export, database setup, and overall understanding of WPF
+AI: Copilot was used to help with export to PDF, 
+and to help me understand how the hell DB works, 
+since I always focus more on the Front End, 
+and with certain features of WPF, which helped me to create custom Data Tables
 
