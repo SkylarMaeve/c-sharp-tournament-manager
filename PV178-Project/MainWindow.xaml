@@ -54,6 +54,7 @@
                     Style="{StaticResource NavigationButton}" />
             <Button Content="Match Spider"
                     Command="{Binding MatchSpiderCommand}"
+                    IsEnabled="{Binding IsMatchPlayoff}"
                     Style="{StaticResource NavigationButton}" />
             <Button Content="Teams"
                     Command="{Binding TeamsCommand}"

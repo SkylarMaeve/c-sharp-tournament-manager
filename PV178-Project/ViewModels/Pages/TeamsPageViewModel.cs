@@ -73,6 +73,7 @@ public class TeamsPageViewModel : BaseViewModel
             }
             await DataProvider.Teams.Remove(team);
             OnPropertyChanged(nameof(CanAddTeam));
+            var confirmationWindow = new ConfirmationDialog("Team Deleted");
         }
     }
     

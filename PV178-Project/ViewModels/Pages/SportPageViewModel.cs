@@ -45,6 +45,8 @@ public class SportPageViewModel : BaseViewModel
             }
 
             await DataProvider.Sports.Remove(sport);
+            var confirmationWindow = new ConfirmationDialog("Sport Deleted");
+
         }
         
     }

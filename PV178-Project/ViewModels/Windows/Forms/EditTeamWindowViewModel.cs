@@ -59,6 +59,7 @@ public class EditTeamWindowViewModel : BaseViewModel
             .Range(0, Tournament.Format == Format.PlayOff ? 2 : 1)
             .Select(i => ((char)('A' + i)).ToString())
             .ToList();
+        GroupName = Groups.First();
         Places = Enumerable.Range(1, Tournament.TeamsCount).ToList();
         if (Team != null)
         {

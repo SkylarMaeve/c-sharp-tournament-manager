@@ -80,8 +80,6 @@ public class TournamentPageViewModel : BaseViewModel
             Draw = Tournament.PointsDraw;
             Loss = Tournament.PointsLoss;
         }
-        Console.WriteLine(DateFrom.Hour);
-
     }
 
     private void AddSport(object? obj) =>

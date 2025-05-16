@@ -56,7 +56,16 @@ public class MatchSpiderPageViewModel : BaseViewModel
     }
     private async void ExportSpider(object? obj)
     {
-        var matches = DataProvider.Matches.GetAll().Where(m => m.Tournament == Tournament).ToList();
-        await MatchExporter.ExportMatchesToPdfAsync(matches);
+        var matchesInColumns = new List<List<Match>>
+        {
+            MatchesR16A.SourceCollection.Cast<Match>().ToList(),
+            MatchesQfA.SourceCollection.Cast<Match>().ToList(),
+            MatchesSfA.SourceCollection.Cast<Match>().ToList(),
+            MatchesFinal.SourceCollection.Cast<Match>().ToList(),
+            MatchesSfB.SourceCollection.Cast<Match>().ToList(),
+            MatchesQfB.SourceCollection.Cast<Match>().ToList(),
+            MatchesR16B.SourceCollection.Cast<Match>().ToList(),
+        };
+        await TournamentExportService.ExportTournamentMatchesSpider(matchesInColumns, Tournament.Name);
     }
 }

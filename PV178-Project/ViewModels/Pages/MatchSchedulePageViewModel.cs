@@ -76,6 +76,7 @@ public class MatchSchedulePageViewModel : BaseViewModel
         if (parameter is Match match)
         {
             await DataProvider.Matches.Remove(match);
+            var confirmationWindow = new ConfirmationDialog("Match Deleted");
         }
 
         OnPropertyChanged(nameof(CanGenerate));

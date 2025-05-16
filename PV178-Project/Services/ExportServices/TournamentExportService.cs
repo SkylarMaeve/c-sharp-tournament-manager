@@ -33,22 +33,22 @@ public static class TournamentExportService
             document.Open();
 
             var font = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
-            document.Add(new Paragraph("Match Schedule: " + tournamentName, font) { Alignment = Element.ALIGN_CENTER });
+            document.Add(new Paragraph(tournamentName, font) { Alignment = Element.ALIGN_CENTER });
             document.Add(new Paragraph("\n"));
 
             PdfPTable table = new PdfPTable(7);
             table.WidthPercentage = 100;
             table.SetWidths(new float[] { 1, 1, 1, 1, 1, 1, 1 });
-            
+
             //Column Headers
             AddCellToTable(table, "Name", true);
             AddCellToTable(table, "Team A", true);
             AddCellToTable(table, "Score Team A", true);
             AddCellToTable(table, "Start Time", true);
             AddCellToTable(table, "Score Team B", true);
-            AddCellToTable(table, "Team B", true); 
+            AddCellToTable(table, "Team B", true);
             AddCellToTable(table, "Winner", true);
-            
+
             //Matches
             foreach (var match in matches)
             {
@@ -60,12 +60,13 @@ public static class TournamentExportService
                 AddCellToTable(table, match.TeamB?.Name ?? "N/A");
                 AddCellToTable(table, match.Winner?.Name ?? "TBD");
             }
+
             document.Add(table);
             document.Close();
         });
     }
 
-    private static void AddCellToTable(PdfPTable table, string text, bool header = false)
+    private static void AddCellToTable(PdfPTable table, string text, bool header = false, int rowSpan = 1)
     {
         var font = header
             ? FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14)
@@ -75,13 +76,56 @@ public static class TournamentExportService
             HorizontalAlignment = Element.ALIGN_CENTER,
             VerticalAlignment = Element.ALIGN_MIDDLE,
             Padding = 5,
-            BackgroundColor = header ? BaseColor.MAGENTA.Brighter() : BaseColor.WHITE,
+            Rowspan = rowSpan,
+            BackgroundColor = header ? BaseColor.LIGHT_GRAY.Brighter() : BaseColor.WHITE,
         });
     }
 
-    public static async Task ExportTournamentMatchesSpider(List<Match> matches, string tournamentName)
+    public static async Task ExportTournamentMatchesSpider(List<List<Match>> matchesColumns, string tournamentName)
     {
         string? filePath = GetFilePath();
         if (filePath == null) return;
+        await Task.Run(() =>
+        {
+            Document document = new Document(PageSize.A4.Rotate());
+            PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+            document.Open();
+
+            var font = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
+            document.Add(new Paragraph(tournamentName, font) { Alignment = Element.ALIGN_CENTER });
+            document.Add(new Paragraph("\n"));
+
+            PdfPTable table = new PdfPTable(7);
+            table.WidthPercentage = 100;
+            table.SetWidths(new float[] { 1, 1, 1, 1, 1, 1, 1 });
+            //Matches
+            for (int i = 0; i < matchesColumns.Count; i++)
+            {
+                var matchesColumn = matchesColumns[i];
+                
+                PdfPTable matchTable = new PdfPTable(1);
+                
+                foreach (var match in matchesColumn)
+                {
+                    AddCellToTable(matchTable, GetFormattedObject(match), rowSpan: 4 / matchesColumn.Count);
+                }
+                PdfPCell cell = new PdfPCell(matchTable);
+                cell.Border = Rectangle.NO_BORDER;
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                table.AddCell(cell);
+            }
+            document.Add(table);
+            document.Close();
+        });
+    }
+
+    private static string GetFormattedObject(Match match)
+    {
+        return string.Join("\n",
+            match.Name,
+            (match.TeamA?.Name ?? "N/A") + " " + match.PointsTeamA,
+            (match.TeamB?.Name ?? "N/A") + " " + match.PointsTeamB
+        );
     }
 }

@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using PV178_Project.Models;
+using PV178_Project.Models.Enums;
 using PV178_Project.Services;
 using PV178_Project.Views;
 using PV178_Project.Views.Pages;
@@ -25,10 +26,13 @@ public class MainViewModel : BaseViewModel
             Tournament = value;
             OnPropertyChanged(nameof(IsButtonEnabled));
             OnPropertyChanged(nameof(SelectedTournament));
+            OnPropertyChanged(nameof(IsMatchPlayoff));
+
             LoadTournament(null);
         }
     }
     public bool IsButtonEnabled => Tournament != null;
+    public bool IsMatchPlayoff => IsButtonEnabled && Tournament.Format == Format.PlayOff;
     public ObservableCollection<Tournament> Tournaments { get; set; }
 
     public RelayCommand SettingsCommand { get; }

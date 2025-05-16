@@ -5,6 +5,7 @@ using System.Windows.Data;
 using PV178_Project.Models;
 using PV178_Project.Services;
 using PV178_Project.Views;
+using PV178_Project.Views.Windows;
 
 namespace PV178_Project.ViewModels;
 
@@ -43,6 +44,7 @@ public class TournamentsPageViewModel : BaseViewModel
         if (parameter is Tournament t)
         {
             await DataProvider.Tournaments.Remove(t);
+            var confirmationWindow = new ConfirmationDialog("Tournament Deleted");
         }
     }
 }

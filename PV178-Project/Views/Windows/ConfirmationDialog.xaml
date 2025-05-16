@@ -24,6 +24,7 @@
             Grid.Row="1"
             Command="{Binding CloseCommand}"
             Style="{StaticResource StandardButton}"
+            IsDefault="True"
             >OK</Button>
     </Grid>
 </Window>

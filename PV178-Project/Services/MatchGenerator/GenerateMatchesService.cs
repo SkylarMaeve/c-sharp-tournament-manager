@@ -21,13 +21,17 @@ public static class GenerateMatchesService
 
     private async static Task<bool> GenerateAllVsAll(Tournament tournament, DataProvider dataProvider)
     {
-        var teams = dataProvider.Teams.GetAll().Where(t => t.Tournament == tournament);
+        var teams = dataProvider.Teams.GetAll().Where(t => t.Tournament == tournament).ToList();
+        Random rand = new Random();
+        var teamsHome = teams.OrderBy(_ => rand.Next()).ToList();
+        var teamsAway = teams.OrderBy(_ => rand.Next()).ToList();
+
         var matchLength = tournament.Sport.MatchLength;
         var date = tournament.Start;
         var matchIndex = 0;
-        foreach (var teamA in teams)
+        foreach (var teamA in teamsHome)
         {
-            foreach (var teamB in teams)
+            foreach (var teamB in teamsAway)
             {
                 if (teamA != teamB)
                 {
@@ -57,6 +61,11 @@ public static class GenerateMatchesService
         
         //Avoid
         if (teamsA.Count() != teamsB.Count()) return false;
+        //Shuffle
+        Random rand = new Random();
+        teamsA = teamsA.OrderBy(_ => rand.Next()).ToList();
+        teamsB = teamsB.OrderBy(_ => rand.Next()).ToList();
+        
         var matchCount = 3 - GetMatchStartIndex(teamsA.Count);
         var matchLength = tournament.Sport.MatchLength;
         if (teams.Count() >= 4)
@@ -121,7 +130,6 @@ public static class GenerateMatchesService
                     teamB = teams[index + 1];
                 }
                 var matchDate = date.AddMinutes(matchLength * i);
-                Console.WriteLine("", matchNames[i]);
                 var matchNumber = right ? matches[i] + j + 1 : j + 1;
                 var group = right ? "B" : "A";
                 await dataProvider.Matches.Add(

@@ -51,6 +51,8 @@ public class PlayersPageViewModel : BaseViewModel
         if (obj is Player player)
         {
             await DataProvider.Players.Remove(player);
+            var confirmationWindow = new ConfirmationDialog("Player Deleted");
+
         }
     }
     
